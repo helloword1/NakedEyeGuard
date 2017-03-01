@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.goockr.nakedeyeguard.MainPage.MainActivity"
+    android:background="@drawable/homepage_bg">
+
+    <include android:id="@+id/rl_MailStateBar" layout="@layout/base_toobar"></include>
+    <com.shizhefei.view.coolrefreshview.CoolRefreshView
+        android:layout_below="@+id/rl_MailStateBar"
+        android:id="@+id/coolRefreshView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <GridView
+            android:listSelector="@android:color/transparent"
+            android:columnWidth="80dp"
+            android:id="@+id/gv_MainUser"
+            android:layout_below="@+id/rl_SceneBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="3"
+            android:verticalSpacing="20dp"
+            android:gravity="center"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth"
+            />
+    </com.shizhefei.view.coolrefreshview.CoolRefreshView>
+    <RelativeLayout
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp">
+        <ImageButton
+            android:id="@+id/ib_MainSetting"
+            android:background="@drawable/main_setting_btn"
+            android:layout_width="60dp"
+            android:layout_height="60dp" />
+        <ImageView
+            android:id="@+id/btn_MainSettingNews"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/btn_setting_news"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+    </RelativeLayout>
+</RelativeLayout>

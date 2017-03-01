@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/rl_COMTFStateBar"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:background="@drawable/title_bg"
+        >
+        <TextClock
+            android:gravity="center_vertical"
+            android:textColor="@color/colorWhite"
+            android:layout_toLeftOf="@+id/iv_MainBattery"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/iv_MainBattery"
+            android:layout_toLeftOf="@+id/iv_MainWifi"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/icon_prower"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/iv_MainWifi"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/icon_wifi_10"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@+id/rl_COMTFStateBar"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_centerVertical="true"
+                android:id="@+id/iv_COMTFUserIcon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:src="@drawable/test"
+                app:civ_border_width="1dp"
+                app:civ_border_color="#FF000000"
+                />
+            <TextView
+                android:layout_toRightOf="@+id/iv_COMTFUserIcon"
+                android:layout_marginLeft="20dp"
+                android:text="张大大"
+                android:textSize="24sp"
+                android:textColor="@color/colorBlack"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <View
+                android:layout_below="@+id/iv_COMTFUserIcon"
+                android:layout_marginTop="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/colorCusGray"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+           >
+            <RelativeLayout
+                android:layout_marginTop="50dp"
+                android:id="@+id/rl_COMTip0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tv_COMTip0"
+                    android:layout_centerVertical="true"
+                    android:text="您的视力击败了"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_COMTipNum"
+                    android:layout_toRightOf="@+id/tv_COMTip0"
+                    android:layout_centerVertical="true"
+                    android:text="7564888"
+                    android:textSize="30sp"
+                    android:textColor="@color/colorCusNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_toRightOf="@+id/tv_COMTipNum"
+                    android:layout_centerVertical="true"
+                    android:text="名理疗用户"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_marginTop="50dp"
+                android:layout_below="@+id/rl_COMTip0"
+                android:id="@+id/tv_COMTip1"
+                android:text="赶紧测试一下理疗后的视力吧,"
+                android:textSize="16sp"
+                android:textColor="@color/colorCusGray"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/tv_COMTip1"
+                android:id="@+id/tv_COMTip2"
+                android:textSize="16sp"
+                android:text="在微信服务号里提交您的视力数据,"
+                android:textColor="@color/colorCusGray"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/tv_COMTip2"
+                android:id="@+id/tv_COMTip3"
+                android:textSize="16sp"
+                android:text="便于给您配置更好的理疗方案！"
+                android:textColor="@color/colorCusGray"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/ib_COMTFBack"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/ctf_btn_guit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

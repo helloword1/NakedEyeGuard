@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/rl_CTFStateBar"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:background="@drawable/title_bg"
+        >
+        <TextClock
+            android:gravity="center_vertical"
+            android:textColor="@color/colorWhite"
+            android:layout_toLeftOf="@+id/iv_MainBattery"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/iv_MainBattery"
+            android:layout_toLeftOf="@+id/iv_MainWifi"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/icon_prower"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/iv_MainWifi"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/icon_wifi_10"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_C"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/progress_time_bg"
+        android:layout_width="316dp"
+        android:layout_height="316dp"
+        android:layout_below="@+id/rl_CTFStateBar"
+        android:layout_centerHorizontal="true">
+
+        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+            android:id="@+id/cpb_CTFProgress"
+            android:layout_centerInParent="true"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:background_progressbar_color="@color/colorCusGray"
+            app:background_progressbar_width="15dp"
+            app:progressbar_color="@color/colorCusBar"
+            app:progressbar_width="15dp"
+            />
+        <!--<ImageButton-->
+            <!--android:id="@+id/ib_CTFStart"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:background="@drawable/ctf_btn_start"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+        <CheckBox
+            android:id="@+id/cb_CTFStart"
+            android:layout_centerInParent="true"
+            android:background="@drawable/ctf_btn_start"
+            android:button="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_CTFTimer"
+            android:layout_below="@+id/cb_CTFStart"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/colorBlack"
+            android:text="00:00"
+            android:textSize="20sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <ImageButton
+            android:id="@+id/ib_CTFTip"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ctf_btn_deteils"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/rl_C"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+             <RelativeLayout
+                 android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               >
+            <ImageButton
+                android:id="@+id/ib_CTFReduce"
+                android:background="@drawable/btn_reduce_disable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <ProgressBar
+                android:id="@+id/pb_CTFStrength"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@+id/ib_CTFReduce"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/ib_CTFAdd"
+                android:background="@drawable/progress_bg"
+                android:max="100"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:progressDrawable="@drawable/progressbar_color"
+                android:layout_width="match_parent"
+                android:layout_height="8dp" />
+            <ImageButton
+                android:id="@+id/ib_CTFAdd"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/btn_add_disable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+             <TextView
+                 android:id="@+id/tv_CTFStrength"
+                android:text="强度:0%"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <ImageButton
+                android:id="@+id/bt_CTFBack"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/ctf_btn_guit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>
