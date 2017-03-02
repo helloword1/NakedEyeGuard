@@ -1,5 +1,6 @@
 package com.goockr.nakedeyeguard.MainPage;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,15 +11,18 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
+import com.goockr.nakedeyeguard.Base.ActivityCollector;
 import com.goockr.nakedeyeguard.Base.BaseActivity;
 import com.goockr.nakedeyeguard.Model.UserModel;
 import com.goockr.nakedeyeguard.R;
 import com.goockr.nakedeyeguard.SettingPage.SettingActivity;
+import com.goockr.nakedeyeguard.SettingPage.WifiPage.WifiActivity;
 import com.shizhefei.view.coolrefreshview.CoolRefreshView;
 import com.shizhefei.view.coolrefreshview.SimpleOnPullListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
 
@@ -41,6 +45,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         setupUI();
 
     }
+
 
 
     private void setupUI() {
@@ -89,6 +94,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
             }
         });
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                for (Activity activty: ActivityCollector.activities) {
+                    if (activty.getClass().equals(WifiActivity.class))
+                        activty.finish();
+                }
+            }
+        },1000);
     }
 
 

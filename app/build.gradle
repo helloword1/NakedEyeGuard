@@ -47,4 +47,7 @@ dependencies {
 
     compile 'com.weigan:loopView:0.1.1'
     compile 'com.kaopiz:kprogresshud:1.0.5'
+
+    compile 'com.kyleduo.switchbutton:library:1.4.5'
+
 }

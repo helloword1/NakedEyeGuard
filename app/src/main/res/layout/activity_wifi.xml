@@ -4,77 +4,10 @@
     android:id="@+id/activity_wifi"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.goockr.nakedeyeguard.SettingPage.WifiActivity">
-    <include android:id="@+id/rl_WifiStateBar" layout="@layout/base_toobar"/>
-    <RelativeLayout
-        android:id="@+id/rl_WifiGroup1"
-        android:layout_below="@+id/rl_WifiStateBar"
-        android:background="#f4f4f4"
+    tools:context="com.goockr.nakedeyeguard.SettingPage.WifiPage.WifiActivity">
+    <FrameLayout
+        android:id="@+id/fl_WifiConnect"
         android:layout_width="match_parent"
-        android:layout_height="45dp">
-        <TextView
-            android:text="选取无线局域网络"
-            android:textSize="16sp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <View
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-            android:background="@color/colorCusGray"/>
-    </RelativeLayout>
-    <ListView
-        android:layout_below="@+id/rl_WifiGroup1"
-        android:layout_above="@+id/rl_WifiGroup2"
-        android:layout_width="match_parent"
-        android:layout_height="300dp">
-    </ListView>
-    <RelativeLayout
-        android:layout_above="@+id/rl_WifiSelectOther"
-        android:id="@+id/rl_WifiGroup2"
-        android:background="#f4f4f4"
-        android:layout_width="match_parent"
-        android:layout_height="45dp">
-        <View
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-            android:background="@color/colorCusGray"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rl_WifiSelectOther"
-        android:layout_alignParentBottom="true"
-        android:clickable="true"
-        android:background="@drawable/setting_relativelayout_bg"
-        android:layout_below="@+id/rl_SetWlan"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginBottom="80dp">
-        <TextView
-            android:text="选取其他网络"
-            android:textSize="18sp"
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/colorBlack"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:background="@drawable/list_go"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <View
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-            android:background="@color/colorCusGray"/>
-    </RelativeLayout>
-
-
-
+        android:layout_height="match_parent">
+    </FrameLayout>
 </RelativeLayout>

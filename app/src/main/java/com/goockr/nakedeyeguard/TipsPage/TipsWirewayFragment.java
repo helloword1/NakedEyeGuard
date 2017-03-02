@@ -1,34 +1,34 @@
 package com.goockr.nakedeyeguard.TipsPage;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.goockr.nakedeyeguard.Base.BaseFragment;
 import com.goockr.nakedeyeguard.R;
 
 /**
  * Created by JJT-ssd on 2017/3/1.
  */
 
-public class TipsWirewayFragment extends Fragment implements View.OnClickListener{
+public class TipsWirewayFragment extends BaseFragment implements View.OnClickListener{
     View view=null;
     Button bt_TWFNext;
     ImageButton bt_TWFBack;
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view=inflater.inflate(R.layout.tips_wireway_fragment,container,false);
-        setupUI();
-        return view;
+    protected int getLoyoutId() {
+        return R.layout.tips_wireway_fragment;
     }
 
-    private void setupUI()
+    @Override
+    protected void onCusCreate(View view) {
+        setupUI(view);
+    }
+
+    private void setupUI(View view)
     {
         bt_TWFNext=(Button)view.findViewById(R.id.bt_TWFNext);
         bt_TWFBack=(ImageButton) view.findViewById(R.id.bt_TWFBack);

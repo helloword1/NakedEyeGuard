@@ -13,12 +13,15 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.goockr.nakedeyeguard.Base.BaseActivity;
 import com.goockr.nakedeyeguard.R;
+import com.goockr.nakedeyeguard.SettingPage.WifiPage.WifiActivity;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.weigan.loopview.LoopView;
 import com.weigan.loopview.OnItemSelectedListener;
 import com.xw.repo.BubbleSeekBar;
 
 import java.util.ArrayList;
+
+import static com.goockr.nakedeyeguard.Tools.Common.scheduleDismiss;
 
 public class SettingActivity extends BaseActivity implements View.OnClickListener{
 
@@ -126,6 +129,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 });
                 break;
             case R.id.rl_SetTime:
+                Intent intentTime=new Intent(SettingActivity.this,SetTimeActivity.class);
+                startActivity(intentTime);
+                overridePendingTransition(R.anim.fragment_slide_right_in, R.anim.fragment_slide_left_out);
                 break;
             case R.id.rl_SetScreensaver:
                 final MaterialDialog screensaverDialog =  new MaterialDialog.Builder(this)
@@ -167,7 +173,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 bt_SetScreensaverSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(SettingActivity.this,"1231",Toast.LENGTH_SHORT).show();
+
                         screensaverDialog.dismiss();
                     }
                 });
@@ -235,13 +241,5 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             }
         }, 200);
     }
-    private void scheduleDismiss(final KProgressHUD hud) {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                hud.dismiss();
-            }
-        }, 2000);
-    }
+
 }

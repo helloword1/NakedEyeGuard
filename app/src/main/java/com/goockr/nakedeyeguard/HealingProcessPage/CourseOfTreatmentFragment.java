@@ -1,20 +1,17 @@
 package com.goockr.nakedeyeguard.HealingProcessPage;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.goockr.nakedeyeguard.Base.BaseFragment;
 import com.goockr.nakedeyeguard.R;
 import com.goockr.nakedeyeguard.TipsPage.TipsActivity;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
@@ -25,8 +22,8 @@ import static com.goockr.nakedeyeguard.Tools.DateExtension.dateLong2String;
  * Created by JJT-ssd on 2017/2/28.
  */
 
-public class CourseOfTreatmentFragment extends Fragment implements View.OnClickListener,CompoundButton.OnCheckedChangeListener {
-    View view=null;
+public class CourseOfTreatmentFragment extends BaseFragment implements View.OnClickListener,CompoundButton.OnCheckedChangeListener {
+
     ImageButton bt_CTFBack;
     ImageButton ib_CTFReduce;
     ImageButton ib_CTFAdd;
@@ -38,14 +35,15 @@ public class CourseOfTreatmentFragment extends Fragment implements View.OnClickL
     TextView tv_CTFTimer;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view=inflater.inflate(R.layout.course_treatment_fragment,container,false);
-        setupUI();
-        return view;
+    protected int getLoyoutId() {return R.layout.course_treatment_fragment;}
+
+    @Override
+    protected void onCusCreate(View view) {
+        setupUI(view);
     }
 
 
-    private void setupUI() {
+    private void setupUI(View view) {
         tv_CTFStrength=(TextView)view.findViewById(R.id.tv_CTFStrength);
         pb_CTFStrength=(ProgressBar)view.findViewById(R.id.pb_CTFStrength);
         cpb_CTFProgress=(CircularProgressBar)view.findViewById(R.id.cpb_CTFProgress);
