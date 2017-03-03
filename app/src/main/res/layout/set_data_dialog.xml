@@ -30,13 +30,14 @@
         android:layout_height="200dp"
        >
     <DatePicker
+        android:id="@+id/dp_SetDate"
         android:datePickerMode="spinner"
         android:calendarViewShown="false"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/datePicker" />
+        />
 
     </LinearLayout>
     <LinearLayout

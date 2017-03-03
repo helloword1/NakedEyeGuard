@@ -5,14 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextClock;
+import android.widget.Toast;
 
 import com.goockr.nakedeyeguard.R;
+import com.goockr.nakedeyeguard.SettingPage.WifiPage.MyNetworkStateService;
+import com.goockr.nakedeyeguard.Tools.WifiHelper;
 
 
 /**
@@ -28,6 +30,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     //
     TextClock tc_BaseClock;
     private ForceOfflineReceiver receiver;
+    NetworkReceiverHelper networkReceiverHelper;
     protected abstract int getLoyoutId();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +38,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLoyoutId());
         setupView();
         ActivityCollector.addActivity(this);
+        Intent intents=new Intent(this, MyNetworkStateService.class);
+        startService(intents);
     }
 
 
@@ -44,16 +49,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         iv_MainWifi=(ImageView)findViewById(R.id.iv_BaseWifi);
         ib_Back=(ImageButton) findViewById(R.id.bt_BaseBack);
         tc_BaseClock=(TextClock) findViewById(R.id.tc_BaseClock);
+        setWifiIcon();
+    }
 
-        //
-//        tc_BaseClock.setFormat12Hour(getDateFormate(this));
-//        tc_BaseClock.setFormat24Hour(getDateFormate(this));
-//
-    }
-    private String getDateFormate(Context context){
-        return Settings.System.getString(context.getContentResolver(),
-                Settings.System.DATE_FORMAT);
-    }
     //
     public ImageButton getBackBtn(){return ib_Back;}
 
@@ -63,10 +61,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        IntentFilter intentFilter=new IntentFilter();
-        intentFilter.addAction("com.goockr.broadcast.logout");
-        receiver=new ForceOfflineReceiver();
-        registerReceiver(receiver,intentFilter);
+        registerBroadcast();
+
     }
 
     @Override
@@ -74,13 +70,22 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onPause();
         if (receiver!=null)
         unregisterReceiver(receiver);
+        unregisterReceiver(networkReceiverHelper);
         receiver=null;
+        networkReceiverHelper=null;
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         ActivityCollector.removeActivity(this);
+    }
+
+    private void setWifiIcon()
+    {
+        boolean isNetworkAvailable =  WifiHelper.isNetworkAvailable(this);
+        if (isNetworkAvailable)iv_MainWifi.setImageResource(R.drawable.icon_wifi);
+        else iv_MainWifi.setImageResource(R.drawable.icon_wifi_10);
     }
 
     class ForceOfflineReceiver extends BroadcastReceiver
@@ -90,4 +95,30 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         }
     }
+
+    private void registerBroadcast() {
+
+        IntentFilter intentFilter=new IntentFilter();
+        intentFilter.addAction("com.goockr.broadcast.logout");
+        receiver=new ForceOfflineReceiver();
+        registerReceiver(receiver,intentFilter);
+
+        networkReceiverHelper =new NetworkReceiverHelper() {
+            @Override
+            void onConnected() {
+                iv_MainWifi.setImageResource(R.drawable.icon_wifi);
+                Toast.makeText(BaseActivity.this,"++++",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            void onDisConnected() {
+                iv_MainWifi.setImageResource(R.drawable.icon_wifi_10);
+                Toast.makeText(BaseActivity.this,"----",Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        IntentFilter intentNet = new IntentFilter();
+        registerReceiver(networkReceiverHelper,intentNet);
+    }
 }
+

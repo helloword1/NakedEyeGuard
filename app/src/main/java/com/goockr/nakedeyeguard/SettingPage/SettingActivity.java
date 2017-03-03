@@ -1,9 +1,12 @@
 package com.goockr.nakedeyeguard.SettingPage;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -21,6 +24,8 @@ import com.xw.repo.BubbleSeekBar;
 
 import java.util.ArrayList;
 
+import static com.goockr.nakedeyeguard.App.editor;
+import static com.goockr.nakedeyeguard.App.preferences;
 import static com.goockr.nakedeyeguard.Tools.Common.scheduleDismiss;
 
 public class SettingActivity extends BaseActivity implements View.OnClickListener{
@@ -88,9 +93,14 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                         .show();
                 voiceDialog.setCanceledOnTouchOutside(false);
                 View voiceView = voiceDialog.getCustomView();
+
                 final BubbleSeekBar bsb_SetVoice = (BubbleSeekBar) voiceView.findViewById(R.id.bsb_SetVoice);
                 Button bt_SetVoiceCancle = (Button) voiceView.findViewById(R.id.bt_SetVoiceCancle);
                 Button bt_SetVoiceSave = (Button) voiceView.findViewById(R.id.bt_SetVoiceSave);
+                final AudioManager mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+                int current = mAudioManager.getStreamVolume( AudioManager.STREAM_SYSTEM );
+                bsb_SetVoice.setProgress(current);
+
                 bt_SetVoiceCancle.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -100,7 +110,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 bt_SetVoiceSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(SettingActivity.this,String.valueOf(bsb_SetVoice.getProgress()),Toast.LENGTH_SHORT).show();
+
+                        mAudioManager.setStreamVolume(AudioManager.STREAM_SYSTEM,bsb_SetVoice.getProgress(),0);
                         voiceDialog.dismiss();
                     }
                 });
@@ -111,9 +122,12 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                         .show();
                 brightnessdialog.setCanceledOnTouchOutside(false);
                 View brightnessView = brightnessdialog.getCustomView();
+                // 设置系统亮度
                 final BubbleSeekBar bsb_SetBrightness = (BubbleSeekBar) brightnessView.findViewById(R.id.bsb_SetBrightness);
                 Button bt_SetBrightnessCancle = (Button) brightnessView.findViewById(R.id.bt_SetBrightnessCancle);
                 Button bt_SetBrightnessSave = (Button) brightnessView.findViewById(R.id.bt_SetBrightnessSave);
+
+                bsb_SetBrightness.setProgress(preferences.getInt("Brightness",100));
                 bt_SetBrightnessCancle.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -123,7 +137,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 bt_SetBrightnessSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(SettingActivity.this,String.valueOf(bsb_SetBrightness.getProgress()),Toast.LENGTH_SHORT).show();
+                        editor.putInt("Brightness",bsb_SetBrightness.getProgress());
+                        editor.commit();
+                        Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,bsb_SetBrightness.getProgress());
                         brightnessdialog.dismiss();
                     }
                 });

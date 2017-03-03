@@ -2,27 +2,31 @@ package com.goockr.nakedeyeguard.SettingPage;
 
 
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.goockr.nakedeyeguard.Base.BaseActivity;
 import com.goockr.nakedeyeguard.R;
 import com.kyleduo.switchbutton.SwitchButton;
 import com.weigan.loopview.LoopView;
-import com.weigan.loopview.OnItemSelectedListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
+import java.util.TimeZone;
 
 import static com.goockr.nakedeyeguard.App.alarmManager;
 import static com.goockr.nakedeyeguard.App.editor;
@@ -43,6 +47,9 @@ public class SetTimeActivity extends BaseActivity implements View.OnClickListene
     SwitchButton sw_STInternetTime;
     SwitchButton sw_STInternetTimeZone;
     SwitchButton sw_STComfirmTimeZone;
+
+
+
 
     final ArrayList<String> list = new ArrayList<>();
     @Override
@@ -108,8 +115,11 @@ public class SetTimeActivity extends BaseActivity implements View.OnClickListene
                         .show();
                 dateDialog.setCanceledOnTouchOutside(false);
                 View dateView = dateDialog.getCustomView();
+                final DatePicker dp_SetDate = (DatePicker) dateView.findViewById(R.id.dp_SetDate);
                 Button bt_SetDateCancle = (Button) dateView.findViewById(R.id.bt_SetDateCancle);
                 Button bt_SetDateSave = (Button) dateView.findViewById(R.id.bt_SetDateSave);
+
+
                 bt_SetDateCancle.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -119,7 +129,8 @@ public class SetTimeActivity extends BaseActivity implements View.OnClickListene
                 bt_SetDateSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(SetTimeActivity.this,"SET tIME",Toast.LENGTH_SHORT).show();
+                        //setSysDate(dp_SetDate.getYear(),dp_SetDate.getMonth(),dp_SetDate.getDayOfMonth());
+                        setTime();
                         dateDialog.dismiss();
                     }
                 });
@@ -131,7 +142,7 @@ public class SetTimeActivity extends BaseActivity implements View.OnClickListene
                         .show();
                 timeDialog.setCanceledOnTouchOutside(false);
                 View timeView = timeDialog.getCustomView();
-                TimePicker tp_TimePicker=(TimePicker)timeView.findViewById(R.id.tp_TimePicker);
+               final TimePicker tp_TimePicker=(TimePicker)timeView.findViewById(R.id.tp_TimePicker);
                 Button bt_SetTimeCancle = (Button) timeView.findViewById(R.id.bt_SetTimeCancle);
                 Button bt_SetTimeSave = (Button) timeView.findViewById(R.id.bt_SetTimeSave);
                 tp_TimePicker.setIs24HourView(true);
@@ -144,7 +155,10 @@ public class SetTimeActivity extends BaseActivity implements View.OnClickListene
                 bt_SetTimeSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(SetTimeActivity.this,"SET tIME",Toast.LENGTH_SHORT).show();
+                        Log.e("getCurrentHour  ",String.valueOf(tp_TimePicker.getCurrentHour()));
+                        Log.e("getCurrentMinute  ",String.valueOf(tp_TimePicker.getCurrentMinute()));
+                        setSysTime(tp_TimePicker.getCurrentHour(),tp_TimePicker.getCurrentMinute());
+                        setTime();
                         timeDialog.dismiss();
                     }
                 });
@@ -160,12 +174,12 @@ public class SetTimeActivity extends BaseActivity implements View.OnClickListene
                 //设置是否循环播放
                 loop_SetTimeZone.setNotLoop();
                 //滚动监听
-                loop_SetTimeZone.setListener(new OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(int index) {
-                        Toast.makeText(SetTimeActivity.this, list.get(index), Toast.LENGTH_SHORT).show();
-                    }
-                });
+//                loop_SetTimeZone.setListener(new OnItemSelectedListener() {
+//                    @Override
+//                    public void onItemSelected(int index) {
+//                        Toast.makeText(SetTimeActivity.this, list.get(index), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
                 //设置原始数据
                 loop_SetTimeZone.setItems(list);
 
@@ -186,14 +200,12 @@ public class SetTimeActivity extends BaseActivity implements View.OnClickListene
                             if(selectTimeZone.equals(entry.getValue()))
                             {
                                 tv_SetTimeZone.setText(selectTimeZone);
-                                alarmManager.setTimeZone((String)entry.getValue());
+                                alarmManager.setTimeZone((String)entry.getKey());
                                 editor.putString("TimeZone",selectTimeZone);
                                 editor.commit();
                                 setTime();
                             }
-
                         }
-
                         timeZoneDialog.dismiss();
                     }
                 });
@@ -239,17 +251,77 @@ public class SetTimeActivity extends BaseActivity implements View.OnClickListene
 
     private void setTime()
     {
+
         SimpleDateFormat formatterDate=new  SimpleDateFormat("yyyy/MM/dd");
         SimpleDateFormat formatterTime=new  SimpleDateFormat("HH:mm");
         Date curDate  =new   Date(System.currentTimeMillis());//获取当前时间
-        String  strDate  =  formatterDate.format(curDate);
+        final String  strDate  =  formatterDate.format(curDate);
+        final String  strTime  =  formatterTime.format(curDate);
+        final String timeZoneStr = preferences.getString("TimeZone",getString(R.string.北京));
+
         tv_SetDate.setText(strDate);
-        String  strTime  =  formatterTime.format(curDate);
         tv_SetTime.setText(strTime);
-        String timeZoneKey = preferences.getString("TimeZone",getString(R.string.北京));
-        String timeZoneStr =(String) timeZoneMap.get(timeZoneKey);
         tv_SetTimeZone.setText(timeZoneStr);
+
     }
 
 
+    public void setSysDate(int year,int month,int day){
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, day);
+
+        long when = c.getTimeInMillis();
+        if(when / 1000 < Integer.MAX_VALUE){
+            try {
+                alarmManager.setTime(when);
+            }catch (Exception e) {}
+        }
+
+    }
+
+    public void setSysTime(int hour,int minute){
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, hour);
+        c.set(Calendar.MINUTE, minute);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+
+        long when = c.getTimeInMillis();
+
+        if(when / 1000 < Integer.MAX_VALUE){
+            try {
+               // alarmManager.setTime(when);
+              boolean isSucc =  SystemClock.setCurrentTimeMillis(when);
+                boolean isSuccw =  SystemClock.setCurrentTimeMillis(when);
+            }catch (Exception e) {
+                Log.e("Exception",e.getMessage());
+            }
+
+        }
+    }
+    public void setTimeZone(String timeZone){
+        final Calendar now = Calendar.getInstance();
+        TimeZone tz = TimeZone.getTimeZone(timeZone);
+        now.setTimeZone(tz);
+    }
+
+    public boolean isDateTimeAuto(){
+        try {
+            return android.provider.Settings.Global.getInt(getContentResolver(),
+                    android.provider.Settings.Global.AUTO_TIME) > 0;
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public void setAutoDateTime(int checked){
+        android.provider.Settings.Global.putInt(getContentResolver(),
+                android.provider.Settings.Global.AUTO_TIME, checked);
+    }
+    public void setAutoTimeZone(int checked){
+        android.provider.Settings.Global.putInt(getContentResolver(),
+                android.provider.Settings.Global.AUTO_TIME_ZONE, checked);
+    }
 }

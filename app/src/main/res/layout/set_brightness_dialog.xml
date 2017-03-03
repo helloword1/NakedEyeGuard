@@ -38,8 +38,9 @@
             android:id="@+id/bsb_SetBrightness"
             android:layout_width="0dp"
             android:layout_weight="1"
+
             android:layout_height="wrap_content"
-            app:bsb_max="100"
+            app:bsb_max="255"
             app:bsb_min="0"
             app:bsb_second_track_color="@color/colorCusNum"
             app:bsb_track_color="@color/colorCusGray"
