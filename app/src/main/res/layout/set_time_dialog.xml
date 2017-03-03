@@ -30,10 +30,10 @@
         android:layout_height="200dp"
         >
         <TimePicker
+            android:id="@+id/tp_TimePicker"
             android:timePickerMode="spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/timePicker"
             android:layout_weight="1" />
     </LinearLayout>
     <LinearLayout

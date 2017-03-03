@@ -15,6 +15,9 @@
             android:layout_width="60dp"
             android:layout_height="match_parent" />
         <TextClock
+            android:id="@+id/tc_BaseClock"
+            android:format24Hour="H:mm"
+            android:format12Hour="h:mm"
             android:gravity="center_vertical"
             android:textColor="@color/colorWhite"
             android:layout_toLeftOf="@+id/iv_MainBattery"

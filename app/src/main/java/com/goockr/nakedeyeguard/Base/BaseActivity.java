@@ -5,10 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextClock;
 
 import com.goockr.nakedeyeguard.R;
 
@@ -23,6 +25,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     private ImageButton ib_Back;
     //时期显示
     private ImageView iv_MainWifi;
+    //
+    TextClock tc_BaseClock;
     private ForceOfflineReceiver receiver;
     protected abstract int getLoyoutId();
     @Override
@@ -33,15 +37,29 @@ public abstract class BaseActivity extends AppCompatActivity {
         ActivityCollector.addActivity(this);
     }
 
+
     public void setupView()
     {
         //获取当前时间
         iv_MainWifi=(ImageView)findViewById(R.id.iv_BaseWifi);
         ib_Back=(ImageButton) findViewById(R.id.bt_BaseBack);
-    }
+        tc_BaseClock=(TextClock) findViewById(R.id.tc_BaseClock);
 
-    //设置标题
+        //
+//        tc_BaseClock.setFormat12Hour(getDateFormate(this));
+//        tc_BaseClock.setFormat24Hour(getDateFormate(this));
+//
+    }
+    private String getDateFormate(Context context){
+        return Settings.System.getString(context.getContentResolver(),
+                Settings.System.DATE_FORMAT);
+    }
+    //
     public ImageButton getBackBtn(){return ib_Back;}
+
+    //
+    public TextClock getTextClock(){return tc_BaseClock;}
+
     @Override
     protected void onResume() {
         super.onResume();

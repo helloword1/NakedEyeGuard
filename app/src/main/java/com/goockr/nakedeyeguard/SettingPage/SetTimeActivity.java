@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -16,16 +18,27 @@ import com.kyleduo.switchbutton.SwitchButton;
 import com.weigan.loopview.LoopView;
 import com.weigan.loopview.OnItemSelectedListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Map;
+import java.util.Set;
 
+import static com.goockr.nakedeyeguard.App.alarmManager;
+import static com.goockr.nakedeyeguard.App.editor;
+import static com.goockr.nakedeyeguard.App.preferences;
+import static com.goockr.nakedeyeguard.App.timeZoneMap;
 
 
 public class SetTimeActivity extends BaseActivity implements View.OnClickListener,Switch.OnCheckedChangeListener{
 
 
     RelativeLayout rl_STDate;
+    TextView tv_SetDate;
     RelativeLayout rl_STTime;
+    TextView tv_SetTime;
     RelativeLayout rl_STSelectTimeZone;
+    TextView tv_SetTimeZone;
 
     SwitchButton sw_STInternetTime;
     SwitchButton sw_STInternetTimeZone;
@@ -50,8 +63,14 @@ public class SetTimeActivity extends BaseActivity implements View.OnClickListene
     private void setupUI()
     {
         rl_STDate=(RelativeLayout)findViewById(R.id.rl_STDate);
-        rl_STTime=(RelativeLayout)findViewById(R.id.rl_STTime);;
+        tv_SetDate=(TextView)findViewById(R.id.tv_SetDate);
+
+        rl_STTime=(RelativeLayout)findViewById(R.id.rl_STTime);
+        tv_SetTime=(TextView)findViewById(R.id.tv_SetTime);
+
         rl_STSelectTimeZone=(RelativeLayout)findViewById(R.id.rl_STSelectTimeZone);
+        tv_SetTimeZone=(TextView)findViewById(R.id.tv_SetTimeZone);
+
 
         sw_STInternetTime=(SwitchButton)findViewById(R.id.sw_STInternetTime);
         sw_STInternetTimeZone=(SwitchButton)findViewById(R.id.sw_STInternetTimeZone);
@@ -64,6 +83,7 @@ public class SetTimeActivity extends BaseActivity implements View.OnClickListene
         sw_STInternetTime.setOnCheckedChangeListener(this);
         sw_STInternetTimeZone.setOnCheckedChangeListener(this);
         sw_STComfirmTimeZone.setOnCheckedChangeListener(this);
+        setTime();
     }
 
     private void eventHandle()
@@ -111,8 +131,10 @@ public class SetTimeActivity extends BaseActivity implements View.OnClickListene
                         .show();
                 timeDialog.setCanceledOnTouchOutside(false);
                 View timeView = timeDialog.getCustomView();
+                TimePicker tp_TimePicker=(TimePicker)timeView.findViewById(R.id.tp_TimePicker);
                 Button bt_SetTimeCancle = (Button) timeView.findViewById(R.id.bt_SetTimeCancle);
                 Button bt_SetTimeSave = (Button) timeView.findViewById(R.id.bt_SetTimeSave);
+                tp_TimePicker.setIs24HourView(true);
                 bt_SetTimeCancle.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -133,9 +155,7 @@ public class SetTimeActivity extends BaseActivity implements View.OnClickListene
                         .show();
                 timeZoneDialog.setCanceledOnTouchOutside(false);
                 View timeZoneView = timeZoneDialog.getCustomView();
-                LoopView loop_SetTimeZone= (LoopView) timeZoneView.findViewById(R.id.loop_SetTimeZone);
-
-
+               final LoopView loop_SetTimeZone= (LoopView) timeZoneView.findViewById(R.id.loop_SetTimeZone);
 
                 //设置是否循环播放
                 loop_SetTimeZone.setNotLoop();
@@ -160,6 +180,19 @@ public class SetTimeActivity extends BaseActivity implements View.OnClickListene
                 bt_SetTimeZoneSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        String selectTimeZone = list.get(loop_SetTimeZone.getSelectedItem());
+
+                        for(Map.Entry entry:(Set<Map.Entry>)timeZoneMap.entrySet()){
+                            if(selectTimeZone.equals(entry.getValue()))
+                            {
+                                tv_SetTimeZone.setText(selectTimeZone);
+                                alarmManager.setTimeZone((String)entry.getValue());
+                                editor.putString("TimeZone",selectTimeZone);
+                                editor.commit();
+                                setTime();
+                            }
+
+                        }
 
                         timeZoneDialog.dismiss();
                     }
@@ -184,37 +217,39 @@ public class SetTimeActivity extends BaseActivity implements View.OnClickListene
             case R.id.sw_STComfirmTimeZone:
                 if (isChecked){}
                 else {}
+
                 break;
         }
     }
 
     private void initValue()
     {
-        list.add("伦敦");
-        list.add("柏林");
-        list.add("雅典");
-        list.add("莫斯科");
-        list.add("阿布扎比");
-        list.add("伊斯兰堡");
-        list.add("达卡");
-        list.add("曼谷");
-        list.add("北京");
-        list.add("东京");
-        list.add("堪培拉");
-        list.add("霍尼亚拉");
-        list.add("惠灵顿");
-        list.add("蓬塔德尔加达");
-        list.add("华盛顿");
-        list.add("巴西利亚");
-        list.add("加拉加斯");
-        list.add("纽约");
-        list.add("墨西哥城");
-        list.add("盐湖城");
-        list.add("洛杉矶");
-        list.add("朱诺");
-        list.add("檀香山");
-        list.add("中途岛");
-        list.add("马朱罗");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String[] values=new String[timeZoneMap.size()];
+                timeZoneMap.values().toArray(values);
+                for (String item:values) {
+                    list.add(item);
+                }
+            }
+        }).start();
 
     }
+
+    private void setTime()
+    {
+        SimpleDateFormat formatterDate=new  SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat formatterTime=new  SimpleDateFormat("HH:mm");
+        Date curDate  =new   Date(System.currentTimeMillis());//获取当前时间
+        String  strDate  =  formatterDate.format(curDate);
+        tv_SetDate.setText(strDate);
+        String  strTime  =  formatterTime.format(curDate);
+        tv_SetTime.setText(strTime);
+        String timeZoneKey = preferences.getString("TimeZone",getString(R.string.北京));
+        String timeZoneStr =(String) timeZoneMap.get(timeZoneKey);
+        tv_SetTimeZone.setText(timeZoneStr);
+    }
+
+
 }
