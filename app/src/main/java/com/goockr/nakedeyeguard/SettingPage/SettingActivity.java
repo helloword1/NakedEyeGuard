@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.goockr.nakedeyeguard.Base.BaseActivity;
@@ -19,13 +18,11 @@ import com.goockr.nakedeyeguard.R;
 import com.goockr.nakedeyeguard.SettingPage.WifiPage.WifiActivity;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.weigan.loopview.LoopView;
-import com.weigan.loopview.OnItemSelectedListener;
 import com.xw.repo.BubbleSeekBar;
-
-import java.util.ArrayList;
 
 import static com.goockr.nakedeyeguard.App.editor;
 import static com.goockr.nakedeyeguard.App.preferences;
+import static com.goockr.nakedeyeguard.App.restTimeList;
 import static com.goockr.nakedeyeguard.Tools.Common.scheduleDismiss;
 
 public class SettingActivity extends BaseActivity implements View.OnClickListener{
@@ -38,6 +35,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     RelativeLayout rl_SetSystemUpgrade;
     RelativeLayout rl_SetReset;
     RelativeLayout rl_SetAbout;
+
+    TextView tv_RestTime;
 
     @Override
     protected int getLoyoutId() {return R.layout.activity_setting;}
@@ -58,6 +57,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         rl_SetSystemUpgrade=(RelativeLayout)findViewById(R.id.rl_SetSystemUpgrade);
         rl_SetReset=(RelativeLayout)findViewById(R.id.rl_SetReset);
         rl_SetAbout=(RelativeLayout)findViewById(R.id.rl_SetAbout);
+
+        String resetTime = preferences.getString("RestTime","30秒");
+        tv_RestTime=(TextView)findViewById(R.id.tv_RestTime);
+        tv_RestTime.setText(resetTime);
 
         rl_SetWlan.setOnClickListener(this);
         rl_SetVoice.setOnClickListener(this);
@@ -155,28 +158,19 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                         .show();
                 screensaverDialog.setCanceledOnTouchOutside(false);
                 View screensaverView = screensaverDialog.getCustomView();
-                LoopView loop_SetScreenSaverTime= (LoopView) screensaverView.findViewById(R.id.loop_SetScreenSaverTime);
-               final ArrayList<String> list = new ArrayList<>();
-                list.add("10秒");
-                list.add("30秒");
-                list.add("1分钟");
-                list.add("3分钟");
-                list.add("5分钟");
-                list.add("10分钟");
-                list.add("30分钟");
-                list.add("1小时");
-                list.add("从不");
+                final LoopView loop_SetScreenSaverTime= (LoopView) screensaverView.findViewById(R.id.loop_SetScreenSaverTime);
+
                 //设置是否循环播放
                 loop_SetScreenSaverTime.setNotLoop();
                 //滚动监听
-                loop_SetScreenSaverTime.setListener(new OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(int index) {
-                        Toast.makeText(SettingActivity.this, list.get(index), Toast.LENGTH_SHORT).show();
-                    }
-                });
+//                loop_SetScreenSaverTime.setListener(new OnItemSelectedListener() {
+//                    @Override
+//                    public void onItemSelected(int index) {
+//                        Toast.makeText(SettingActivity.this, list.get(index), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
                 //设置原始数据
-                loop_SetScreenSaverTime.setItems(list);
+                loop_SetScreenSaverTime.setItems(restTimeList);
 
                 Button bt_SetScreensaverCancle = (Button) screensaverView.findViewById(R.id.bt_SetScreensaverCancle);
                 Button bt_SetScreensaverSave = (Button) screensaverView.findViewById(R.id.bt_SetScreensaverSave);
@@ -189,7 +183,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 bt_SetScreensaverSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        String restTime =restTimeList.get(loop_SetScreenSaverTime.getSelectedItem());
+                        tv_RestTime.setText(restTime);
+                        editor.putString("RestTime",restTime);
+                        editor.commit();
                         screensaverDialog.dismiss();
                     }
                 });

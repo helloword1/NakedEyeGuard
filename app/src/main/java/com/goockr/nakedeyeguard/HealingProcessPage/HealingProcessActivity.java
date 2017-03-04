@@ -29,7 +29,6 @@ public class HealingProcessActivity extends BaseActivity {
     {
         FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fl_HPFLayout,fragment);
-        transaction.addToBackStack(null);
         transaction.commit();
     }
 

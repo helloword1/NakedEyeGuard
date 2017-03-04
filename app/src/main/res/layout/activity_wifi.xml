@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.goockr.nakedeyeguard.SettingPage.WifiPage.WifiActivity">
+    <include android:id="@+id/rl_WifiStateBar" layout="@layout/base_toobar"></include>
     <FrameLayout
         android:id="@+id/fl_WifiConnect"
         android:layout_width="match_parent"

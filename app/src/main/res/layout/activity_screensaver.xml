@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:circleprogress="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_screensaver"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBlack"
+    tools:context="com.goockr.nakedeyeguard.Screensaver.ScreensaverActivity">
+    <com.goockr.nakedeyeguard.Screensaver.CircleProgress
+        android:layout_centerInParent="true"
+        android:id="@+id/cp_ScrenSaver"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        circleprogress:color1="@android:color/holo_red_light"
+        circleprogress:color2="@android:color/holo_green_light"
+        circleprogress:color3="@android:color/holo_blue_light"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</RelativeLayout>

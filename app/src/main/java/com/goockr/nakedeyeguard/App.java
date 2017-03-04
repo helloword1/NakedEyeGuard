@@ -4,8 +4,9 @@ import android.app.AlarmManager;
 import android.app.Application;
 import android.content.SharedPreferences;
 
-import com.goockr.nakedeyeguard.Tools.SystemManager;
+import com.goockr.nakedeyeguard.Tools.Common;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -22,6 +23,7 @@ public class App extends Application {
     //时区
     public static AlarmManager alarmManager;
     public static Map timeZoneMap=new HashMap();
+    public static ArrayList<String> restTimeList = new ArrayList<>();
     @Override
     public void onCreate() {
         super.onCreate();
@@ -30,8 +32,8 @@ public class App extends Application {
         editor =preferences.edit();
         alarmManager= (AlarmManager)getSystemService(ALARM_SERVICE);
         initValue();//
-        String apkRoot="chmod 777 "+getPackageCodePath();
-        SystemManager.RootCommand(apkRoot);
+//        String apkRoot="chmod 777 "+getPackageCodePath();
+//        SystemManager.RootCommand(apkRoot);
     }
 
     private void initValue()
@@ -42,8 +44,7 @@ public class App extends Application {
        // Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,brightness);
 
 
-        android.provider.Settings.System.putString(getContentResolver(),
-                android.provider.Settings.System.TIME_12_24, "24");
+        android.provider.Settings.System.putString(getContentResolver(),android.provider.Settings.System.TIME_12_24, "24");
         //设置默认时区 中国标准时间 (北京)
         final String timeZoneStr = preferences.getString("TimeZone","北京");
         new Thread(new Runnable() {
@@ -60,10 +61,21 @@ public class App extends Application {
                     {
                         alarmManager.setTimeZone((String)entry.getKey());
                         editor.putString("TimeZone",timeZoneStr);
-                        editor.commit();
 
                     }
                 }
+                restTimeList.add("10秒");
+                restTimeList.add("30秒");
+                restTimeList.add("1分钟");
+                restTimeList.add("3分钟");
+                restTimeList.add("5分钟");
+                restTimeList.add("10分钟");
+                restTimeList.add("30分钟");
+                restTimeList.add("1小时");
+                restTimeList.add("从不");
+                editor.putString("RestTime","30秒");
+                editor.commit();
+
             }
         }).start();
 

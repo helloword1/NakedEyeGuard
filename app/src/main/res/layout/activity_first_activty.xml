@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/homepage_bg"
     tools:context="com.goockr.nakedeyeguard.FirstUsePage.FirstActivty">
+    <include android:id="@+id/rl_FirstStateBar" layout="@layout/base_toobar"></include>
     <Button
         android:id="@+id/bt_FirstSet"
         android:text="点击设置"

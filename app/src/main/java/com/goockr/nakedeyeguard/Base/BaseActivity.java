@@ -10,10 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextClock;
-import android.widget.Toast;
 
 import com.goockr.nakedeyeguard.R;
-import com.goockr.nakedeyeguard.SettingPage.WifiPage.MyNetworkStateService;
+import com.goockr.nakedeyeguard.Tools.Common;
 import com.goockr.nakedeyeguard.Tools.WifiHelper;
 
 
@@ -38,8 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLoyoutId());
         setupView();
         ActivityCollector.addActivity(this);
-        Intent intents=new Intent(this, MyNetworkStateService.class);
-        startService(intents);
+        Common.addLocalNotication(this,10);
     }
 
 
@@ -49,7 +47,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         iv_MainWifi=(ImageView)findViewById(R.id.iv_BaseWifi);
         ib_Back=(ImageButton) findViewById(R.id.bt_BaseBack);
         tc_BaseClock=(TextClock) findViewById(R.id.tc_BaseClock);
-        setWifiIcon();
+        registerBroadcast();
     }
 
     //
@@ -59,26 +57,13 @@ public abstract class BaseActivity extends AppCompatActivity {
     public TextClock getTextClock(){return tc_BaseClock;}
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        registerBroadcast();
-
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (receiver!=null)
-        unregisterReceiver(receiver);
-        unregisterReceiver(networkReceiverHelper);
-        receiver=null;
-        networkReceiverHelper=null;
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         ActivityCollector.removeActivity(this);
+        if (receiver!=null) receiver.unregisterReceiver();
+        if (networkReceiverHelper!=null) networkReceiverHelper.unregisterReceiver();
+        receiver=null;
+        networkReceiverHelper=null;
     }
 
     private void setWifiIcon()
@@ -90,6 +75,20 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     class ForceOfflineReceiver extends BroadcastReceiver
     {
+        Context mContext;
+
+        public ForceOfflineReceiver(Context mContext)
+        {
+            IntentFilter intentFilter=new IntentFilter();
+            intentFilter.addAction("com.goockr.broadcast.logout");
+            this.mContext=mContext;
+            mContext.registerReceiver(this,intentFilter);
+        }
+
+        public  void unregisterReceiver()
+        {
+            mContext.unregisterReceiver(this);
+        }
         @Override
         public void onReceive(final Context context, Intent intent) {
 
@@ -98,27 +97,19 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private void registerBroadcast() {
 
-        IntentFilter intentFilter=new IntentFilter();
-        intentFilter.addAction("com.goockr.broadcast.logout");
-        receiver=new ForceOfflineReceiver();
-        registerReceiver(receiver,intentFilter);
-
-        networkReceiverHelper =new NetworkReceiverHelper() {
+        networkReceiverHelper= new NetworkReceiverHelper() {
             @Override
             void onConnected() {
                 iv_MainWifi.setImageResource(R.drawable.icon_wifi);
-                Toast.makeText(BaseActivity.this,"++++",Toast.LENGTH_SHORT).show();
             }
 
             @Override
             void onDisConnected() {
                 iv_MainWifi.setImageResource(R.drawable.icon_wifi_10);
-                Toast.makeText(BaseActivity.this,"----",Toast.LENGTH_SHORT).show();
             }
         };
-
-        IntentFilter intentNet = new IntentFilter();
-        registerReceiver(networkReceiverHelper,intentNet);
+        receiver=new ForceOfflineReceiver(this);
+        networkReceiverHelper.registerReceiver(this);
     }
 }
 
