@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-    <include android:id="@+id/rl_WifiPWDStateBar" layout="@layout/base_toobar"/>
 
+    <include android:id="@+id/rl_WifiPWDStateBar" layout="@layout/base_fragment_toobar"/>
     <EditText
         android:id="@+id/et_WifiPWDInput"
         android:hint="  输入密码"

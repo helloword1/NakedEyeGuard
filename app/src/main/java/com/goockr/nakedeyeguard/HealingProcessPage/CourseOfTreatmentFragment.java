@@ -54,15 +54,19 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
         ib_CTFTip=(ImageButton)view.findViewById(R.id.ib_CTFTip);
         cb_CTFStart=(CheckBox)view.findViewById(R.id.cb_CTFStart);
 
-        ib_CTFTip.setOnClickListener(this);
         bt_CTFBack.setOnClickListener(this);
+        ib_CTFTip.setOnClickListener(this);
         ib_CTFReduce.setOnClickListener(this);
         ib_CTFAdd.setOnClickListener(this);
         cb_CTFStart.setOnCheckedChangeListener(this);
         progressBarState(pb_CTFStrength.getProgress());
-
-
-
+        setWifiIcon(((HealingProcessActivity)getActivity()).getNetWorkState());
+        getBackBtn().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
     }
 
     @Override
@@ -70,7 +74,7 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
         switch (v.getId())
         {
             case R.id.bt_CTFBack:
-                getActivity().getSupportFragmentManager().popBackStack();
+                getActivity().finish();
                 break;
             case R.id.ib_CTFReduce:
                 int proValueReduce= pb_CTFStrength.getProgress();

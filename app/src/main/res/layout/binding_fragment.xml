@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <include android:id="@+id/rl_FirstStateBar" layout="@layout/base_toobar"/>
+    <include android:id="@+id/rl_FirstStateBar" layout="@layout/base_fragment_toobar"/>
     <ImageView
         android:id="@+id/iv_BingdingInfo"
         android:layout_marginTop="100dp"

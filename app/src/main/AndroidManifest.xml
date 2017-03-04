@@ -3,6 +3,7 @@
     package="com.goockr.nakedeyeguard">
 
     <!-- 允许设置时区 -->
+
     <uses-permission android:name="android.permission.SET_TIME_ZONE" />
     <uses-permission android:name="android.permission.SET_TIME" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
@@ -10,6 +11,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
     <application
         android:name=".App"
@@ -46,15 +50,19 @@
         <activity
             android:name=".StartActivity"
             android:screenOrientation="portrait">
-
-        </activity>
-        <activity android:name=".Screensaver.ScreensaverActivity"  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Screensaver.ScreensaverActivity"  android:screenOrientation="portrait">
+        </activity>
+
+        <service android:name=".Screensaver.ScreensaverReceiver"
+            android:enabled="true"
+            android:exported="true"/>
+
     </application>
 
 </manifest>

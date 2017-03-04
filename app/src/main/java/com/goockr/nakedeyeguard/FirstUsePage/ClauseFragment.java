@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import com.goockr.nakedeyeguard.Base.ActivityCollector;
 import com.goockr.nakedeyeguard.Base.BaseFragment;
+import com.goockr.nakedeyeguard.HealingProcessPage.HealingProcessActivity;
 import com.goockr.nakedeyeguard.MainPage.MainActivity;
 import com.goockr.nakedeyeguard.R;
 
@@ -31,6 +32,7 @@ public class ClauseFragment extends BaseFragment {
 
     private void setupUI(View view) {
         getBackBtn().setVisibility(View.GONE);
+        setWifiIcon(((FirstActivty)getActivity()).getNetWorkState());
         bt_AgreeClause=(Button)view.findViewById(R.id.bt_AgreeClause);
         bt_AgreeClause.setOnClickListener(new View.OnClickListener() {
             @Override

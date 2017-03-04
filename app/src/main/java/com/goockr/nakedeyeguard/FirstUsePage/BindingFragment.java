@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.goockr.nakedeyeguard.Base.BaseFragment;
+import com.goockr.nakedeyeguard.HealingProcessPage.HealingProcessActivity;
 import com.goockr.nakedeyeguard.R;
 import com.kaopiz.kprogresshud.KProgressHUD;
 
@@ -31,6 +32,7 @@ public class BindingFragment extends BaseFragment {
     private void setupUI(View view)
     {
         getBackBtn().setVisibility(View.GONE);
+        setWifiIcon(((FirstActivty)getActivity()).getNetWorkState());
         bt_CompleteBinding=(Button)view.findViewById(R.id.bt_CompleteBinding);
         bt_CompleteBinding.setOnClickListener(new View.OnClickListener() {
             @Override

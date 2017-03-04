@@ -18,9 +18,9 @@ import com.goockr.nakedeyeguard.R;
 public abstract class BaseFragment extends Fragment {
     View view=null;
     //返回按钮
-    private ImageButton ib_Back;
+    private ImageButton bt_BaseFragmentBack;
     //时期显示
-    private ImageView iv_MainWifi;
+    private ImageView iv_BaseFragmenWifi;
 
     protected abstract int getLoyoutId();
     protected abstract void onCusCreate(View view);
@@ -35,10 +35,18 @@ public abstract class BaseFragment extends Fragment {
     public void setupView()
     {
         //获取当前时间
-        iv_MainWifi=(ImageView)view.findViewById(R.id.iv_BaseWifi);
-        ib_Back=(ImageButton) view.findViewById(R.id.bt_BaseBack);
+        iv_BaseFragmenWifi=(ImageView)view.findViewById(R.id.iv_BaseFragmenWifi);
+        bt_BaseFragmentBack=(ImageButton) view.findViewById(R.id.bt_BaseFragmentBack);
+
     }
 
     //设置标题
-    public ImageButton getBackBtn(){return ib_Back;}
+    public ImageButton getBackBtn(){return bt_BaseFragmentBack;}
+
+    public void setWifiIcon(boolean isNetWork)
+    {
+        if (isNetWork) iv_BaseFragmenWifi.setImageResource(R.drawable.icon_wifi);
+        else iv_BaseFragmenWifi.setImageResource(R.drawable.icon_wifi_10);
+    }
+
 }

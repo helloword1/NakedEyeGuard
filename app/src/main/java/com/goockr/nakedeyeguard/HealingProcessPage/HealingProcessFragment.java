@@ -4,7 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import com.goockr.nakedeyeguard.Base.BaseFragment;
 import com.goockr.nakedeyeguard.R;
@@ -15,7 +14,6 @@ import com.goockr.nakedeyeguard.R;
 
 public class HealingProcessFragment extends BaseFragment implements View.OnClickListener {
    View view=null;
-    ImageButton bt_HPFBack;
     Button bt_HPFSure;
 
     @Override
@@ -31,19 +29,23 @@ public class HealingProcessFragment extends BaseFragment implements View.OnClick
 
     private void setupUI(View view) {
 
-        bt_HPFBack=(ImageButton)view.findViewById(R.id.bt_HPFBack);
+
         bt_HPFSure=(Button)view.findViewById(R.id.bt_HPFSure);
-        bt_HPFBack.setOnClickListener(this);
+
         bt_HPFSure.setOnClickListener(this);
+        setWifiIcon(((HealingProcessActivity)getActivity()).getNetWorkState());
+        getBackBtn().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId())
         {
-            case R.id.bt_HPFBack:
-                getActivity().finish();
-                break;
             case  R.id.bt_HPFSure:
                 replaFragment(new CourseOfTreatmentFragment());
                 break;

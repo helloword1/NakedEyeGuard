@@ -4,7 +4,7 @@ import android.app.AlarmManager;
 import android.app.Application;
 import android.content.SharedPreferences;
 
-import com.goockr.nakedeyeguard.Tools.Common;
+import com.goockr.nakedeyeguard.Http.HttpHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,20 +24,28 @@ public class App extends Application {
     public static AlarmManager alarmManager;
     public static Map timeZoneMap=new HashMap();
     public static ArrayList<String> restTimeList = new ArrayList<>();
+
+    public static boolean isStartScreen=true;
+    //
+    public static boolean networkState=false;
     @Override
     public void onCreate() {
         super.onCreate();
         //获取数据初始设置
-        preferences = getSharedPreferences("preferences",MODE_PRIVATE);
-        editor =preferences.edit();
-        alarmManager= (AlarmManager)getSystemService(ALARM_SERVICE);
         initValue();//
 //        String apkRoot="chmod 777 "+getPackageCodePath();
 //        SystemManager.RootCommand(apkRoot);
+
     }
 
     private void initValue()
     {
+        preferences = getSharedPreferences("preferences",MODE_PRIVATE);
+        editor =preferences.edit();
+        alarmManager= (AlarmManager)getSystemService(ALARM_SERVICE);
+        HttpHelper.httpInit();
+//        Intent intentService =new Intent(this, ScreensaverReceiver.class);
+//        startService(intentService);
 
         //亮度设置
         //int brightness =preferences.getInt("Brightness",100);

@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.goockr.nakedeyeguard.Base.BaseFragment;
+import com.goockr.nakedeyeguard.HealingProcessPage.HealingProcessActivity;
 import com.goockr.nakedeyeguard.Model.WifiModel;
 import com.goockr.nakedeyeguard.R;
 
@@ -56,6 +57,7 @@ public class WifiConnectFragment extends BaseFragment {
         lv_SetWifiList.addFooterView(footView);
         wifiAdapter=new WifiAdapter(wifiModels);
         lv_SetWifiList.setAdapter(wifiAdapter);
+        setWifiIcon(((WifiActivity)getActivity()).getNetWorkState());
 
     }
 

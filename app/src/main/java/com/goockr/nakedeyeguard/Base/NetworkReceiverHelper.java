@@ -36,7 +36,7 @@ public abstract class NetworkReceiverHelper extends BroadcastReceiver {
         //当网络发生变化时
         String action = intent.getAction();
         if (action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
-            connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            connectivityManager = (ConnectivityManager)mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
             info = connectivityManager.getActiveNetworkInfo();
             if(info != null && info.isAvailable()) {
                 onConnected();

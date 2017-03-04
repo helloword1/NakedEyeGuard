@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="38dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:background="@drawable/title_bg"
+        >
+        <ImageButton
+            android:id="@+id/bt_BaseFragmentBack"
+            android:src="@drawable/btn_back"
+            android:background="@color/colorCusTrans"
+            android:layout_width="60dp"
+            android:layout_height="match_parent" />
+        <TextClock
+            android:id="@+id/tc_BaseFragmenClock"
+            android:format24Hour="H:mm"
+            android:format12Hour="h:mm"
+            android:gravity="center_vertical"
+            android:textColor="@color/colorWhite"
+            android:layout_toLeftOf="@+id/iv_FragmenBattery"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/iv_FragmenBattery"
+            android:layout_toLeftOf="@+id/iv_BaseFragmenWifi"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/icon_prower"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/iv_BaseFragmenWifi"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/icon_wifi_10"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+</RelativeLayout>

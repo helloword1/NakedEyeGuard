@@ -10,7 +10,7 @@ import com.goockr.nakedeyeguard.R;
  * Created by JJT-ssd on 2017/3/1.
  */
 
-public class CompleteTreatmentFragment extends BaseFragment implements View.OnClickListener{
+public class CompleteTreatmentFragment extends BaseFragment {
 
     ImageButton ib_COMTFBack;
 
@@ -24,17 +24,16 @@ public class CompleteTreatmentFragment extends BaseFragment implements View.OnCl
 
     private void setupUI(View view) {
 
-        ib_COMTFBack=(ImageButton)view.findViewById(R.id.ib_COMTFBack);
-        ib_COMTFBack.setOnClickListener(this);
+        getBackBtn().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
+
+
+        setWifiIcon(((HealingProcessActivity)getActivity()).getNetWorkState());
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId())
-        {
-            case R.id.ib_COMTFBack:
-                getActivity().finish();
-                break;
-        }
-    }
+
 }

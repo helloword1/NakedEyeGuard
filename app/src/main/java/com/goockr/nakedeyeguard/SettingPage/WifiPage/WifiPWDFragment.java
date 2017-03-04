@@ -45,7 +45,7 @@ public class WifiPWDFragment extends BaseFragment implements View.OnClickListene
 
     private void setupUI(View view)
     {
-
+        setWifiIcon(((WifiActivity)getActivity()).getNetWorkState());
         bt_WifiPwdCancle=(Button)view.findViewById(R.id.bt_WifiPwdCancle);
         bt_WifiPwdSure=(Button)view.findViewById(R.id.bt_WifiPwdSure);
         bt_WifiPwdCancle.setOnClickListener(this);

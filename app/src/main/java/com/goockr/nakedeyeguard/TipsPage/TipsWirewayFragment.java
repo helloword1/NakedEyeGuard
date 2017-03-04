@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import com.goockr.nakedeyeguard.Base.BaseFragment;
+import com.goockr.nakedeyeguard.HealingProcessPage.HealingProcessActivity;
 import com.goockr.nakedeyeguard.R;
 
 /**
@@ -16,7 +16,7 @@ import com.goockr.nakedeyeguard.R;
 public class TipsWirewayFragment extends BaseFragment implements View.OnClickListener{
     View view=null;
     Button bt_TWFNext;
-    ImageButton bt_TWFBack;
+
 
     @Override
     protected int getLoyoutId() {
@@ -31,18 +31,21 @@ public class TipsWirewayFragment extends BaseFragment implements View.OnClickLis
     private void setupUI(View view)
     {
         bt_TWFNext=(Button)view.findViewById(R.id.bt_TWFNext);
-        bt_TWFBack=(ImageButton) view.findViewById(R.id.bt_TWFBack);
         bt_TWFNext.setOnClickListener(this);
-        bt_TWFBack.setOnClickListener(this);
+        setWifiIcon(((TipsActivity)getActivity()).getNetWorkState());
+        getBackBtn().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId())
         {
-            case R.id.bt_TWFBack:
-                getActivity().finish();
-                break;
+
             case R.id.bt_TWFNext:
                 replaFragment(new TipsElectrodeFragment());
                 break;

@@ -4,40 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RelativeLayout
-        android:id="@+id/rl_HPFStateBar"
-        android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:background="@drawable/title_bg"
-        >
-        <ImageButton
-            android:id="@+id/bt_HPFBack"
-            android:src="@drawable/btn_back"
-            android:background="@color/colorCusTrans"
-            android:layout_width="60dp"
-            android:layout_height="match_parent" />
-        <TextClock
-            android:gravity="center_vertical"
-            android:textColor="@color/colorWhite"
-            android:layout_toLeftOf="@+id/iv_MainBattery"
-            android:layout_marginRight="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-        <ImageView
-            android:id="@+id/iv_MainBattery"
-            android:layout_toLeftOf="@+id/iv_MainWifi"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/icon_prower"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-        <ImageView
-            android:id="@+id/iv_MainWifi"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/icon_wifi_10"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
+    <include android:id="@+id/rl_HPFStateBar" layout="@layout/base_fragment_toobar"/>
+
     <LinearLayout
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"

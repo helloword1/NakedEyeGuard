@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import com.goockr.nakedeyeguard.Base.BaseFragment;
+import com.goockr.nakedeyeguard.HealingProcessPage.HealingProcessActivity;
 import com.goockr.nakedeyeguard.R;
 
 /**
@@ -16,7 +16,7 @@ import com.goockr.nakedeyeguard.R;
 public class TipsElectrodeFragment extends BaseFragment implements View.OnClickListener{
     View view=null;
     Button bt_TEFNext;
-    ImageButton ib_TEFBack;
+
 
     @Override
     protected int getLoyoutId() {
@@ -30,19 +30,21 @@ public class TipsElectrodeFragment extends BaseFragment implements View.OnClickL
 
     private void setupUI(View view)
     {
-        ib_TEFBack=(ImageButton)view.findViewById(R.id.ib_TEFBack);
         bt_TEFNext=(Button)view.findViewById(R.id.bt_TEFNext);
-        ib_TEFBack.setOnClickListener(this);
         bt_TEFNext.setOnClickListener(this);
+        setWifiIcon(((TipsActivity)getActivity()).getNetWorkState());
+        getBackBtn().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId())
         {
-            case R.id.ib_TEFBack:
-                getActivity().getSupportFragmentManager().popBackStack();
-                break;
             case R.id.bt_TEFNext:
                 replaFragment(new TipsLastFragment());
                 break;
