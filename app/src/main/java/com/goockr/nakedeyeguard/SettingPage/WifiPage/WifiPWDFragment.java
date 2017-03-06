@@ -126,15 +126,10 @@ public class WifiPWDFragment extends BaseFragment implements View.OnClickListene
                 TextView tv_Reset = new TextView(getActivity());
                 tv_Reset.setTextColor(Color.WHITE);
                 tv_Reset.setTextSize(18);
-                boolean isConnect=false;
 
-                if (et_WifiPWDInput.getText().toString().equals(wifiModel.getConfig().preSharedKey))
-                {
-                    isConnect=wifiHelper.addNetwork(wifiModel.getConfig());
-                    if (isConnect) tv_Reset.setText("设备已成功连接WiFi！");
-                    else tv_Reset.setText("连接失败，请重新连接！");
-
-                }else tv_Reset.setText("密码错误！");
+            boolean  isConnect=wifiHelper.addNetwork(wifiHelper.CreateWifiInfo(wifiModel.getWifiName(),et_WifiPWDInput.getText().toString(),wifiModel.getSecurityType().ordinal()));
+                if (isConnect) tv_Reset.setText("设备已成功连接WiFi！");
+                else tv_Reset.setText("连接失败，请重新连接！");
 
                 final KProgressHUD restHUD= KProgressHUD.create(getActivity())
                         .setCustomView(tv_Reset)

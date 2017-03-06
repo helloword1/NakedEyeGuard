@@ -2,6 +2,7 @@ package com.goockr.nakedeyeguard.Http;
 
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.Callback;
+import com.zhy.http.okhttp.https.HttpsUtils;
 
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -19,26 +20,26 @@ public class HttpHelper {
 
     //获取用户列表
     public static String getUserList() {
-        return baseUrl+"lean/pullUserList";
+        return baseUrl+"/lean/pullUserListCPad";
     }
 
     //获取用户详细信息:
     public static String getUserInfo() {
-        return baseUrl+"lean/pullUserInfo";
+        return baseUrl+"/lean/pullUserInfoCPad";
     }
 
     //开始电击:
     public static String getStartTreat() {
-        return baseUrl+"lean/pushStartTreat";
+        return baseUrl+"/lean/pushStartTreat";
     }
 
     //暂停电击
     public static String getPauseTreat() {
-        return baseUrl+"lean/pushPauseTreat";
+        return baseUrl+"/lean/pushPauseTreat";
     }
    // 完成电击
     public static String getCompeleteTreat() {
-     return baseUrl+"lean/pushPauseTreat";
+     return baseUrl+"/lean/pushPauseTreat";
     }
 
 
@@ -53,6 +54,15 @@ public class HttpHelper {
         OkHttpUtils.initClient(okHttpClient);
     }
 
+    public  static  void httpInits()
+    {
+        HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(null, null, null);
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
+                //其他配置
+                .build();
+        OkHttpUtils.initClient(okHttpClient);
+    }
 
    public static void httpPost(String urlStr, Map<String,String> params, Callback callback)
    {

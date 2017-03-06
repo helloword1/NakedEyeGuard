@@ -48,5 +48,4 @@ public abstract class BaseFragment extends Fragment {
         if (isNetWork) iv_BaseFragmenWifi.setImageResource(R.drawable.icon_wifi);
         else iv_BaseFragmenWifi.setImageResource(R.drawable.icon_wifi_10);
     }
-
 }

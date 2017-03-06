@@ -4,18 +4,25 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.goockr.nakedeyeguard.Base.BaseFragment;
+import com.goockr.nakedeyeguard.Model.UserModel;
 import com.goockr.nakedeyeguard.R;
+
+import static com.goockr.nakedeyeguard.App.iconDrawable;
 
 /**
  * Created by JJT-ssd on 2017/2/28.
  */
 
 public class HealingProcessFragment extends BaseFragment implements View.OnClickListener {
-   View view=null;
+    View view=null;
     Button bt_HPFSure;
-
+    UserModel userModel;
+    ImageView iv_HPFUserIcon;
+    TextView tv_HPFUserName;
     @Override
     protected int getLoyoutId() {
         return R.layout.heading_process_fragment;
@@ -28,11 +35,14 @@ public class HealingProcessFragment extends BaseFragment implements View.OnClick
 
 
     private void setupUI(View view) {
+        userModel =((HealingProcessActivity)getActivity()).userModel;
 
-
+        tv_HPFUserName=(TextView)view.findViewById(R.id.tv_HPFUserName);
+        iv_HPFUserIcon=(ImageView)view.findViewById(R.id.iv_HPFUserIcon);
         bt_HPFSure=(Button)view.findViewById(R.id.bt_HPFSure);
 
         bt_HPFSure.setOnClickListener(this);
+        tv_HPFUserName.setText(userModel.getUserName());
         setWifiIcon(((HealingProcessActivity)getActivity()).getNetWorkState());
         getBackBtn().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,7 +50,10 @@ public class HealingProcessFragment extends BaseFragment implements View.OnClick
                 getActivity().finish();
             }
         });
+        iv_HPFUserIcon.setImageDrawable(iconDrawable);
     }
+
+
 
     @Override
     public void onClick(View v) {

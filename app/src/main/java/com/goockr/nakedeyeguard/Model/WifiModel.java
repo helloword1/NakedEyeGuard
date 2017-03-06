@@ -1,12 +1,13 @@
 package com.goockr.nakedeyeguard.Model;
 
-import android.net.wifi.WifiConfiguration;
-
 /**
  * Created by JJT-ssd on 2017/3/2.
  */
 
 public class WifiModel {
+    public enum SecurityType{
+        NONE,WPA_EAP,WPA_PSK,WEP
+    };
 
     private String wifiName;
     public String getWifiName() {return wifiName;}
@@ -20,11 +21,8 @@ public class WifiModel {
     public boolean isWifiLock() {return wifiLock;}
     public void setWifiLock(boolean wifiLock) {this.wifiLock = wifiLock;}
 
-    private WifiConfiguration config;
-    public WifiConfiguration getConfig() {return config;}
-    public void setConfig(WifiConfiguration config) {this.config = config;}
-
-
-
+    public SecurityType getSecurityType() {return securityType;}
+    public void setSecurityType(SecurityType securityType) {this.securityType = securityType;}
+    private SecurityType securityType;
 
 }

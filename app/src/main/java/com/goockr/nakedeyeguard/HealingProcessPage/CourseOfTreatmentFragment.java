@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -112,48 +113,100 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
         else ib_CTFAdd.setBackgroundResource(R.drawable.btn_add_disable);
     }
 
+    CountDownTimer countDownTimer = null;
+    boolean isPause=false;
+    long allTime=5000;
+    long startTime=5000;
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+
         switch (buttonView.getId())
         {
             case R.id.cb_CTFStart:
                 if (isChecked)
                 {
-                    cb_CTFStart.setBackgroundResource(R.drawable.btn_pause);
-                    final long allTime=5000;
-                    tv_CTFTimer.setText(dateLong2String(allTime));
-                    final int[] i = {1};
-                    CountDownTimer countDownTimer= new CountDownTimer(allTime+50,1000) {
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-                            if (i[0] ==1)
-                            {
-                                i[0] =0;
-                                return;
-                            }
-                            float finishScond = (allTime-millisUntilFinished-50);
-                            float pro =(finishScond/(allTime-50))*100;
-                            cpb_CTFProgress.setProgress(pro);
-                            tv_CTFTimer.setText(dateLong2String(millisUntilFinished));
-                        }
-                        @Override
-                        public void onFinish() {
-                            tv_CTFTimer.setText("00:00");
-                            cpb_CTFProgress.setProgress(100);
-                            cb_CTFStart.setBackgroundResource(R.drawable.ctf_btn_start);
-                            cb_CTFStart.setChecked(false);
-                            replaFragment(new CompleteTreatmentFragment());
-                        }
-                    };
-                    countDownTimer.start();
+                    if (!isPause) firstStart();
+                  //  else secondStart();
+
                 }else
                 {
+                    if (countDownTimer!=null) {
+                        countDownTimer.cancel();
+                        isPause=true;
+                    }
                     cb_CTFStart.setBackgroundResource(R.drawable.ctf_btn_start);
-                    tv_CTFTimer.setText("00:00");
 
                 }
                 break;
         }
+    }
+
+    private void firstStart()
+    {
+        cb_CTFStart.setBackgroundResource(R.drawable.btn_pause);
+        tv_CTFTimer.setText(dateLong2String(allTime));
+        final long timeCal =isPause?startTime:allTime;
+        final int[] i = {1};
+        countDownTimer= new CountDownTimer(timeCal+50,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (i[0] ==1)
+                {
+                    i[0] =0;
+                    return;
+                }
+                startTime=millisUntilFinished;
+                Log.e("millisUntilFinished=",String.valueOf(millisUntilFinished));
+                float finishScond = (timeCal-millisUntilFinished-50);
+                float pro =(finishScond/(timeCal-50))*100;
+                cpb_CTFProgress.setProgress(pro);
+                tv_CTFTimer.setText(dateLong2String(millisUntilFinished));
+            }
+            @Override
+            public void onFinish() {
+                isPause=false;
+                tv_CTFTimer.setText("00:00");
+                cpb_CTFProgress.setProgress(100);
+                cb_CTFStart.setBackgroundResource(R.drawable.ctf_btn_start);
+                cb_CTFStart.setChecked(false);
+                replaFragment(new CompleteTreatmentFragment());
+            }
+        };
+        countDownTimer.start();
+    }
+
+
+    private void secondStart()
+    {
+        cb_CTFStart.setBackgroundResource(R.drawable.btn_pause);
+        tv_CTFTimer.setText(dateLong2String(startTime));
+        final int[] i = {1};
+        countDownTimer= new CountDownTimer(startTime+50,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (i[0] ==1)
+                {
+                    i[0] =0;
+                    return;
+                }
+                Log.e("onTick=",String.valueOf(millisUntilFinished));
+                float finishScond = (startTime-millisUntilFinished-50);
+                float pro =((finishScond+(allTime-startTime))/(allTime-50))*100;
+                cpb_CTFProgress.setProgress(pro);
+                tv_CTFTimer.setText(dateLong2String(millisUntilFinished));
+            }
+            @Override
+            public void onFinish() {
+                isPause=false;
+                tv_CTFTimer.setText("00:00");
+                cpb_CTFProgress.setProgress(100);
+                cb_CTFStart.setBackgroundResource(R.drawable.ctf_btn_start);
+                cb_CTFStart.setChecked(false);
+                replaFragment(new CompleteTreatmentFragment());
+            }
+        };
+        countDownTimer.start();
     }
 
     public void replaFragment(Fragment fragment)

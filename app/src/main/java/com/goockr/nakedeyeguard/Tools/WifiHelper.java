@@ -262,7 +262,7 @@ public class WifiHelper {
 
         //然后是一个实际应用方法，只验证过没有密码的情况：
 
-        public WifiConfiguration CreateWifiInfo(String SSID, String Password, int Type) {
+        public WifiConfiguration CreateWifiInfo(String SSID, String Password, int type) {
             WifiConfiguration config = new WifiConfiguration();
             config.allowedAuthAlgorithms.clear();
             config.allowedGroupCiphers.clear();
@@ -276,37 +276,49 @@ public class WifiHelper {
                 mWifiManager.removeNetwork(tempConfig.networkId);
             }
 
-            if (Type == 1) //没有密码的情况
+            switch (type)
             {
-                config.wepKeys[0] = "";
-                config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
-                config.wepTxKeyIndex = 0;
+                case 0://没有密码的情况
+                    config.wepKeys[0] = "";
+                    config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
+                    config.wepTxKeyIndex = 0;
+                    break;
+                case 1://WPA_EAP加密的情况
+                    config.preSharedKey = "\"" + Password + "\"";
+                    config.hiddenSSID = true;
+                    config.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
+                    config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
+                    config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_EAP);
+                    config.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
+                    config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
+                    config.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
+                    config.status = WifiConfiguration.Status.ENABLED;
+                    break;
+                case 2://WPA_PSK加密的情况
+                    config.preSharedKey = "\"" + Password + "\"";
+                    config.hiddenSSID = true;
+                    config.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
+                    config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
+                    config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK);
+                    config.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
+                    config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
+                    config.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
+                    config.status = WifiConfiguration.Status.ENABLED;
+                    break;
+                case 3:
+                    //WEP加密的情况
+                    config.hiddenSSID = true;
+                    config.wepKeys[0] = "\"" + Password + "\"";
+                    config.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.SHARED);
+                    config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
+                    config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
+                    config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
+                    config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
+                    config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.IEEE8021X);
+                    config.wepTxKeyIndex = 0;
+                    break;
             }
-            if (Type == 2) //WEP加密的情况
-            {
-                config.hiddenSSID = true;
-                config.wepKeys[0] = "\"" + Password + "\"";
-                config.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.SHARED);
-                config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
-                config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
-                config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP40);
-                config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.WEP104);
-                config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
-                config.wepTxKeyIndex = 0;
-            }
-            if (Type == 3) //WPA加密的情况
-            {
-                config.preSharedKey = "\"" + Password + "\"";
-                config.hiddenSSID = true;
-                config.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
-                config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.TKIP);
-                config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK);
-                config.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
-                //config.allowedProtocols.set(WifiConfiguration.Protocol.WPA);
-                config.allowedGroupCiphers.set(WifiConfiguration.GroupCipher.CCMP);
-                config.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
-                config.status = WifiConfiguration.Status.ENABLED;
-            }
+
             return config;
         }
 

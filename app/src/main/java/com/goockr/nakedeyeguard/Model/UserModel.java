@@ -1,18 +1,58 @@
 package com.goockr.nakedeyeguard.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by JJT-ssd on 2017/2/27.
  */
 
-public class UserModel {
+public class UserModel implements Parcelable{
+
     private String userName;
     public String getUserName() {return userName;}
     public void setUserName(String userName) {this.userName = userName;}
 
-    private int userIcon;
-    public int getUserIcon() {return userIcon;}
-    public void setUserIcon(int userIcon) {this.userIcon = userIcon;}
+    private String id;
+    public String getId() {return id;}
+    public void setId(String id) {this.id = id;}
+
+    private String userIconUrl;
+    public String getUserIconUrl() {return userIconUrl;}
+    public void setUserIconUrl(String userIconUrl) {this.userIconUrl = userIconUrl;}
+
+    public UserModel(){}
+
+    public UserModel(Parcel in) {
+        userName = in.readString();
+
+        id = in.readString();
+        userIconUrl = in.readString();
+    }
+
+    public static final Creator<UserModel> CREATOR = new Creator<UserModel>() {
+        @Override
+        public UserModel createFromParcel(Parcel in) {
+            return new UserModel(in);
+        }
+
+        @Override
+        public UserModel[] newArray(int size) {
+            return new UserModel[size];
+        }
+    };
 
 
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(userName);
+        dest.writeString(id);
+        dest.writeString(userIconUrl);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
 }

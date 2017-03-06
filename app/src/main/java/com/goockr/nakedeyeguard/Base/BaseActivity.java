@@ -66,10 +66,9 @@ public abstract class BaseActivity extends AppCompatActivity {
                     nowTime= Calendar.getInstance().getTimeInMillis();
                     if (isStartScreen) startScreensaver();
                 }
-
             }
         });
-       // screenThread.start();
+        screenThread.start();
     }
 
     public void setupView()
@@ -152,8 +151,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         Long ABS =nowTime-beforTouchTime;
        if (Math.abs(ABS)>longTime)
        {
-
            isStartScreen=false;
+           isInterrupt=true;
            Intent intentScreen = new Intent(BaseActivity.this,ScreensaverActivity.class);
            startActivity(intentScreen);
        }

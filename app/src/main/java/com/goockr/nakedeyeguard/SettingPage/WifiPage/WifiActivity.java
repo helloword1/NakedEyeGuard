@@ -7,12 +7,10 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.goockr.nakedeyeguard.Base.BaseActivity;
-import com.goockr.nakedeyeguard.Model.WifiModel;
 import com.goockr.nakedeyeguard.R;
 
 public class WifiActivity extends BaseActivity {
 
-    WifiModel selectWifi=new WifiModel();
     RelativeLayout rl_WifiStateBar;
     @Override
     protected int getLoyoutId() {

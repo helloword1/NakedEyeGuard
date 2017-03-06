@@ -1,25 +1,30 @@
 package com.goockr.nakedeyeguard.SettingPage.WifiPage;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiInfo;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.goockr.nakedeyeguard.Base.BaseFragment;
+import com.goockr.nakedeyeguard.FirstUsePage.BindingFragment;
 import com.goockr.nakedeyeguard.Model.WifiModel;
 import com.goockr.nakedeyeguard.R;
+import com.kaopiz.kprogresshud.KProgressHUD;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.goockr.nakedeyeguard.App.preferences;
 import static com.goockr.nakedeyeguard.App.wifiHelper;
 
 /**
@@ -48,25 +53,26 @@ public class WifiConnectFragment extends BaseFragment implements View.OnClickLis
         List<ScanResult>scanResult = wifiHelper.startScan();
         wifiHelper.startScan();
         WifiInfo connectInfo =wifiHelper.connectInfo();
-     //   List<WifiConfiguration> configurationList =wifiHelper.getConfiguration();
+
         for (int i=0;i<scanResult.size();i++)
         {
             WifiModel wifiModel=new WifiModel();
             ScanResult result = scanResult.get(i);
-           // WifiConfiguration config =configurationList.get(i);
-           // wifiModel.setConfig(config);
-           // String wifiSSID=config.SSID;
             if (result.SSID.length()<=0)continue;
-            //String wifiName = wifiSSID.substring(1,wifiSSID.length()-1);
+
             wifiModel.setWifiName(result.SSID);
             String connWifiSSID = connectInfo.getSSID();
             String connWifiName = connWifiSSID.substring(1,connWifiSSID.length()-1);
+
             if (result.SSID.equals(connWifiName)) wifiModel.setConnectState(true);
             else  wifiModel.setConnectState(false);
-            Log.e("capabilities====",  result.capabilities);
-//            if (TextUtils.isEmpty(config.preSharedKey)) wifiModel.setWifiLock(false);
-//            else wifiModel.setWifiLock(true);
-            wifiModel.setWifiLock(true);
+            if (result.capabilities.contains("WEP")) wifiModel.setSecurityType(WifiModel.SecurityType.WEP);
+            else if (result.capabilities.contains("PSK")) wifiModel.setSecurityType(WifiModel.SecurityType.WPA_PSK);
+            else if (result.capabilities.contains("EAP")) wifiModel.setSecurityType(WifiModel.SecurityType.WPA_EAP);
+            else  wifiModel.setSecurityType(WifiModel.SecurityType.NONE);
+
+            if (wifiModel.getSecurityType()== WifiModel.SecurityType.NONE) wifiModel.setWifiLock(false);
+            else wifiModel.setWifiLock(true);
             wifiModels.add(wifiModel);
         }
     }
@@ -100,7 +106,35 @@ public class WifiConnectFragment extends BaseFragment implements View.OnClickLis
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
              //   ((WifiActivity)getActivity()).selectWifi=wifiModels.get(position-1);
+                WifiModel model = wifiModels.get(position-1);
+                if (model.isWifiLock())
                 replaFragment(new WifiPWDFragment(wifiModels.get(position-1)));
+                else {
+
+                    TextView tv_Reset = new TextView(getActivity());
+                    tv_Reset.setTextColor(Color.WHITE);
+                    tv_Reset.setTextSize(18);
+                    boolean  isConnect=wifiHelper.addNetwork(wifiHelper.CreateWifiInfo(model.getWifiName(),"",model.getSecurityType().ordinal()));
+                    if (isConnect) tv_Reset.setText("设备已成功连接WiFi！");
+                    else tv_Reset.setText("连接失败，请重新连接！");
+
+                    final KProgressHUD restHUD= KProgressHUD.create(getActivity())
+                            .setCustomView(tv_Reset)
+                            .show();
+                    final boolean finalIsConnect = isConnect;
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            restHUD.dismiss();
+                            if (finalIsConnect)
+                            {
+                                boolean isFirstUser = preferences.getBoolean("FirstUser",true);
+                                if (isFirstUser) replaFragment(new BindingFragment());
+                            }
+
+                        }
+                    }, 2000);
+                }
             }
         });
     }

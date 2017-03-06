@@ -3,6 +3,7 @@ package com.goockr.nakedeyeguard;
 import android.app.AlarmManager;
 import android.app.Application;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 
 import com.goockr.nakedeyeguard.Http.HttpHelper;
 import com.goockr.nakedeyeguard.Tools.WifiHelper;
@@ -30,6 +31,8 @@ public class App extends Application {
     //
     public static boolean networkState=false;
     public static WifiHelper wifiHelper;
+
+    public static Drawable iconDrawable=null;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -46,7 +49,7 @@ public class App extends Application {
         editor =preferences.edit();
         alarmManager= (AlarmManager)getSystemService(ALARM_SERVICE);
         wifiHelper=new WifiHelper(getApplicationContext());
-        HttpHelper.httpInit();
+        HttpHelper.httpInits();
 //        Intent intentService =new Intent(this, ScreensaverReceiver.class);
 //        startService(intentService);
 

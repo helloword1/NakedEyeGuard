@@ -10,18 +10,29 @@ import android.view.WindowManager;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.goockr.nakedeyeguard.Base.ActivityCollector;
 import com.goockr.nakedeyeguard.Base.BaseActivity;
+import com.goockr.nakedeyeguard.Http.HttpHelper;
 import com.goockr.nakedeyeguard.Model.UserModel;
 import com.goockr.nakedeyeguard.R;
 import com.goockr.nakedeyeguard.SettingPage.SettingActivity;
 import com.goockr.nakedeyeguard.SettingPage.WifiPage.WifiActivity;
 import com.shizhefei.view.coolrefreshview.CoolRefreshView;
 import com.shizhefei.view.coolrefreshview.SimpleOnPullListener;
+import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import okhttp3.Call;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
@@ -33,6 +44,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     WindowManager windowManager;
 
     ImageButton ib_MainSetting;
+    GridAdapter gridAdapter;
 
     @Override
     protected int getLoyoutId() {return R.layout.activity_main;}
@@ -77,7 +89,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(gv_MainUser.getLayoutParams());
         lp.setMargins(spacing,marginTop ,spacing, 0);
         gv_MainUser.setLayoutParams(lp);
-        GridAdapter gridAdapter=new GridAdapter(this,userModels);
+        gridAdapter=new GridAdapter(this,userModels);
         gv_MainUser.setAdapter(gridAdapter);
 
 
@@ -85,6 +97,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         coolRefreshView.addOnPullListener(new SimpleOnPullListener() {
             @Override
             public void onRefreshing(CoolRefreshView refreshView) {
+                loadData();
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -109,15 +122,57 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private void initValue()
     {
-        for (int i=0;i<10;i++)
-        {
-            UserModel sceneModel=new UserModel();
-            sceneModel.setUserName("图标"+String.valueOf(i));
-            sceneModel.setUserIcon(R.drawable.test );
-            userModels.add(sceneModel);
-        }
+//        for (int i=0;i<10;i++)
+//        {
+//            UserModel sceneModel=new UserModel();
+//            sceneModel.setUserName("图标"+String.valueOf(i));
+//            sceneModel.setUserIcon(R.drawable.test );
+//            userModels.add(sceneModel);
+//        }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                loadData();
+            }
+        }).start();
+
     }
 
+    private void loadData()
+    {
+        userModels.clear();
+        Map<String,String> map=new HashMap<>();
+        map.put("c_pad_id","12345");
+        HttpHelper.httpPost(HttpHelper.getUserList(), map, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                Toast.makeText(MainActivity.this,"请检查网络",Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onResponse(String response, int id) {
+                //Json的解析类对象
+                JSONArray results = null;
+                try
+                {
+                    results = new JSONArray(response);
+                    if (results.length()<=0)return;
+                    for (int i=0;i<results.length();i++)
+                    {
+                        JSONObject dataItem = (JSONObject) results.get(i);
+                        UserModel sceneModel=new UserModel();
+                        sceneModel.setUserName(dataItem.getString("name"));
+                        sceneModel.setUserIconUrl( dataItem.getString("head_image"));
+                        sceneModel.setId(dataItem.getString("id"));
+                        userModels.add(sceneModel);
+                    }
+                    gridAdapter.notifyDataSetChanged();
+                } catch (JSONException e) {}
+
+            }
+
+        });
+    }
 
     @Override
     public void onClick(View v) {
