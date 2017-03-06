@@ -57,24 +57,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         isInterrupt=false;
         isStartScreen=true;
         beforTouchTime=Calendar.getInstance().getTimeInMillis();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //isInterrupt=false;
-        //screenThread=null;
-    }
-
-    public void setupView()
-    {
-        //获取当前时间
-        iv_MainWifi=(ImageView)findViewById(R.id.iv_BaseWifi);
-        ib_Back=(ImageButton) findViewById(R.id.bt_BaseBack);
-        tc_BaseClock=(TextClock) findViewById(R.id.tc_BaseClock);
-        registerBroadcast();
-
-
         screenThread= new Thread(new Runnable() {
             @Override
             public void run() {
@@ -88,6 +70,16 @@ public abstract class BaseActivity extends AppCompatActivity {
             }
         });
        // screenThread.start();
+    }
+
+    public void setupView()
+    {
+        //获取当前时间
+        iv_MainWifi=(ImageView)findViewById(R.id.iv_BaseWifi);
+        ib_Back=(ImageButton) findViewById(R.id.bt_BaseBack);
+        tc_BaseClock=(TextClock) findViewById(R.id.tc_BaseClock);
+        registerBroadcast();
+
     }
 
     //
@@ -160,6 +152,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         Long ABS =nowTime-beforTouchTime;
        if (Math.abs(ABS)>longTime)
        {
+
            isStartScreen=false;
            Intent intentScreen = new Intent(BaseActivity.this,ScreensaverActivity.class);
            startActivity(intentScreen);

@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.SharedPreferences;
 
 import com.goockr.nakedeyeguard.Http.HttpHelper;
+import com.goockr.nakedeyeguard.Tools.WifiHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +29,7 @@ public class App extends Application {
     public static boolean isStartScreen=true;
     //
     public static boolean networkState=false;
+    public static WifiHelper wifiHelper;
     @Override
     public void onCreate() {
         super.onCreate();
@@ -43,6 +45,7 @@ public class App extends Application {
         preferences = getSharedPreferences("preferences",MODE_PRIVATE);
         editor =preferences.edit();
         alarmManager= (AlarmManager)getSystemService(ALARM_SERVICE);
+        wifiHelper=new WifiHelper(getApplicationContext());
         HttpHelper.httpInit();
 //        Intent intentService =new Intent(this, ScreensaverReceiver.class);
 //        startService(intentService);

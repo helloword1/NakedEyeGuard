@@ -1,29 +1,36 @@
 package com.goockr.nakedeyeguard.SettingPage.WifiPage;
 
 import android.content.Context;
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiInfo;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.goockr.nakedeyeguard.Base.BaseFragment;
-import com.goockr.nakedeyeguard.HealingProcessPage.HealingProcessActivity;
 import com.goockr.nakedeyeguard.Model.WifiModel;
 import com.goockr.nakedeyeguard.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.goockr.nakedeyeguard.App.wifiHelper;
+
 /**
  * Created by JJT-ssd on 2017/3/2.
  */
 
-public class WifiConnectFragment extends BaseFragment {
+public class WifiConnectFragment extends BaseFragment implements View.OnClickListener{
 
     ListView lv_SetWifiList;
     WifiAdapter wifiAdapter;
+    Button bt_WifiScan;
     List<WifiModel> wifiModels=new ArrayList<>();
     @Override
     protected int getLoyoutId() {return R.layout.wifi_connect_fragment;}
@@ -37,12 +44,29 @@ public class WifiConnectFragment extends BaseFragment {
 
     private void initValue()
     {
-        for (int i=0;i<20;i++)
+        wifiModels.clear();
+        List<ScanResult>scanResult = wifiHelper.startScan();
+        wifiHelper.startScan();
+        WifiInfo connectInfo =wifiHelper.connectInfo();
+     //   List<WifiConfiguration> configurationList =wifiHelper.getConfiguration();
+        for (int i=0;i<scanResult.size();i++)
         {
             WifiModel wifiModel=new WifiModel();
-            wifiModel.setConnectState(false);
+            ScanResult result = scanResult.get(i);
+           // WifiConfiguration config =configurationList.get(i);
+           // wifiModel.setConfig(config);
+           // String wifiSSID=config.SSID;
+            if (result.SSID.length()<=0)continue;
+            //String wifiName = wifiSSID.substring(1,wifiSSID.length()-1);
+            wifiModel.setWifiName(result.SSID);
+            String connWifiSSID = connectInfo.getSSID();
+            String connWifiName = connWifiSSID.substring(1,connWifiSSID.length()-1);
+            if (result.SSID.equals(connWifiName)) wifiModel.setConnectState(true);
+            else  wifiModel.setConnectState(false);
+            Log.e("capabilities====",  result.capabilities);
+//            if (TextUtils.isEmpty(config.preSharedKey)) wifiModel.setWifiLock(false);
+//            else wifiModel.setWifiLock(true);
             wifiModel.setWifiLock(true);
-            wifiModel.setWifiName("jetgege"+ String.valueOf(i));
             wifiModels.add(wifiModel);
         }
     }
@@ -51,6 +75,8 @@ public class WifiConnectFragment extends BaseFragment {
     {
         LayoutInflater lif = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         lv_SetWifiList=(ListView)view.findViewById(R.id.lv_SetWifiList);
+        bt_WifiScan=(Button) view.findViewById(R.id.bt_WifiScan);
+        bt_WifiScan.setOnClickListener(this);
         View headView =lif.inflate(R.layout.set_wifi_list_headview, lv_SetWifiList, false);
         View footView =lif.inflate(R.layout.set_wifi_list_footview, lv_SetWifiList, false);
         lv_SetWifiList.addHeaderView(headView);
@@ -73,8 +99,8 @@ public class WifiConnectFragment extends BaseFragment {
         lv_SetWifiList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ((WifiActivity)getActivity()).selectWifi=wifiModels.get(position-1);
-                replaFragment(new WifiPWDFragment());
+             //   ((WifiActivity)getActivity()).selectWifi=wifiModels.get(position-1);
+                replaFragment(new WifiPWDFragment(wifiModels.get(position-1)));
             }
         });
     }
@@ -89,5 +115,18 @@ public class WifiConnectFragment extends BaseFragment {
         transaction.replace(R.id.fl_WifiConnect,fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.bt_WifiScan:
+                Toast.makeText(getActivity(),"onClickScan",Toast.LENGTH_SHORT).show();
+                initValue();
+                wifiAdapter.notifyDataSetChanged();
+                break;
+        }
+
     }
 }

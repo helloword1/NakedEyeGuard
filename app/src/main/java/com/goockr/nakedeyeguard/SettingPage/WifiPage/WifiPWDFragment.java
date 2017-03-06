@@ -1,5 +1,6 @@
 package com.goockr.nakedeyeguard.SettingPage.WifiPage;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.goockr.nakedeyeguard.Base.BaseFragment;
 import com.goockr.nakedeyeguard.FirstUsePage.BindingFragment;
+import com.goockr.nakedeyeguard.Model.WifiModel;
 import com.goockr.nakedeyeguard.R;
 import com.kaopiz.kprogresshud.KProgressHUD;
 
@@ -23,6 +25,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static com.goockr.nakedeyeguard.App.preferences;
+import static com.goockr.nakedeyeguard.App.wifiHelper;
 
 /**
  * Created by JJT-ssd on 2017/3/2.
@@ -33,6 +36,13 @@ public class WifiPWDFragment extends BaseFragment implements View.OnClickListene
     EditText et_WifiPWDInput;
     Button bt_WifiPwdCancle;
     Button bt_WifiPwdSure;
+    WifiModel wifiModel;
+
+    @SuppressLint("ValidFragment")
+    public WifiPWDFragment(WifiModel wifiModel)
+    {
+        this.wifiModel=wifiModel;
+    }
 
     @Override
     protected int getLoyoutId() {return R.layout.set_wifipwd_fragment;}
@@ -113,27 +123,28 @@ public class WifiPWDFragment extends BaseFragment implements View.OnClickListene
         switch (v.getId())
         {
             case R.id.bt_WifiPwdSure:
-                final boolean isConnect=true;
                 TextView tv_Reset = new TextView(getActivity());
-
                 tv_Reset.setTextColor(Color.WHITE);
                 tv_Reset.setTextSize(18);
-                if (isConnect)
-                {
-                    ((WifiActivity)getActivity()).selectWifi.setConnectState(true);
-                    tv_Reset.setText("设备已成功连接WiFi！");
+                boolean isConnect=false;
 
-                }else {
-                    tv_Reset.setText("连接失败，请重新连接！");
-                }
+                if (et_WifiPWDInput.getText().toString().equals(wifiModel.getConfig().preSharedKey))
+                {
+                    isConnect=wifiHelper.addNetwork(wifiModel.getConfig());
+                    if (isConnect) tv_Reset.setText("设备已成功连接WiFi！");
+                    else tv_Reset.setText("连接失败，请重新连接！");
+
+                }else tv_Reset.setText("密码错误！");
+
                 final KProgressHUD restHUD= KProgressHUD.create(getActivity())
                         .setCustomView(tv_Reset)
                         .show();
+                final boolean finalIsConnect = isConnect;
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         restHUD.dismiss();
-                        if (isConnect)
+                        if (finalIsConnect)
                         {
                             boolean isFirstUser = preferences.getBoolean("FirstUser",true);
                             if (isFirstUser) replaFragment(new BindingFragment());
