@@ -24,6 +24,7 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.goockr.nakedeyeguard.App.editor;
 import static com.goockr.nakedeyeguard.App.preferences;
 import static com.goockr.nakedeyeguard.App.wifiHelper;
 
@@ -127,9 +128,23 @@ public class WifiPWDFragment extends BaseFragment implements View.OnClickListene
                 tv_Reset.setTextColor(Color.WHITE);
                 tv_Reset.setTextSize(18);
 
-            boolean  isConnect=wifiHelper.addNetwork(wifiHelper.CreateWifiInfo(wifiModel.getWifiName(),et_WifiPWDInput.getText().toString(),wifiModel.getSecurityType().ordinal()));
-                if (isConnect) tv_Reset.setText("设备已成功连接WiFi！");
-                else tv_Reset.setText("连接失败，请重新连接！");
+                String wifiName=wifiModel.getWifiName();
+                String wifiPWD =et_WifiPWDInput.getText().toString();
+                int wifiSecurityType=wifiModel.getSecurityType().ordinal();
+
+                boolean  isConnect=wifiHelper.addNetwork(wifiHelper.CreateWifiInfo(wifiName,wifiPWD,wifiSecurityType));
+                if (isConnect)
+                {
+                    editor.putString("WifiName",wifiName);
+                    editor.putString("WifiPWD",wifiPWD);
+                    editor.putString("WifiSecurityType",String.valueOf(wifiSecurityType));
+                    editor.commit();
+                    tv_Reset.setText("设备已成功连接WiFi！");
+                }
+                else
+                {
+                    tv_Reset.setText("连接失败，请重新连接！");
+                }
 
                 final KProgressHUD restHUD= KProgressHUD.create(getActivity())
                         .setCustomView(tv_Reset)

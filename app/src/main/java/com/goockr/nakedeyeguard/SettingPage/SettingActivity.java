@@ -16,6 +16,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.goockr.nakedeyeguard.Base.BaseActivity;
 import com.goockr.nakedeyeguard.R;
 import com.goockr.nakedeyeguard.SettingPage.WifiPage.WifiActivity;
+import com.goockr.nakedeyeguard.StartActivity;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.weigan.loopview.LoopView;
 import com.xw.repo.BubbleSeekBar;
@@ -23,7 +24,6 @@ import com.xw.repo.BubbleSeekBar;
 import static com.goockr.nakedeyeguard.App.editor;
 import static com.goockr.nakedeyeguard.App.preferences;
 import static com.goockr.nakedeyeguard.App.restTimeList;
-import static com.goockr.nakedeyeguard.Tools.Common.scheduleDismiss;
 
 public class SettingActivity extends BaseActivity implements View.OnClickListener{
 
@@ -148,7 +148,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 });
                 break;
             case R.id.rl_SetTime:
-                Intent intentTime=new Intent(SettingActivity.this,SetTimeActivity.class);
+                final Intent intentTime=new Intent(SettingActivity.this,SetTimeActivity.class);
                 startActivity(intentTime);
                 overridePendingTransition(R.anim.fragment_slide_right_in, R.anim.fragment_slide_left_out);
                 break;
@@ -162,13 +162,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
                 //设置是否循环播放
                 loop_SetScreenSaverTime.setNotLoop();
-                //滚动监听
-//                loop_SetScreenSaverTime.setListener(new OnItemSelectedListener() {
-//                    @Override
-//                    public void onItemSelected(int index) {
-//                        Toast.makeText(SettingActivity.this, list.get(index), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+
                 //设置原始数据
                 loop_SetScreenSaverTime.setItems(restTimeList);
 
@@ -220,10 +214,17 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                         tv_Reset.setText("设备已恢复出厂设置！");
                         tv_Reset.setTextColor(Color.WHITE);
                         tv_Reset.setTextSize(18);
-                        KProgressHUD  restHUD= KProgressHUD.create(SettingActivity.this)
+                        final KProgressHUD  restHUD= KProgressHUD.create(SettingActivity.this)
                                 .setCustomView(tv_Reset)
                                 .show();
-                        scheduleDismiss(restHUD);
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                restHUD.dismiss();
+                                Intent startIntent=new Intent(SettingActivity.this, StartActivity.class);
+                                startActivity(startIntent);
+                            }
+                        }, 2000);
                     }
                 });
                 break;

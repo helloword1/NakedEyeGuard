@@ -66,6 +66,8 @@ public class HealingProcessFragment extends BaseFragment implements View.OnClick
     }
 
 
+
+
     public void replaFragment(Fragment fragment)
     {
 

@@ -16,6 +16,8 @@ import okhttp3.OkHttpClient;
 public class HttpHelper {
 
 
+    public static String deviceId="12345";
+
     public static String baseUrl="https://maverickhunteraxel.leanapp.cn";
 
     //获取用户列表

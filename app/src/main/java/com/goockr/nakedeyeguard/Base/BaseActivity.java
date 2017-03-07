@@ -40,7 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private ForceOfflineReceiver receiver;
     NetworkReceiverHelper networkReceiverHelper;
     Thread screenThread;
-    boolean isInterrupt=false;
+
     protected abstract int getLoyoutId();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,19 +48,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLoyoutId());
         setupView();
         ActivityCollector.addActivity(this);
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        isInterrupt=false;
+
         isStartScreen=true;
         beforTouchTime=Calendar.getInstance().getTimeInMillis();
         screenThread= new Thread(new Runnable() {
             @Override
             public void run() {
-                while (!isInterrupt)
+                while (screenThread.isInterrupted())
                 {
                     SystemClock.sleep(2000);
                     nowTime= Calendar.getInstance().getTimeInMillis();
@@ -152,7 +151,7 @@ public abstract class BaseActivity extends AppCompatActivity {
        if (Math.abs(ABS)>longTime)
        {
            isStartScreen=false;
-           isInterrupt=true;
+           screenThread.interrupt();
            Intent intentScreen = new Intent(BaseActivity.this,ScreensaverActivity.class);
            startActivity(intentScreen);
        }

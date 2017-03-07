@@ -50,4 +50,5 @@ dependencies {
 
     compile 'com.kyleduo.switchbutton:library:1.4.5'
     compile 'com.zhy:okhttputils:2.6.2'
+
 }

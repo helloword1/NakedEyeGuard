@@ -17,6 +17,7 @@ import com.goockr.nakedeyeguard.Base.BaseActivity;
 import com.goockr.nakedeyeguard.Http.HttpHelper;
 import com.goockr.nakedeyeguard.Model.UserModel;
 import com.goockr.nakedeyeguard.R;
+import com.goockr.nakedeyeguard.Screensaver.ScreenReceiver;
 import com.goockr.nakedeyeguard.SettingPage.SettingActivity;
 import com.goockr.nakedeyeguard.SettingPage.WifiPage.WifiActivity;
 import com.shizhefei.view.coolrefreshview.CoolRefreshView;
@@ -46,6 +47,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     ImageButton ib_MainSetting;
     GridAdapter gridAdapter;
 
+    ScreenReceiver screenReceiver;
     @Override
     protected int getLoyoutId() {return R.layout.activity_main;}
 
@@ -55,10 +57,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         initValue();
         setupUI();
-
     }
-
-
 
     private void setupUI() {
 
@@ -119,17 +118,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         },1000);
     }
 
-
     private void initValue()
     {
-//        for (int i=0;i<10;i++)
-//        {
-//            UserModel sceneModel=new UserModel();
-//            sceneModel.setUserName("图标"+String.valueOf(i));
-//            sceneModel.setUserIcon(R.drawable.test );
-//            userModels.add(sceneModel);
-//        }
-
+        screenReceiver=new ScreenReceiver();
+        screenReceiver.registerReceiver(this);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -143,7 +135,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     {
         userModels.clear();
         Map<String,String> map=new HashMap<>();
-        map.put("c_pad_id","12345");
+        map.put("c_pad_id",HttpHelper.deviceId);
         HttpHelper.httpPost(HttpHelper.getUserList(), map, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -183,5 +175,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        screenReceiver.unregisterReceiver();
     }
 }

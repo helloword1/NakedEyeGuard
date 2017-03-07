@@ -271,17 +271,17 @@ public class WifiHelper {
             config.allowedProtocols.clear();
             config.SSID = "\"" + SSID + "\"";
 
-            WifiConfiguration tempConfig = this.IsExsits(SSID);
-            if (tempConfig != null) {
-                mWifiManager.removeNetwork(tempConfig.networkId);
-            }
+//            WifiConfiguration tempConfig = this.IsExsits(SSID);
+//            if (tempConfig != null) {
+//                mWifiManager.removeNetwork(tempConfig.networkId);
+//            }
 
             switch (type)
             {
                 case 0://没有密码的情况
-                    config.wepKeys[0] = "";
+                    //config.wepKeys[0] = "";
                     config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE);
-                    config.wepTxKeyIndex = 0;
+                  //  config.wepTxKeyIndex = 0;
                     break;
                 case 1://WPA_EAP加密的情况
                     config.preSharedKey = "\"" + Password + "\"";

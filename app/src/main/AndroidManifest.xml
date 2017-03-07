@@ -13,8 +13,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
+    <!--屏保-->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+
     <!--wifi扫描需要此权限-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -59,12 +61,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Screensaver.ScreensaverActivity"  android:screenOrientation="portrait">
+        <activity android:name=".Screensaver.ScreensaverActivity"
+            android:launchMode="singleTask" android:screenOrientation="portrait">
         </activity>
 
-        <service android:name=".Screensaver.ScreensaverReceiver"
-            android:enabled="true"
-            android:exported="true"/>
 
     </application>
 

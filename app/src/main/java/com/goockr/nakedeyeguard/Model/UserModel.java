@@ -21,13 +21,19 @@ public class UserModel implements Parcelable{
     public String getUserIconUrl() {return userIconUrl;}
     public void setUserIconUrl(String userIconUrl) {this.userIconUrl = userIconUrl;}
 
+    private String treatmentTimes;
+    public String getTreatmentTimes() {return treatmentTimes;}
+    public void setTreatmentTimes(String treatmentTimes) {this.treatmentTimes = treatmentTimes;}
+
+
+
     public UserModel(){}
 
     public UserModel(Parcel in) {
         userName = in.readString();
-
         id = in.readString();
         userIconUrl = in.readString();
+        treatmentTimes= in.readString();
     }
 
     public static final Creator<UserModel> CREATOR = new Creator<UserModel>() {
@@ -48,6 +54,8 @@ public class UserModel implements Parcelable{
         dest.writeString(userName);
         dest.writeString(id);
         dest.writeString(userIconUrl);
+        dest.writeString(treatmentTimes);
+
     }
 
     @Override

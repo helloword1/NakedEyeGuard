@@ -24,6 +24,7 @@ import com.kaopiz.kprogresshud.KProgressHUD;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.goockr.nakedeyeguard.App.editor;
 import static com.goockr.nakedeyeguard.App.preferences;
 import static com.goockr.nakedeyeguard.App.wifiHelper;
 
@@ -115,7 +116,17 @@ public class WifiConnectFragment extends BaseFragment implements View.OnClickLis
                     tv_Reset.setTextColor(Color.WHITE);
                     tv_Reset.setTextSize(18);
                     boolean  isConnect=wifiHelper.addNetwork(wifiHelper.CreateWifiInfo(model.getWifiName(),"",model.getSecurityType().ordinal()));
-                    if (isConnect) tv_Reset.setText("设备已成功连接WiFi！");
+                    if (isConnect)
+                    {
+                        editor.putString("WifiName",model.getWifiName());
+                        editor.putString("WifiPWD","");
+                        editor.putString("WifiSecurityType",String.valueOf(model.getSecurityType().ordinal()));
+                        editor.commit();
+                        //model.setConnectState(true);
+                        initValue();
+                        wifiAdapter.notifyDataSetChanged();
+                        tv_Reset.setText("设备已成功连接WiFi！");
+                    }
                     else tv_Reset.setText("连接失败，请重新连接！");
 
                     final KProgressHUD restHUD= KProgressHUD.create(getActivity())
