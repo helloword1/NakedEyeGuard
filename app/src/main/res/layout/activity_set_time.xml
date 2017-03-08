@@ -22,6 +22,7 @@
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/rl_STInternetTime"
+        android:clickable="false"
         android:background="@drawable/setting_relativelayout_bg"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -32,7 +33,7 @@
             android:text="自动日期与时间"
             android:textSize="18sp"
             android:layout_marginLeft="20dp"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorCusGray2"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -46,6 +47,7 @@
             <!--android:layout_height="wrap_content"-->
            <!--/>-->
         <com.kyleduo.switchbutton.SwitchButton
+            android:checked="true"
             android:id="@+id/sw_STInternetTime"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
@@ -76,8 +78,7 @@
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/rl_STDate"
-        android:clickable="true"
-        android:background="@drawable/setting_relativelayout_bg"
+        android:clickable="false"
         android:layout_below="@+id/rl_STInternetTime"
         android:layout_width="match_parent"
         android:layout_height="60dp">
@@ -85,7 +86,7 @@
             android:text="设置日期"
             android:textSize="18sp"
             android:layout_marginLeft="20dp"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorCusGray2"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -116,8 +117,7 @@
     </RelativeLayout>
     <RelativeLayout
         android:id="@+id/rl_STTime"
-        android:clickable="true"
-        android:background="@drawable/setting_relativelayout_bg"
+        android:clickable="false"
         android:layout_below="@+id/rl_STDate"
         android:layout_width="match_parent"
         android:layout_height="60dp">
@@ -126,13 +126,25 @@
             android:text="设置时间"
             android:textSize="18sp"
             android:layout_marginLeft="20dp"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorCusGray2"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tv_SetTime"
-            android:text="12:18"
+        <!--<TextView-->
+            <!--android:id="@+id/tv_SetTime"-->
+            <!--android:text="12:18"-->
+            <!--android:layout_toLeftOf="@+id/iv_STTimeGo"-->
+            <!--android:textSize="16sp"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:textColor="@color/colorCusGray2"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+        <TextClock
+            android:id="@+id/tc_BaseClock"
+            android:format24Hour="H:mm"
+            android:format12Hour="h:mm"
+            android:gravity="center_vertical"
             android:layout_toLeftOf="@+id/iv_STTimeGo"
             android:textSize="16sp"
             android:layout_marginRight="10dp"
@@ -140,7 +152,6 @@
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-
         <ImageView
             android:id="@+id/iv_STTimeGo"
             android:background="@drawable/list_go"
@@ -168,6 +179,7 @@
             android:background="@color/colorCusGray"/>
     </RelativeLayout>
     <RelativeLayout
+        android:clickable="false"
         android:id="@+id/rl_STInternetTimeZone"
         android:background="@drawable/setting_relativelayout_bg"
         android:layout_width="match_parent"
@@ -179,7 +191,7 @@
             android:text="自动确认时区"
             android:textSize="18sp"
             android:layout_marginLeft="20dp"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorCusGray2"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -194,6 +206,7 @@
             android:layout_height="wrap_content"
             />
         <com.kyleduo.switchbutton.SwitchButton
+            android:checked="true"
             android:id="@+id/sw_STInternetTimeZone"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
@@ -211,10 +224,10 @@
 
 
     </RelativeLayout>
+    <!--android:background="@drawable/setting_relativelayout_bg"-->
     <RelativeLayout
         android:id="@+id/rl_STSelectTimeZone"
-        android:clickable="true"
-        android:background="@drawable/setting_relativelayout_bg"
+        android:clickable="false"
         android:layout_below="@+id/rl_STInternetTimeZone"
         android:layout_width="match_parent"
         android:layout_height="60dp">
@@ -222,7 +235,7 @@
             android:text="选择时区"
             android:textSize="18sp"
             android:layout_marginLeft="20dp"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorCusGray2"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -230,7 +243,7 @@
             android:id="@+id/tv_SetTimeZone"
             android:text="北京"
             android:layout_toLeftOf="@+id/iv_STSelectTimeZoneGo"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:layout_marginRight="10dp"
             android:textColor="@color/colorCusGray2"
             android:layout_centerVertical="true"
@@ -251,6 +264,13 @@
             android:layout_height="0.8dp"
             android:background="@color/colorCusGray"/>
     </RelativeLayout>
+    <Button
+        android:background="@color/colorCusTrans"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/rl_SetTimeGroup3"
+        android:layout_below="@+id/rl_SetTimeStateBar"
+        ></Button>
     <RelativeLayout
         android:id="@+id/rl_SetTimeGroup3"
         android:background="#f4f4f4"
@@ -272,7 +292,7 @@
         android:layout_alignParentStart="true">
         <TextView
             android:id="@+id/rl_STTenseTips"
-            android:text="自动确认时区"
+            android:text="24小时制"
             android:textSize="18sp"
             android:layout_marginLeft="20dp"
             android:textColor="@color/colorBlack"
@@ -280,7 +300,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <com.kyleduo.switchbutton.SwitchButton
-            android:id="@+id/sw_STComfirmTimeZone"
+            android:id="@+id/sw_STC24HourSystem"
             android:layout_centerVertical="true"
             android:layout_marginRight="20dp"
             android:layout_alignParentRight="true"

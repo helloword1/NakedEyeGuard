@@ -16,7 +16,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.goockr.nakedeyeguard.Base.BaseActivity;
 import com.goockr.nakedeyeguard.R;
 import com.goockr.nakedeyeguard.SettingPage.WifiPage.WifiActivity;
-import com.goockr.nakedeyeguard.StartActivity;
+import com.goockr.nakedeyeguard.Tools.Common;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.weigan.loopview.LoopView;
 import com.xw.repo.BubbleSeekBar;
@@ -186,11 +186,25 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 });
                 break;
             case R.id.rl_SetSystemUpgrade:
-                 KProgressHUD upgradeHUDhud = KProgressHUD.create(SettingActivity.this)
-                        .setStyle(KProgressHUD.Style.BAR_DETERMINATE)
-                        .setLabel("请稍等设备版本升级中...");
-                simulateProgressUpdate(upgradeHUDhud);
-                upgradeHUDhud.show();
+                boolean isNewVersion=false;
+                if (isNewVersion){//有新版本
+                    KProgressHUD upgradeHUDhud = KProgressHUD.create(SettingActivity.this)
+                            .setStyle(KProgressHUD.Style.BAR_DETERMINATE)
+                            .setLabel("请稍等设备版本升级中...");
+                    simulateProgressUpdate(upgradeHUDhud);
+                    upgradeHUDhud.show();
+                }else //没有新版本
+                {
+                    TextView tv_Reset = new TextView(SettingActivity.this);
+                    tv_Reset.setText("当前系统已是最新版本！");
+                    tv_Reset.setTextColor(Color.WHITE);
+                    tv_Reset.setTextSize(18);
+                    final KProgressHUD  restHUD= KProgressHUD.create(SettingActivity.this)
+                            .setCustomView(tv_Reset)
+                            .show();
+                    Common.scheduleDismiss(restHUD);
+                }
+
                 break;
             case R.id.rl_SetReset:
                 final MaterialDialog resetDialog =  new MaterialDialog.Builder(this)
@@ -221,8 +235,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                             @Override
                             public void run() {
                                 restHUD.dismiss();
-                                Intent startIntent=new Intent(SettingActivity.this, StartActivity.class);
-                                startActivity(startIntent);
+                                Intent intent=new Intent("com.goockr.broadcast.logout");
+                                sendBroadcast(intent);
                             }
                         }, 2000);
                     }

@@ -61,16 +61,6 @@ public class HealingProcessActivity extends BaseActivity {
                     jsonData=new JSONObject(response);
                     treatmentNum = (JSONObject)jsonData.get("treatment");
                     userModel.setTreatmentTimes(treatmentNum.getString("number"));
-                    // results = (JSONObject)jsonData.get("vision");
-//                    if (results.length()<=0)return;
-//                    for (int i=0;i<results.length();i++)
-//                    {
-//                        JSONObject dataItem = (JSONObject) results.get(i);
-//                        UserModel sceneModel=new UserModel();
-//                        sceneModel.setUserName(dataItem.getString("name"));
-//                        sceneModel.setUserIconUrl( dataItem.getString("head_image"));
-//                        sceneModel.setId(dataItem.getString("id"));
-//                    }
                 } catch (JSONException e) {}
 
             }

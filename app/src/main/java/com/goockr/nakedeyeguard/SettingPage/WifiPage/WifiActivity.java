@@ -29,7 +29,6 @@ public class WifiActivity extends BaseActivity {
     {
         FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fl_WifiConnect,fragment);
-        transaction.addToBackStack(null);
         transaction.commit();
     }
 

@@ -92,6 +92,12 @@ public class WifiConnectFragment extends BaseFragment implements View.OnClickLis
         lv_SetWifiList.setAdapter(wifiAdapter);
         setWifiIcon(((WifiActivity)getActivity()).getNetWorkState());
 
+        footView.findViewById(R.id.rl_WifiSelectOther).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaFragment(new AddOtherNetworkFragment());
+            }
+        });
     }
 
     private void eventHandle()
@@ -102,6 +108,7 @@ public class WifiConnectFragment extends BaseFragment implements View.OnClickLis
                 getActivity().finish();
             }
         });
+
 
         lv_SetWifiList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -167,7 +174,7 @@ public class WifiConnectFragment extends BaseFragment implements View.OnClickLis
         switch (v.getId())
         {
             case R.id.bt_WifiScan:
-                Toast.makeText(getActivity(),"onClickScan",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"扫描完成！",Toast.LENGTH_SHORT).show();
                 initValue();
                 wifiAdapter.notifyDataSetChanged();
                 break;

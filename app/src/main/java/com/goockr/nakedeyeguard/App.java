@@ -6,12 +6,12 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 
 import com.goockr.nakedeyeguard.Http.HttpHelper;
+import com.goockr.nakedeyeguard.Tools.SystemManager;
 import com.goockr.nakedeyeguard.Tools.WifiHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by JJT-ssd on 2017/3/2.
@@ -38,8 +38,10 @@ public class App extends Application {
         super.onCreate();
         //获取数据初始设置
         initValue();//
-//        String apkRoot="chmod 777 "+getPackageCodePath();
-//        SystemManager.RootCommand(apkRoot);
+
+       // SystemManager.RootCommand("chmod 777 /dev/alarm");
+        //SystemManager.RootCommand("chmod 664 /dev/alarm");
+        SystemManager.RootCommand("chmod 666 /dev/alarm");
 
     }
 
@@ -57,10 +59,11 @@ public class App extends Application {
         //int brightness =preferences.getInt("Brightness",100);
        // Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,brightness);
 
-
         android.provider.Settings.System.putString(getContentResolver(),android.provider.Settings.System.TIME_12_24, "24");
+       // final String timeZoneStr = preferences.getString("TimeZone","北京");
         //设置默认时区 中国标准时间 (北京)
-        final String timeZoneStr = preferences.getString("TimeZone","北京");
+        final boolean hourSystem = preferences.getBoolean("24HourSystem",true);
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -70,14 +73,14 @@ public class App extends Application {
                 timeZoneMap.put(getString(R.string.中途岛), "中途岛");
                 timeZoneMap.put(getString(R.string.丹佛), "丹佛");
 
-                for(Map.Entry entry:(Set<Map.Entry>)timeZoneMap.entrySet()){
-                    if(timeZoneStr.equals(entry.getValue()))
-                    {
-                        alarmManager.setTimeZone((String)entry.getKey());
-                        editor.putString("TimeZone",timeZoneStr);
-
-                    }
-                }
+//                for(Map.Entry entry:(Set<Map.Entry>)timeZoneMap.entrySet()){
+//                    if(timeZoneStr.equals(entry.getValue()))
+//                    {
+//                        alarmManager.setTimeZone((String)entry.getKey());
+//                        editor.putString("TimeZone",timeZoneStr);
+//
+//                    }
+//                }
                 restTimeList.add("10秒");
                 restTimeList.add("30秒");
                 restTimeList.add("1分钟");
@@ -88,6 +91,7 @@ public class App extends Application {
                 restTimeList.add("1小时");
                 restTimeList.add("从不");
                 editor.putString("RestTime","30秒");
+                editor.putBoolean("24HourSystem",hourSystem);
                 editor.commit();
 
             }

@@ -13,11 +13,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextClock;
 
+import com.goockr.nakedeyeguard.FirstUsePage.FirstActivty;
 import com.goockr.nakedeyeguard.R;
 import com.goockr.nakedeyeguard.Screensaver.ScreensaverActivity;
 
 import java.util.Calendar;
 
+import static com.goockr.nakedeyeguard.App.editor;
 import static com.goockr.nakedeyeguard.App.isStartScreen;
 import static com.goockr.nakedeyeguard.App.networkState;
 import static com.goockr.nakedeyeguard.App.preferences;
@@ -175,7 +177,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         @Override
         public void onReceive(final Context context, Intent intent) {
-
+            if (intent.getAction().equals("com.goockr.broadcast.logout"))
+            {
+                editor.putBoolean("FirstUser",true);
+                editor.putString("TimeZone","北京");
+                editor.putBoolean("24HourSystem",true);
+                editor.commit();
+                ActivityCollector.finishAll();
+                Intent startIntent=new Intent(context, FirstActivty.class);
+                startActivity(startIntent);
+            }
         }
     }
 

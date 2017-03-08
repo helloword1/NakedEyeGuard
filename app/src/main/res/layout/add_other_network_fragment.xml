@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include android:id="@+id/rl_AddNewWifiStateBar" layout="@layout/base_fragment_toobar"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_AddNewLayout1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/rl_AddNewWifiStateBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/et_NewWifiNameInput"
+            android:hint="  输入WiFI名称"
+            android:background="@color/colorCusTrans"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+        <ImageButton
+            android:id="@+id/ib_AddWifiNameDel"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:background="@color/colorCusNum"
+            android:layout_below="@+id/et_NewWifiNameInput"
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/rl_AddNewLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/et_NewWifiPWDInput"
+            android:hint="  输入密码"
+            android:background="@color/colorCusTrans"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+        <ImageButton
+
+
+            android:visibility="gone"
+            android:id="@+id/ib_AddWifiPWDDel"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+
+            android:background="@color/colorCusNum"
+            android:layout_below="@+id/et_NewWifiPWDInput"
+            android:layout_width="match_parent"
+            android:layout_height="2dp" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="300dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+        <Button
+            android:id="@+id/bt_AddWifiSure"
+            android:enabled="false"
+            android:text="连接"
+            android:textSize="16sp"
+            android:textColor="@drawable/text_save_btn"
+            android:layout_marginLeft="20dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="#B8ddc2"
+           />
+    </LinearLayout>
+</RelativeLayout>

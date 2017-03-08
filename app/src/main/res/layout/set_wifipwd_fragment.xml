@@ -23,7 +23,6 @@
         android:layout_below="@+id/et_WifiPWDInput"
         android:layout_width="match_parent"
         android:layout_height="2dp" />
-
     <LinearLayout
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
