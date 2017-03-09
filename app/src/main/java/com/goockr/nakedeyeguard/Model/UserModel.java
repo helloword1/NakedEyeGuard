@@ -25,6 +25,85 @@ public class UserModel implements Parcelable{
     public String getTreatmentTimes() {return treatmentTimes;}
     public void setTreatmentTimes(String treatmentTimes) {this.treatmentTimes = treatmentTimes;}
 
+    public String getBeforeRight() {
+        return beforeRight;
+    }
+
+    public void setBeforeRight(String beforeRight) {
+        this.beforeRight = beforeRight;
+    }
+
+
+
+    public String getNowGlsLeft() {
+        return nowGlsLeft;
+    }
+
+    public void setNowGlsLeft(String nowGlsLeft) {
+        this.nowGlsLeft = nowGlsLeft;
+    }
+
+    public String getNowGlsRight() {
+
+        return nowGlsRight;
+    }
+
+    public void setNowGlsRight(String nowGlsRight) {
+        this.nowGlsRight = nowGlsRight;
+    }
+
+    public String getNowNakedLeft() {
+
+        return nowNakedLeft;
+    }
+
+    public void setNowNakedLeft(String nowNakedLeft) {
+        this.nowNakedLeft = nowNakedLeft;
+    }
+
+    public String getNowNakedRight() {
+
+        return nowNakedRight;
+    }
+
+    public void setNowNakedRight(String nowNakedRight) {
+        this.nowNakedRight = nowNakedRight;
+    }
+
+    public String getBeforeGlsLeft() {
+
+        return beforeGlsLeft;
+    }
+
+    public void setBeforeGlsLeft(String beforeGlsLeft) {
+        this.beforeGlsLeft = beforeGlsLeft;
+    }
+
+    public String getBeforeGlsRight() {
+
+        return beforeGlsRight;
+    }
+
+    public void setBeforeGlsRight(String beforeGlsRight) {
+        this.beforeGlsRight = beforeGlsRight;
+    }
+
+    public String getBeforeLeft() {
+
+        return beforeLeft;
+    }
+
+    public void setBeforeLeft(String beforeLeft) {
+        this.beforeLeft = beforeLeft;
+    }
+    private String beforeRight="--";//原裸眼右视力
+    private String beforeLeft="--";//原裸眼左视力
+    private String beforeGlsRight="--";//原戴镜右视力
+    private String beforeGlsLeft="--";//原戴镜左视力
+    private String nowNakedRight="--";//现裸眼右视力
+    private String nowNakedLeft="--";//现裸眼左视力
+    private String nowGlsRight="--";//现戴镜右视力
+    private String nowGlsLeft="--";//现戴镜左视力
 
 
     public UserModel(){}
@@ -34,6 +113,14 @@ public class UserModel implements Parcelable{
         id = in.readString();
         userIconUrl = in.readString();
         treatmentTimes= in.readString();
+        beforeRight= in.readString();
+        beforeLeft= in.readString();
+        beforeGlsRight= in.readString();
+        beforeGlsLeft= in.readString();
+        nowNakedRight= in.readString();
+        nowNakedLeft= in.readString();
+        nowGlsRight= in.readString();
+        nowGlsLeft= in.readString();
     }
 
     public static final Creator<UserModel> CREATOR = new Creator<UserModel>() {
@@ -56,11 +143,21 @@ public class UserModel implements Parcelable{
         dest.writeString(userIconUrl);
         dest.writeString(treatmentTimes);
 
+        dest.writeString(beforeRight);
+        dest.writeString(beforeLeft);
+        dest.writeString(beforeGlsRight);
+        dest.writeString(beforeGlsLeft);
+        dest.writeString(nowNakedRight);
+        dest.writeString(nowNakedLeft);
+        dest.writeString(nowGlsRight);
+        dest.writeString(nowGlsLeft);
     }
 
     @Override
     public int describeContents() {
         return 0;
     }
+
+
 
 }

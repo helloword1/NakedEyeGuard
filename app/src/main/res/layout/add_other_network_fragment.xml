@@ -79,11 +79,10 @@
             android:text="连接"
             android:textSize="16sp"
             android:textColor="@drawable/text_save_btn"
-            android:layout_marginLeft="20dp"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:background="#B8ddc2"
+            android:background="@drawable/btn_1_disable"
            />
     </LinearLayout>
 </RelativeLayout>

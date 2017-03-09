@@ -1,6 +1,8 @@
 package com.goockr.nakedeyeguard.HealingProcessPage;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ import okhttp3.Call;
 public class HealingProcessActivity extends BaseActivity {
 
     public UserModel userModel;
+    private Handler infoHandler;
     @Override
     protected int getLoyoutId() {return R.layout.activity_healing_process;}
 
@@ -39,10 +42,13 @@ public class HealingProcessActivity extends BaseActivity {
     protected void setupUI() {
 
     }
+    public void setHandler(Handler handler) {
+        infoHandler = handler;
+    }
 
     private void loadData()
     {
-
+        infoHandler=new Handler();
         Map<String,String> map=new HashMap<>();
         map.put("user_id",userModel.getId());
         HttpHelper.httpPost(HttpHelper.getUserInfo(), map, new StringCallback() {
@@ -54,17 +60,28 @@ public class HealingProcessActivity extends BaseActivity {
             public void onResponse(String response, int id) {
                 //Json的解析类对象
                 JSONObject jsonData =null;
-                JSONObject results = null;
+                JSONObject jsonVision = null;
                 JSONObject treatmentNum = null;
                 try
                 {
                     jsonData=new JSONObject(response);
                     treatmentNum = (JSONObject)jsonData.get("treatment");
                     userModel.setTreatmentTimes(treatmentNum.getString("number"));
+
+                    jsonVision= (JSONObject)jsonData.get("vision");
+                    userModel.setBeforeRight(jsonVision.getString("before_right"));
+                    userModel.setBeforeLeft(jsonVision.getString("before_left"));
+                    userModel.setNowNakedRight(jsonVision.getString("naked_right"));
+                    userModel.setNowNakedLeft(jsonVision.getString("naked_left"));
+                    userModel.setBeforeGlsRight(jsonVision.getString("before_gls_right"));
+                    userModel.setBeforeGlsLeft(jsonVision.getString("before_gls_left"));
+                    userModel.setNowGlsRight(jsonVision.getString("glasses_right"));
+                    userModel.setNowGlsLeft(jsonVision.getString("glasses_left"));
+                    Message message = Message.obtain();
+                    message.what = 22222;
+                    infoHandler.sendMessage(message);
                 } catch (JSONException e) {}
-
             }
-
         });
     }
 

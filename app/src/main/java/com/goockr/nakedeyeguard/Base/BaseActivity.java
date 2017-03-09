@@ -4,15 +4,21 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextClock;
 
+import com.goockr.nakedeyeguard.BatteryView.BatteryReceiver;
+import com.goockr.nakedeyeguard.BatteryView.MyBatteryView;
 import com.goockr.nakedeyeguard.FirstUsePage.FirstActivty;
 import com.goockr.nakedeyeguard.R;
 import com.goockr.nakedeyeguard.Screensaver.ScreensaverActivity;
@@ -20,6 +26,7 @@ import com.goockr.nakedeyeguard.Screensaver.ScreensaverActivity;
 import java.util.Calendar;
 
 import static com.goockr.nakedeyeguard.App.editor;
+import static com.goockr.nakedeyeguard.App.interruptScreen;
 import static com.goockr.nakedeyeguard.App.isStartScreen;
 import static com.goockr.nakedeyeguard.App.networkState;
 import static com.goockr.nakedeyeguard.App.preferences;
@@ -37,13 +44,18 @@ public abstract class BaseActivity extends AppCompatActivity {
     //时期显示
     private ImageView iv_MainWifi;
 
+    private ImageView iv_MainBatteryChangring;
+    private Handler timeHandler;
 
     TextClock tc_BaseClock;
     private ForceOfflineReceiver receiver;
+    BatteryReceiver batteryReceiver;
+
     NetworkReceiverHelper networkReceiverHelper;
-    Thread screenThread;
+
 
     protected abstract int getLoyoutId();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,52 +64,70 @@ public abstract class BaseActivity extends AppCompatActivity {
         ActivityCollector.addActivity(this);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        isStartScreen=true;
-        beforTouchTime=Calendar.getInstance().getTimeInMillis();
-        screenThread= new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (screenThread.isInterrupted())
-                {
-                    SystemClock.sleep(2000);
-                    nowTime= Calendar.getInstance().getTimeInMillis();
-                    if (isStartScreen) startScreensaver();
-                }
-            }
-        });
-        screenThread.start();
-    }
-
     public void setupView()
     {
         //获取当前时间
         iv_MainWifi=(ImageView)findViewById(R.id.iv_BaseWifi);
         ib_Back=(ImageButton) findViewById(R.id.bt_BaseBack);
         tc_BaseClock=(TextClock) findViewById(R.id.tc_BaseClock);
+        iv_MainBatteryChangring=(ImageView)findViewById(R.id.iv_MainBatteryChangring);
+        final MyBatteryView view_MainBattery=(MyBatteryView)findViewById(R.id.view_MainBattery);
+        //主线程的 handler 接收到 子线程的消息，然后修改TextView的显示
+        timeHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                int what = msg.what;
+                switch (what) {
+                    case 10001:
+                        if (msg.arg1==0)
+                        {
+                            iv_MainBatteryChangring.setVisibility(View.GONE);
+                            view_MainBattery.rePaint(Color.WHITE,(int)(view_MainBattery.getWidth()*msg.arg2*0.01f));
+                        }
+                        else if(msg.arg1==1)
+                        {
+                            iv_MainBatteryChangring.setVisibility(View.VISIBLE);
+                            //根据电量绘画控件的宽度
+                            view_MainBattery.rePaint(Color.GREEN,(int)(view_MainBattery.getWidth()*msg.arg2*0.01f));
+                        }
+
+                        break;
+                }
+            }
+        };
+
+
         registerBroadcast();
 
     }
 
-    //
-    public ImageButton getBackBtn(){return ib_Back;}
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-    //
-    public TextClock getTextClock(){return tc_BaseClock;}
+        isStartScreen=true;
+        interruptScreen=true;
+        beforTouchTime=Calendar.getInstance().getTimeInMillis();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (interruptScreen)
+                {
+                    SystemClock.sleep(2000);
+                    nowTime= Calendar.getInstance().getTimeInMillis();
+                    if (isStartScreen) startScreensaver();
+                }
+            }
+        }).start();
 
-    public boolean getNetWorkState() {return networkState;}
+    }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ActivityCollector.removeActivity(this);
-        if (receiver!=null) receiver.unregisterReceiver();
-        if (networkReceiverHelper!=null) networkReceiverHelper.unregisterReceiver();
-        receiver=null;
-        networkReceiverHelper=null;
+    protected void onPause() {
+        super.onPause();
+        interruptScreen=false;
+        interruptScreen=false;
     }
 
     long nowTime=0;
@@ -114,11 +144,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         return false;
     }
-    String scrrenTime = preferences.getString("RestTime","30秒");
-    int scrrenTimeInt = restTimeList.indexOf(scrrenTime);
+
     long longTime=Long.MAX_VALUE;
     private void startScreensaver()
     {
+        String scrrenTime = preferences.getString("RestTime","30秒");
+        int scrrenTimeInt = restTimeList.indexOf(scrrenTime);
+
         switch (scrrenTimeInt)
         {
             case 0:
@@ -153,11 +185,13 @@ public abstract class BaseActivity extends AppCompatActivity {
        if (Math.abs(ABS)>longTime)
        {
            isStartScreen=false;
-           screenThread.interrupt();
+           interruptScreen=false;
            Intent intentScreen = new Intent(BaseActivity.this,ScreensaverActivity.class);
            startActivity(intentScreen);
        }
     }
+
+
 
     class ForceOfflineReceiver extends BroadcastReceiver
     {
@@ -192,6 +226,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private void registerBroadcast() {
 
+        IntentFilter intentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        batteryReceiver=new BatteryReceiver(timeHandler);
+        registerReceiver(batteryReceiver, intentFilter);
         //设置Intent的Action属性
 
         networkReceiverHelper= new NetworkReceiverHelper() {
@@ -210,5 +247,23 @@ public abstract class BaseActivity extends AppCompatActivity {
         receiver=new ForceOfflineReceiver(this);
         networkReceiverHelper.registerReceiver(this);
     }
+
+    //
+    public ImageButton getBackBtn(){return ib_Back;}
+    //
+    public TextClock getTextClock(){return tc_BaseClock;}
+    public boolean getNetWorkState() {return networkState;}
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCollector.removeActivity(this);
+        if (receiver!=null) receiver.unregisterReceiver();
+        if (networkReceiverHelper!=null) networkReceiverHelper.unregisterReceiver();
+        receiver=null;
+        networkReceiverHelper=null;
+        if (batteryReceiver!=null) unregisterReceiver(batteryReceiver);
+    }
+
 }
 

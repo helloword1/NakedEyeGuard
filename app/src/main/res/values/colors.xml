@@ -11,6 +11,7 @@
     <color name="colorCusGray">#d6d2d2</color>
     <color name="colorCusMidGray">#e7e7e7</color>
     <color name="colorCusLightGray">#f7f7f7</color>
+    <color name="colorCusLightDemo">#B8ddc2</color>
 
     <color name="colorCusText">#666666</color>
     <color name="colorCusNum">#8CC132</color>

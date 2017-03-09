@@ -20,18 +20,39 @@
             android:format12Hour="h:mm"
             android:gravity="center_vertical"
             android:textColor="@color/colorWhite"
-            android:layout_toLeftOf="@+id/iv_MainBattery"
-            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/rl_MainBatteryLayout"
+            android:layout_marginRight="5dp"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
+
+
+        <RelativeLayout
+            android:id="@+id/rl_MainBatteryLayout"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/iv_MainBatteryChangring"
+            android:layout_marginRight="2dp"
+            android:layout_width="25dp"
+            android:layout_height="14dp"
+            android:paddingBottom="2.2dp"
+            android:paddingTop="2.2dp"
+            android:paddingLeft="1dp"
+            android:paddingRight="3.2dp"
+            android:background="@drawable/icon_prower">
+            <com.goockr.nakedeyeguard.BatteryView.MyBatteryView
+                android:id="@+id/view_MainBattery"
+                android:layout_centerVertical="true"
+                android:layout_width="22dp"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
         <ImageView
-            android:id="@+id/iv_MainBattery"
+            android:id="@+id/iv_MainBatteryChangring"
             android:layout_toLeftOf="@+id/iv_BaseWifi"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/icon_prower"
+            android:src="@drawable/icon_prower_ing"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
+
         <ImageView
+            android:layout_marginLeft="5dp"
             android:id="@+id/iv_BaseWifi"
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"

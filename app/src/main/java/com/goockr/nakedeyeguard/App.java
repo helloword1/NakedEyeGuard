@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 
 import com.goockr.nakedeyeguard.Http.HttpHelper;
-import com.goockr.nakedeyeguard.Tools.SystemManager;
 import com.goockr.nakedeyeguard.Tools.WifiHelper;
 
 import java.util.ArrayList;
@@ -28,6 +27,7 @@ public class App extends Application {
     public static ArrayList<String> restTimeList = new ArrayList<>();
 
     public static boolean isStartScreen=true;
+    public static boolean interruptScreen=true;
     //
     public static boolean networkState=false;
     public static WifiHelper wifiHelper;
@@ -41,7 +41,7 @@ public class App extends Application {
 
        // SystemManager.RootCommand("chmod 777 /dev/alarm");
         //SystemManager.RootCommand("chmod 664 /dev/alarm");
-        SystemManager.RootCommand("chmod 666 /dev/alarm");
+        //SystemManager.RootCommand("chmod 666 /dev/alarm");
 
     }
 
@@ -90,7 +90,8 @@ public class App extends Application {
                 restTimeList.add("30分钟");
                 restTimeList.add("1小时");
                 restTimeList.add("从不");
-                editor.putString("RestTime","30秒");
+                String restTime = preferences.getString("RestTime","3分钟");
+                editor.putString("RestTime",restTime);
                 editor.putBoolean("24HourSystem",hourSystem);
                 editor.commit();
 
