@@ -2,8 +2,6 @@ package com.goockr.nakedeyeguard.HealingProcessPage;
 
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,8 +10,10 @@ import android.widget.TextView;
 import com.goockr.nakedeyeguard.Base.BaseFragment;
 import com.goockr.nakedeyeguard.Model.UserModel;
 import com.goockr.nakedeyeguard.R;
+import com.goockr.nakedeyeguard.TipsPage.TipsWirewayFragment;
 
 import static com.goockr.nakedeyeguard.App.iconDrawable;
+import static com.goockr.nakedeyeguard.Tools.Common.replaFragment;
 
 /**
  * Created by JJT-ssd on 2017/2/28.
@@ -108,7 +108,7 @@ public class HealingProcessFragment extends BaseFragment implements View.OnClick
         switch (v.getId())
         {
             case  R.id.bt_HPFSure:
-                replaFragment(new CourseOfTreatmentFragment());
+                replaFragment(getActivity(),new TipsWirewayFragment(),R.id.fl_HPFLayout,true);
                 break;
         }
     }
@@ -116,15 +116,4 @@ public class HealingProcessFragment extends BaseFragment implements View.OnClick
 
 
 
-    public void replaFragment(Fragment fragment)
-    {
-
-        FragmentTransaction transaction=getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(
-            R.anim.fragment_slide_right_in, R.anim.fragment_slide_left_out,
-            R.anim.fragment_slide_left_in, R.anim.fragment_slide_right_out);
-        transaction.replace(R.id.fl_HPFLayout,fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
 }

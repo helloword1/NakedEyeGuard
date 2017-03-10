@@ -130,7 +130,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 Button bt_SetBrightnessCancle = (Button) brightnessView.findViewById(R.id.bt_SetBrightnessCancle);
                 Button bt_SetBrightnessSave = (Button) brightnessView.findViewById(R.id.bt_SetBrightnessSave);
 
-                bsb_SetBrightness.setProgress(preferences.getInt("Brightness",100));
+                try {
+                    int value = Settings.System.getInt(getContentResolver(),Settings.System.SCREEN_BRIGHTNESS);
+                    bsb_SetBrightness.setProgress(value);
+                } catch (Settings.SettingNotFoundException e) {}
+
                 bt_SetBrightnessCancle.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -140,9 +144,10 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 bt_SetBrightnessSave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        editor.putInt("Brightness",bsb_SetBrightness.getProgress());
-                        editor.commit();
+//                        editor.putInt("Brightness",bsb_SetBrightness.getProgress());
+//                        editor.commit();
                         Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,bsb_SetBrightness.getProgress());
+
                         brightnessdialog.dismiss();
                     }
                 });

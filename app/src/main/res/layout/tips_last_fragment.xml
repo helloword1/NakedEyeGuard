@@ -24,7 +24,7 @@
 
         <Button
             android:id="@+id/bt_TLFNext"
-            android:text="返回理疗"
+            android:text="下一步"
             android:textSize="18sp"
             android:textColor="@drawable/text_color"
             android:layout_alignParentBottom="true"

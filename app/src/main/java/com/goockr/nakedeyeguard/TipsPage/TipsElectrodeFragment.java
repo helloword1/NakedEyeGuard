@@ -1,13 +1,13 @@
 package com.goockr.nakedeyeguard.TipsPage;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
 
 import com.goockr.nakedeyeguard.Base.BaseFragment;
 import com.goockr.nakedeyeguard.HealingProcessPage.HealingProcessActivity;
 import com.goockr.nakedeyeguard.R;
+
+import static com.goockr.nakedeyeguard.Tools.Common.replaFragment;
 
 /**
  * Created by JJT-ssd on 2017/3/1.
@@ -32,7 +32,7 @@ public class TipsElectrodeFragment extends BaseFragment implements View.OnClickL
     {
         bt_TEFNext=(Button)view.findViewById(R.id.bt_TEFNext);
         bt_TEFNext.setOnClickListener(this);
-        setWifiIcon(((TipsActivity)getActivity()).getNetWorkState());
+        setWifiIcon(((HealingProcessActivity)getActivity()).getNetWorkState());
         getBackBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,20 +46,9 @@ public class TipsElectrodeFragment extends BaseFragment implements View.OnClickL
         switch (v.getId())
         {
             case R.id.bt_TEFNext:
-                replaFragment(new TipsLastFragment());
+                replaFragment(getActivity(),new TipsLastFragment(),R.id.fl_HPFLayout,true);
                 break;
         }
     }
 
-    public void replaFragment(Fragment fragment)
-    {
-
-        FragmentTransaction transaction=getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(
-                R.anim.fragment_slide_right_in, R.anim.fragment_slide_left_out,
-                R.anim.fragment_slide_left_in, R.anim.fragment_slide_right_out);
-        transaction.replace(R.id.fl_TipsLayout,fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
 }

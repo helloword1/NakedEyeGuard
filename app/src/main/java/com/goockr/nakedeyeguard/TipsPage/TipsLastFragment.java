@@ -4,8 +4,11 @@ import android.view.View;
 import android.widget.Button;
 
 import com.goockr.nakedeyeguard.Base.BaseFragment;
+import com.goockr.nakedeyeguard.HealingProcessPage.CourseOfTreatmentFragment;
 import com.goockr.nakedeyeguard.HealingProcessPage.HealingProcessActivity;
 import com.goockr.nakedeyeguard.R;
+
+import static com.goockr.nakedeyeguard.Tools.Common.replaFragment;
 
 /**
  * Created by JJT-ssd on 2017/3/1.
@@ -30,7 +33,7 @@ public class TipsLastFragment extends BaseFragment implements View.OnClickListen
     {
         bt_TLFNext=(Button)view.findViewById(R.id.bt_TLFNext);
         bt_TLFNext.setOnClickListener(this);
-        setWifiIcon(((TipsActivity)getActivity()).getNetWorkState());
+        setWifiIcon(((HealingProcessActivity)getActivity()).getNetWorkState());
         getBackBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,7 +48,7 @@ public class TipsLastFragment extends BaseFragment implements View.OnClickListen
         {
 
             case R.id.bt_TLFNext:
-                getActivity().finish();
+                replaFragment(getActivity(),new CourseOfTreatmentFragment(),R.id.fl_HPFLayout,true);
                 break;
         }
     }

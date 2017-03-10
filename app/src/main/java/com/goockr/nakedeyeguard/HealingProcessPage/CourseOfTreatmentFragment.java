@@ -4,8 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -37,6 +35,7 @@ import java.util.Map;
 
 import okhttp3.Call;
 
+import static com.goockr.nakedeyeguard.Tools.Common.replaFragment;
 import static com.goockr.nakedeyeguard.Tools.DateExtension.dateLong2String;
 
 /**
@@ -321,7 +320,8 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
                     cb_CTFStart.setBackgroundResource(R.drawable.ctf_btn_start);
                     cb_CTFStart.setChecked(false);
                     isTreatmenting=false;
-                    replaFragment(new CompleteTreatmentFragment());
+                    //replaFragment(new CompleteTreatmentFragment());
+                    replaFragment(getActivity(),new CompleteTreatmentFragment(),R.id.fl_HPFLayout,true);
                 } catch (JSONException e) {
                     Toast.makeText(getActivity(),"Error", Toast.LENGTH_SHORT).show();
                 }
@@ -382,6 +382,8 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
                             mCount=0;
                             myCountDownThread = new Thread(CourseOfTreatmentFragment.this);
                             tv_Reset.setText("已结束本疗程！");
+                            cpb_CTFProgress.setProgress(100);
+                            tv_CTFTimer.setText("00:00");
                             restHUD.show();
                             Common.scheduleDismiss(restHUD);
                         } catch (JSONException e) {
@@ -399,16 +401,16 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
         });
     }
 
-    public void replaFragment(Fragment fragment) {
-
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(
-                R.anim.fragment_slide_right_in, R.anim.fragment_slide_left_out,
-                R.anim.fragment_slide_left_in, R.anim.fragment_slide_right_out);
-        transaction.replace(R.id.fl_HPFLayout, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
+//    public void replaFragment(Fragment fragment) {
+//
+//        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//        transaction.setCustomAnimations(
+//                R.anim.fragment_slide_right_in, R.anim.fragment_slide_left_out,
+//                R.anim.fragment_slide_left_in, R.anim.fragment_slide_right_out);
+//        transaction.replace(R.id.fl_HPFLayout, fragment);
+//        transaction.addToBackStack(null);
+//        transaction.commit();
+//    }
 
     @Override
     public void onPause() {

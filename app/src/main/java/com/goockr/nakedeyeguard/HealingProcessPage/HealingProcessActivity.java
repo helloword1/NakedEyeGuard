@@ -3,8 +3,6 @@ package com.goockr.nakedeyeguard.HealingProcessPage;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
 
 import com.goockr.nakedeyeguard.Base.BaseActivity;
@@ -21,6 +19,8 @@ import java.util.Map;
 
 import okhttp3.Call;
 
+import static com.goockr.nakedeyeguard.Tools.Common.replaFragment;
+
 public class HealingProcessActivity extends BaseActivity {
 
     public UserModel userModel;
@@ -35,7 +35,9 @@ public class HealingProcessActivity extends BaseActivity {
         userModel= getIntent().getParcelableExtra("UserModel");
         loadData();
         setupUI();
-        replaFragment(new HealingProcessFragment());
+
+        replaFragment(this,new HealingProcessFragment(),R.id.fl_HPFLayout,false);
+
     }
 
 
@@ -83,13 +85,6 @@ public class HealingProcessActivity extends BaseActivity {
                 } catch (JSONException e) {}
             }
         });
-    }
-
-    public void replaFragment(Fragment fragment)
-    {
-        FragmentTransaction transaction=getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fl_HPFLayout,fragment);
-        transaction.commit();
     }
 
 }

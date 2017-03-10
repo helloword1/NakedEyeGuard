@@ -1,13 +1,13 @@
 package com.goockr.nakedeyeguard.TipsPage;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.Button;
 
 import com.goockr.nakedeyeguard.Base.BaseFragment;
 import com.goockr.nakedeyeguard.HealingProcessPage.HealingProcessActivity;
 import com.goockr.nakedeyeguard.R;
+
+import static com.goockr.nakedeyeguard.Tools.Common.replaFragment;
 
 /**
  * Created by JJT-ssd on 2017/3/1.
@@ -32,11 +32,11 @@ public class TipsWirewayFragment extends BaseFragment implements View.OnClickLis
     {
         bt_TWFNext=(Button)view.findViewById(R.id.bt_TWFNext);
         bt_TWFNext.setOnClickListener(this);
-        setWifiIcon(((TipsActivity)getActivity()).getNetWorkState());
+        setWifiIcon(((HealingProcessActivity)getActivity()).getNetWorkState());
         getBackBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().finish();
+                getActivity().getSupportFragmentManager().popBackStack();
             }
         });
     }
@@ -47,19 +47,9 @@ public class TipsWirewayFragment extends BaseFragment implements View.OnClickLis
         {
 
             case R.id.bt_TWFNext:
-                replaFragment(new TipsElectrodeFragment());
+                replaFragment(getActivity(),new TipsElectrodeFragment(),R.id.fl_HPFLayout,true);
                 break;
         }
     }
-    public void replaFragment(Fragment fragment)
-    {
 
-        FragmentTransaction transaction=getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(
-                R.anim.fragment_slide_right_in, R.anim.fragment_slide_left_out,
-                R.anim.fragment_slide_left_in, R.anim.fragment_slide_right_out);
-        transaction.replace(R.id.fl_TipsLayout,fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
 }
