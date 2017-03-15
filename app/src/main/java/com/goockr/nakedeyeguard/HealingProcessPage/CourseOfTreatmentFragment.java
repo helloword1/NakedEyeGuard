@@ -167,11 +167,17 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
                         myCountDownThread = new Thread(this);
                         if (mCount == -1) mCount = 10;
                         {
+                            if (isFinish){
+                                isFinish=false;
+                                return;
+                            }
                             //未完成上次治疗，从上次暂停状态开始
                             pauseOrRestartTreatment(1);
                         }
                     }
-                    else firstTreatment();
+                    else {
+                        firstTreatment();
+                    }
                 } else {
                     if (!isTreatmenting)return;
                     //暂停计时器，设置标记为false
@@ -234,7 +240,7 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
         Map<String,String> map= new HashMap();
         map.put("c_pad_id", HttpHelper.deviceId);
         map.put("user_id",userModel.getId());
-        map.put("number",userModel.getTreatmentTimes());
+        map.put("number",String.valueOf(userModel.getTreatmentTimes()));
 
         HttpHelper.httpPost(HttpHelper.getStartTreat(), map, new StringCallback() {
             @Override
@@ -291,6 +297,7 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
         });
     }
     //3完成治疗
+    boolean isFinish=false;
     private void finishTreatment()
     {
         Map<String,String> map= new HashMap();
@@ -298,7 +305,7 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
         map.put("state",String.valueOf(3));
         map.put("finish_time",String.valueOf(Calendar.getInstance().getTimeInMillis()));
 
-        HttpHelper.httpPost(HttpHelper.getPauseTreat(), map, new StringCallback() {
+        HttpHelper.httpPost(HttpHelper.getCompeleteTreat(), map, new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 Toast.makeText(getActivity(),"请检查网络", Toast.LENGTH_SHORT).show();
@@ -316,6 +323,7 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
 //                    treatmentModel.setTreatmentStartTime(dataObj.getString("start_time"));
 //                    treatmentModel.setTreatmentPauseTime(dataObj.getString("pause_time"));
 //                    treatmentModel.setTreatmentRemainTime(dataObj.getString("remain_time"));
+                    isFinish=true;
                     mflag = false;
                     cb_CTFStart.setBackgroundResource(R.drawable.ctf_btn_start);
                     cb_CTFStart.setChecked(false);

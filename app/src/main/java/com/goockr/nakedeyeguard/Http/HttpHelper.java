@@ -41,7 +41,7 @@ public class HttpHelper {
     }
    // 完成电击
     public static String getCompeleteTreat() {
-     return baseUrl+"/lean/pushPauseTreat";
+     return baseUrl+"/lean/pushFinishTreat";
     }
 
 

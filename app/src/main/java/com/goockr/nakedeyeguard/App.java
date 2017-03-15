@@ -81,17 +81,19 @@ public class App extends Application {
 //
 //                    }
 //                }
-                restTimeList.add("10秒");
-                restTimeList.add("30秒");
-                restTimeList.add("1分钟");
-                restTimeList.add("3分钟");
-                restTimeList.add("5分钟");
-                restTimeList.add("10分钟");
-                restTimeList.add("30分钟");
-                restTimeList.add("1小时");
-                restTimeList.add("从不");
-                String restTime = preferences.getString("RestTime","3分钟");
-                editor.putString("RestTime",restTime);
+                //屏保功能
+//                restTimeList.add("10秒");
+//                restTimeList.add("30秒");
+//                restTimeList.add("1分钟");
+//                restTimeList.add("3分钟");
+//                restTimeList.add("5分钟");
+//                restTimeList.add("10分钟");
+//                restTimeList.add("30分钟");
+//                restTimeList.add("1小时");
+//                restTimeList.add("从不");
+//                String restTime = preferences.getString("RestTime","5分钟");
+//                editor.putString("RestTime",restTime);
+
                 editor.putBoolean("24HourSystem",hourSystem);
                 editor.commit();
 

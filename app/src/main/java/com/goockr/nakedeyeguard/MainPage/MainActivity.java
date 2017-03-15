@@ -122,13 +122,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     {
         screenReceiver=new ScreenReceiver();
         screenReceiver.registerReceiver(this);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                loadData();
-            }
-        }).start();
-
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        }).start();
+        loadData();
     }
 
     private void loadData()

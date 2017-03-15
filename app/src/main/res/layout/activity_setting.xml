@@ -132,6 +132,7 @@
             android:background="@color/colorCusGray"/>
     </RelativeLayout>
     <RelativeLayout
+        android:visibility="gone"
         android:clickable="true"
         android:background="@drawable/setting_relativelayout_bg"
         android:id="@+id/rl_SetScreensaver"

@@ -25,12 +25,20 @@ public class StartActivity extends AppCompatActivity {
                 {
                     Intent intentFirst=new Intent(StartActivity.this, FirstActivty.class);
                     startActivity(intentFirst);
+                    finish();
                 }
                 else {
-                    Intent intentMain=new Intent(StartActivity.this, MainActivity.class);
-                    startActivity(intentMain);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intentMain=new Intent(StartActivity.this, MainActivity.class);
+                            startActivity(intentMain);
+                            finish();
+                        }
+                    },2000);
+
                 }
-                finish();
+
 
             }
         },1500);
