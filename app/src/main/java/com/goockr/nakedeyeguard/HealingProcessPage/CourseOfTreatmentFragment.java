@@ -100,6 +100,7 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
         ib_CTFReduce.setOnClickListener(this);
         ib_CTFAdd.setOnClickListener(this);
         cb_CTFStart.setOnCheckedChangeListener(this);
+
         progressBarState(pb_CTFStrength.getProgress());
         setWifiIcon(((HealingProcessActivity) getActivity()).getNetWorkState());
         getBackBtn().setOnClickListener(new View.OnClickListener() {
@@ -274,10 +275,9 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
         if (!isConnect)//断开连接处理
         {
             setConnectLineState(false);
-            if (!isTreatmenting) return;//不在治疗过程直接不处理
-
+            if (!mflag) return;//不在治疗过程直接不处理
             //在治疗过程,断开治疗处理
-            completeTreatment();
+            cb_CTFStart.setChecked(false);
 
         }else //连接状态处理
         {
@@ -429,7 +429,7 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
     }
 
     /**
-     * 强制完成治疗，人为退出治疗或者治疗线被拔出等
+     * 强制完成治疗，人为退出治疗
      */
     private void completeTreatment()
     {
