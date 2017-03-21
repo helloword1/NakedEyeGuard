@@ -2,6 +2,7 @@ package com.goockr.nakedeyeguard.Model;
 
 /**
  * Created by JJT-ssd on 2017/3/9.
+ * 治疗数据模型
  */
 
 public class TreatmentModel {

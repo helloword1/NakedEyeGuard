@@ -14,6 +14,7 @@ import static com.goockr.nakedeyeguard.App.editor;
 
 /**
  * Created by JJT-ssd on 2017/3/2.
+ * 使用条款说明
  */
 
 public class ClauseFragment extends BaseFragment {

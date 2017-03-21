@@ -4,17 +4,20 @@
     android:id="@+id/activity_first_activty"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/homepage_bg"
+    android:background="@drawable/halo"
     tools:context="com.goockr.nakedeyeguard.FirstUsePage.FirstActivty">
     <include android:id="@+id/rl_FirstStateBar" layout="@layout/base_toobar"></include>
     <Button
         android:id="@+id/bt_FirstSet"
-        android:text="点击设置"
-        android:textColor="@drawable/text_color"
-        android:background="@drawable/btn_save"
+        android:text="设置网络>"
+        android:textSize="18sp"
+        android:textColor="@drawable/halo_textcolor"
+        android:background="@color/colorCusTrans"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    <!--android:textColor="@drawable/text_color"-->
+    <!--android:background="@drawable/btn_save"-->
 </RelativeLayout>

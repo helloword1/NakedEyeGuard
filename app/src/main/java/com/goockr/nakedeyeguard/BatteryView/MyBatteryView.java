@@ -9,6 +9,7 @@ import android.view.View;
 
 /**
  * Created by JJT-ssd on 2017/3/9.
+ * 绘制电池图标
  */
 
 public class MyBatteryView extends View {

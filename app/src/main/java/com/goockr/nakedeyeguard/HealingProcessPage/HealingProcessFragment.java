@@ -2,15 +2,17 @@ package com.goockr.nakedeyeguard.HealingProcessPage;
 
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.goockr.nakedeyeguard.Base.BaseFragment;
 import com.goockr.nakedeyeguard.Model.UserModel;
 import com.goockr.nakedeyeguard.R;
-import com.goockr.nakedeyeguard.TipsPage.TipsWirewayFragment;
+import com.goockr.nakedeyeguard.TipsPage.GuideFragment;
 
 import static com.goockr.nakedeyeguard.App.iconDrawable;
 import static com.goockr.nakedeyeguard.Tools.Common.replaFragment;
@@ -91,6 +93,10 @@ public class HealingProcessFragment extends BaseFragment implements View.OnClick
         }
     };
 
+
+    /**
+     *数据显示
+     */
     private void setData()
     {
         tv_BeforeRight.setText(userModel.getBeforeRight());
@@ -108,12 +114,44 @@ public class HealingProcessFragment extends BaseFragment implements View.OnClick
         switch (v.getId())
         {
             case  R.id.bt_HPFSure:
-                replaFragment(getActivity(),new TipsWirewayFragment(),R.id.fl_HPFLayout,true);
+                replaFragment(getActivity(),new GuideFragment(),R.id.fl_HPFLayout,true);
+                //nomenyTips();
                 break;
         }
     }
 
 
+    /**
+     * 没有钱了，弹框提示
+     */
+    private void nomenyTips()
+    {
+        final MaterialDialog voiceDialog =  new MaterialDialog.Builder(getActivity())
+                .customView(R.layout.no_money_dialog,true)
+                .show();
+        voiceDialog.setCanceledOnTouchOutside(false);
+        View voiceView = voiceDialog.getCustomView();
+        Button bt_NoMoneyKonw = (Button) voiceView.findViewById(R.id.bt_NoMoneyKonw);
+        bt_NoMoneyKonw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                voiceDialog.dismiss();
+            }
+        });
+    }
 
+    /**
+     *  返回按键检测
+     * @param keyCode
+     * @param event
+     * @return
+     */
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // TODO Auto-generated method stub
+        if (keyCode == event.KEYCODE_BACK) {
+            getActivity().finish();
+        }
+        return true;
+    }
 
 }

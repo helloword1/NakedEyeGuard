@@ -3,6 +3,10 @@ package com.goockr.nakedeyeguard.HealingProcessPage;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.goockr.nakedeyeguard.Base.BaseActivity;
@@ -19,8 +23,6 @@ import java.util.Map;
 
 import okhttp3.Call;
 
-import static com.goockr.nakedeyeguard.Tools.Common.replaFragment;
-
 public class HealingProcessActivity extends BaseActivity {
 
     public UserModel userModel;
@@ -36,18 +38,28 @@ public class HealingProcessActivity extends BaseActivity {
         loadData();
         setupUI();
 
-        replaFragment(this,new HealingProcessFragment(),R.id.fl_HPFLayout,false);
+        replaFragment(this,new HealingProcessFragment(),R.id.fl_HPFLayout,"HealingProcessFragment");
 
     }
-
+    public  void replaFragment(FragmentActivity activity, Fragment fragment, int Rid,String tag)
+    {
+        FragmentTransaction transaction=activity.getSupportFragmentManager().beginTransaction();
+        transaction.addToBackStack(tag);
+        transaction.replace(Rid,fragment);
+        transaction.commit();
+    }
 
     protected void setupUI() {
 
     }
+
     public void setHandler(Handler handler) {
         infoHandler = handler;
     }
 
+    /**
+     * 加载数据
+     */
     private void loadData()
     {
         infoHandler=new Handler();
@@ -85,6 +97,25 @@ public class HealingProcessActivity extends BaseActivity {
                 } catch (JSONException e) {}
             }
         });
+    }
+
+    /**
+     *  返回按键检测
+     * @param keyCode
+     * @param event
+     * @return
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Fragment from=this.getSupportFragmentManager().findFragmentById(R.id.fl_HPFLayout);
+        if(from instanceof CourseOfTreatmentFragment){
+            ((CourseOfTreatmentFragment)from).onKeyDown(keyCode, event);
+        }
+        else if(from instanceof HealingProcessFragment)
+        {
+            ((HealingProcessFragment)from).onKeyDown(keyCode, event);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

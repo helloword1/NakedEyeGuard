@@ -57,8 +57,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".StartActivity"
-            android:theme="@style/Theme.beginBackground"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.beginBackground">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -68,7 +68,8 @@
         <activity
             android:name=".Screensaver.ScreensaverActivity"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

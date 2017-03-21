@@ -9,6 +9,7 @@ import android.os.Message;
 
 /**
  * Created by JJT-ssd on 2017/3/9.
+ * 电池电量变化检测
  */
 
 public class BatteryReceiver extends BroadcastReceiver {
@@ -24,7 +25,7 @@ public class BatteryReceiver extends BroadcastReceiver {
     }
     @Override
     public void onReceive(Context context, Intent intent) {
-        // TODO Auto-generated method stub
+
         //判断它是否是为电量变化的Broadcast Action
         if(Intent.ACTION_BATTERY_CHANGED.equals(intent.getAction())){
             Message message = Message.obtain();

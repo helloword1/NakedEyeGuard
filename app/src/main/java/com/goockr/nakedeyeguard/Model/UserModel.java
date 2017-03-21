@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 /**
  * Created by JJT-ssd on 2017/2/27.
+ * 用户模型
  */
 
 public class UserModel implements Parcelable{

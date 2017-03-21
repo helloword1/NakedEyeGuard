@@ -17,7 +17,6 @@ import com.goockr.nakedeyeguard.Base.BaseActivity;
 import com.goockr.nakedeyeguard.Http.HttpHelper;
 import com.goockr.nakedeyeguard.Model.UserModel;
 import com.goockr.nakedeyeguard.R;
-import com.goockr.nakedeyeguard.Screensaver.ScreenReceiver;
 import com.goockr.nakedeyeguard.SettingPage.SettingActivity;
 import com.goockr.nakedeyeguard.SettingPage.WifiPage.WifiActivity;
 import com.shizhefei.view.coolrefreshview.CoolRefreshView;
@@ -41,22 +40,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     List<UserModel> userModels=new ArrayList<>();
     CoolRefreshView coolRefreshView;
     GridView gv_MainUser;
-
     WindowManager windowManager;
-
     ImageButton ib_MainSetting;
     GridAdapter gridAdapter;
+   // ScreenReceiver screenReceiver;
 
-    ScreenReceiver screenReceiver;
     @Override
     protected int getLoyoutId() {return R.layout.activity_main;}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        initValue();
         setupUI();
+       //刷新数据
+        coolRefreshView.setRefreshing(true);
     }
 
     private void setupUI() {
@@ -91,11 +88,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         gridAdapter=new GridAdapter(this,userModels);
         gv_MainUser.setAdapter(gridAdapter);
 
-
         //添加刷新监听
         coolRefreshView.addOnPullListener(new SimpleOnPullListener() {
             @Override
             public void onRefreshing(CoolRefreshView refreshView) {
+
                 loadData();
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -118,22 +115,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         },1000);
     }
 
-    private void initValue()
-    {
-        screenReceiver=new ScreenReceiver();
-        screenReceiver.registerReceiver(this);
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//            }
-//        }).start();
-        loadData();
-    }
+//    private void initValue()
+//    {
+//        screenReceiver=new ScreenReceiver();
+//        screenReceiver.registerReceiver(this);
+//    }
 
     private void loadData()
     {
-        userModels.clear();
+        if (userModels.size()>0) userModels.clear();
         Map<String,String> map=new HashMap<>();
         map.put("c_pad_id",HttpHelper.deviceId);
         HttpHelper.httpPost(HttpHelper.getUserList(), map, new StringCallback() {
@@ -160,9 +150,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                     }
                     gridAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {}
-
             }
-
         });
     }
 
@@ -180,6 +168,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        screenReceiver.unregisterReceiver();
+       // screenReceiver.unregisterReceiver();
     }
 }

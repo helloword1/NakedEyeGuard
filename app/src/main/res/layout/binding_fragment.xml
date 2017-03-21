@@ -8,16 +8,17 @@
         android:id="@+id/iv_BingdingInfo"
         android:layout_marginTop="100dp"
         android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/about"/>
+        android:src="@drawable/demo"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:background="@drawable/signin_bg"/>
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="10dp"
         android:layout_below="@+id/iv_BingdingInfo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="200dp"
         android:layout_above="@+id/bt_CompleteBinding">
         <LinearLayout
             android:gravity="center_horizontal"
@@ -29,10 +30,10 @@
                 android:layout_centerHorizontal="true"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/test"
-                app:civ_border_width="1dp"
-                app:civ_border_color="#FF000000"
+                android:src="@drawable/tep1"
                 />
+            <!--app:civ_border_width="1dp"-->
+            <!--app:civ_border_color="#FF000000"-->
             <TextView
                 android:gravity="center_horizontal"
                 android:layout_marginLeft="20dp"
@@ -55,9 +56,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/test"
-                app:civ_border_width="1dp"
-                app:civ_border_color="#FF000000"
+                android:src="@drawable/tep2_37"
+
                 />
             <TextView
                 android:gravity="center_horizontal"

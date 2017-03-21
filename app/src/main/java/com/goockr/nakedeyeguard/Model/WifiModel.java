@@ -2,6 +2,7 @@ package com.goockr.nakedeyeguard.Model;
 
 /**
  * Created by JJT-ssd on 2017/3/2.
+ * WIFI模型
  */
 
 public class WifiModel {

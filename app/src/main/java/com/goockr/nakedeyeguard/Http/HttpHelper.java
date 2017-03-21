@@ -5,7 +5,6 @@ import com.zhy.http.okhttp.callback.Callback;
 import com.zhy.http.okhttp.https.HttpsUtils;
 
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 
@@ -16,8 +15,20 @@ import okhttp3.OkHttpClient;
 public class HttpHelper {
 
 
+
     public static String deviceId="12345";
 
+    private static String qrCodeUrl="http://weixin.qq.com/r/8jpieqrEcfcOre4Z92-g";
+
+    /**
+     * 获取设备绑定接口
+     */
+    public static String getDeviceId(String devId)
+    {
+        return qrCodeUrl+"?c_pad_id="+devId;
+    }
+
+    //base url
     public static String baseUrl="https://maverickhunteraxel.leanapp.cn";
 
     //获取用户列表
@@ -45,19 +56,13 @@ public class HttpHelper {
     }
 
 
-    public  static  void httpInit()
-    {
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-//              .addInterceptor(new LoggerInterceptor("TAG"))
-                .connectTimeout(10000L, TimeUnit.MILLISECONDS)
-                .readTimeout(10000L, TimeUnit.MILLISECONDS)
-                //其他配置
-                .build();
-        OkHttpUtils.initClient(okHttpClient);
-    }
 
+    /**
+     * 初始化HTTPS
+     */
     public  static  void httpInits()
     {
+
         HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(null, null, null);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
@@ -66,6 +71,13 @@ public class HttpHelper {
         OkHttpUtils.initClient(okHttpClient);
     }
 
+
+    /**
+     * 发送POST请求
+     * @param urlStr 请求连接
+     * @param params 传参
+     * @param callback 数据返回
+     */
    public static void httpPost(String urlStr, Map<String,String> params, Callback callback)
    {
        OkHttpUtils

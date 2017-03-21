@@ -6,6 +6,9 @@ import android.view.View;
 import com.goockr.nakedeyeguard.Base.BaseActivity;
 import com.goockr.nakedeyeguard.R;
 
+/**
+ * 关于
+ */
 public class AboutActivity extends BaseActivity {
 
     @Override

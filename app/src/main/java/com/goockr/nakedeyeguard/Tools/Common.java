@@ -22,6 +22,7 @@ import static com.goockr.nakedeyeguard.App.alarmManager;
  */
 public class Common {
 
+
     public static void scheduleDismiss(final KProgressHUD hud) {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

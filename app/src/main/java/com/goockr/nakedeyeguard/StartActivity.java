@@ -21,7 +21,7 @@ public class StartActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (isFirstUser)
+                if (isFirstUser)//判断是否注册过
                 {
                     Intent intentFirst=new Intent(StartActivity.this, FirstActivty.class);
                     startActivity(intentFirst);

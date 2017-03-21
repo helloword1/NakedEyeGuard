@@ -38,11 +38,6 @@ public class App extends Application {
         super.onCreate();
         //获取数据初始设置
         initValue();//
-
-       // SystemManager.RootCommand("chmod 777 /dev/alarm");
-        //SystemManager.RootCommand("chmod 664 /dev/alarm");
-        //SystemManager.RootCommand("chmod 666 /dev/alarm");
-
     }
 
     private void initValue()
@@ -52,12 +47,6 @@ public class App extends Application {
         alarmManager= (AlarmManager)getSystemService(ALARM_SERVICE);
         wifiHelper=new WifiHelper(getApplicationContext());
         HttpHelper.httpInits();
-//        Intent intentService =new Intent(this, ScreensaverReceiver.class);
-//        startService(intentService);
-
-        //亮度设置
-        //int brightness =preferences.getInt("Brightness",100);
-       // Settings.System.putInt(getContentResolver(), Settings.System.SCREEN_BRIGHTNESS,brightness);
 
         android.provider.Settings.System.putString(getContentResolver(),android.provider.Settings.System.TIME_12_24, "24");
        // final String timeZoneStr = preferences.getString("TimeZone","北京");

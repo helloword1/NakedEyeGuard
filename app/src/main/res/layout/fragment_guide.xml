@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+   <android.support.v4.view.ViewPager
+
+        android:id="@+id/vp_GuidePage"
+        android:background="@drawable/guide_one"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+   </android.support.v4.view.ViewPager>
+    <me.relex.circleindicator.CircleIndicator
+        android:id="@+id/indicator"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="48dp"
+        android:layout_alignParentBottom="true"
+        app:ci_animator="@anim/indicator_no_animator"
+        app:ci_drawable="@drawable/white_radius"
+        app:ci_drawable_unselected="@drawable/black_radius" />
+    <Button
+        android:id="@+id/bt_GuideNext"
+        android:text="开始理疗"
+        android:visibility="gone"
+        android:textColor="@drawable/text_color"
+        android:background="@drawable/btn_save"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:layout_width="120dp"
+        android:layout_height="40dp" />
+    <include android:id="@+id/rl_GuideBar" layout="@layout/base_fragment_toobar"/>
+</RelativeLayout>

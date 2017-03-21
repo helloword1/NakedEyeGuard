@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">NakedEyeGuard</string>
-
+    <string name="app_name">裸视卫士</string>
 
     <string name="北京">Asia/Shanghai</string>
     <string name="马朱罗">Pacific/Majuro</string>

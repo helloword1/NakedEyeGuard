@@ -25,6 +25,9 @@ import static com.goockr.nakedeyeguard.App.editor;
 import static com.goockr.nakedeyeguard.App.preferences;
 import static com.goockr.nakedeyeguard.App.restTimeList;
 
+/**
+ * 设置
+ */
 public class SettingActivity extends BaseActivity implements View.OnClickListener{
 
     RelativeLayout rl_SetWlan;

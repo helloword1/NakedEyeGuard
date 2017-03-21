@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -56,11 +57,13 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
     UserModel userModel;
     TreatmentModel treatmentModel;
 
+    //拔出治疗线
+    Button bt_PullOutHeadphones;
+
     //倒计时
     private Thread myCountDownThread;
     private Handler timeHandler;
     private boolean mflag;
-
     private int mCount = 10;
     private float allTime = 10.0f;
     boolean isTreatmenting=false;//判断是否治疗中
@@ -78,6 +81,10 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
 
 
     private void setupUI(View view) {
+
+        bt_PullOutHeadphones=(Button)view.findViewById(R.id.bt_PullOutHeadphones);
+        bt_PullOutHeadphones.setOnClickListener(this);
+
         tv_CTFStrength = (TextView) view.findViewById(R.id.tv_CTFStrength);
         pb_CTFStrength = (ProgressBar) view.findViewById(R.id.pb_CTFStrength);
         cpb_CTFProgress = (CircularProgressBar) view.findViewById(R.id.cpb_CTFProgress);
@@ -99,11 +106,14 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
             @Override
             public void onClick(View v) {
                 if (isTreatmenting)isTreatment();
-                else  getActivity().getSupportFragmentManager().popBackStack();
+                else
+                {
+                    getActivity().getSupportFragmentManager().popBackStack("HealingProcessFragment",0);
+                }
             }
         });
-
         userModel = ((HealingProcessActivity)getActivity()).userModel;
+        loadData();
     }
 
     @Override
@@ -115,17 +125,17 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
                 break;
             case R.id.ib_CTFReduce:
                 int proValueReduce = pb_CTFStrength.getProgress();
-                if (20 <= proValueReduce) {
-                    pb_CTFStrength.setProgress(proValueReduce - 20);
-                    tv_CTFStrength.setText("强度:" + String.valueOf(proValueReduce - 20) + "%");
+                if (5 <= proValueReduce) {
+                    pb_CTFStrength.setProgress(proValueReduce - 5);
+                    tv_CTFStrength.setText("强度:" + String.valueOf(proValueReduce - 5) + "%");
                 }
                 progressBarState(pb_CTFStrength.getProgress());
                 break;
             case R.id.ib_CTFAdd:
                 int proValueAdd = pb_CTFStrength.getProgress();
                 if (proValueAdd < 100) {
-                    pb_CTFStrength.setProgress(proValueAdd + 20);
-                    tv_CTFStrength.setText("强度:" + String.valueOf(proValueAdd + 20) + "%");
+                    pb_CTFStrength.setProgress(proValueAdd + 5);
+                    tv_CTFStrength.setText("强度:" + String.valueOf(proValueAdd + 5) + "%");
                 }
                 progressBarState(pb_CTFStrength.getProgress());
                 break;
@@ -136,6 +146,12 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
                     startActivity(intent);
                 }
                 break;
+
+           case R.id.bt_PullOutHeadphones://治疗线提醒
+               if (isTreatmenting)
+                   disConnectLine();
+                break;
+
         }
     }
 
@@ -152,7 +168,13 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
         switch (buttonView.getId()) {
+
             case R.id.cb_CTFStart:
+//                if (!isConnectLineState())
+//                {
+//                    Toast.makeText(getActivity(),"请检查治疗线",Toast.LENGTH_LONG).show();
+//                    return;
+//                }
                 if (isChecked) cb_CTFStart.setBackgroundResource(R.drawable.btn_pause);
                 else cb_CTFStart.setBackgroundResource(R.drawable.ctf_btn_start);
                 if (!myCountDownThread.isAlive())
@@ -183,15 +205,13 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
                     //暂停计时器，设置标记为false
                     pauseOrRestartTreatment(2);
                     mflag = false;
-                    //不可以使用 stop 方法，会报错，java.lang.UnsupportedOperationException
-                    //mThread.stop();
                 }
-
                 break;
         }
     }
 
     private void initTherad() {
+
         //主线程的 handler 接收到 子线程的消息，然后修改TextView的显示
         timeHandler = new Handler() {
             @Override
@@ -234,7 +254,41 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
         }
     }
 
-    //开始治疗
+
+
+
+    /**
+     * 监测治疗线的状态
+     * @return false表示断开连接 true表示连接正常
+     */
+    private boolean isConnectLineState = false;
+    public boolean isConnectLineState() {return isConnectLineState;}
+    public void setConnectLineState(boolean connectLineState) {isConnectLineState = connectLineState;}
+
+    /**
+     * 治疗线状态的监测
+     */
+    private void disConnectLine()
+    {
+        boolean isConnect=false;
+        if (!isConnect)//断开连接处理
+        {
+            setConnectLineState(false);
+            if (!isTreatmenting) return;//不在治疗过程直接不处理
+
+            //在治疗过程,断开治疗处理
+            completeTreatment();
+
+        }else //连接状态处理
+        {
+            setConnectLineState(true);
+        }
+
+    }
+
+    /**
+     * 开始治疗
+     */
     private void firstTreatment()
     {
         Map<String,String> map= new HashMap();
@@ -268,7 +322,9 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
         });
     }
 
-    //2表示暂停 ,1表示开始
+    /**
+     * 2表示暂停 ,1表示开始
+     */
     private void pauseOrRestartTreatment(final int state)
     {
         Map<String,String> map= new HashMap();
@@ -296,10 +352,14 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
             }
         });
     }
-    //3完成治疗
-    boolean isFinish=false;
+
+    /**
+     * 3完成治疗
+     */
+    boolean isFinish=false;//是否完成治疗标志
     private void finishTreatment()
     {
+
         Map<String,String> map= new HashMap();
         map.put("object_id", treatmentModel.getTreatmentId());
         map.put("state",String.valueOf(3));
@@ -339,8 +399,12 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
         });
     }
 
+    /**
+     * 判断是否治疗中
+     */
     private void isTreatment()
     {
+
         final MaterialDialog treatmentDialog =  new MaterialDialog.Builder(getActivity())
                 .customView(R.layout.treatmenting_dialog,true)
                 .show();
@@ -359,66 +423,64 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
             @Override
             public void onClick(View v) {
                 treatmentDialog.dismiss();
-                Map<String,String> map= new HashMap();
-                map.put("object_id", treatmentModel.getTreatmentId());
-                map.put("state",String.valueOf(3));
-                map.put("finish_time",String.valueOf(Calendar.getInstance().getTimeInMillis()));
-
-                final TextView tv_Reset = new TextView(getActivity());
-                tv_Reset.setTextColor(Color.WHITE);
-                tv_Reset.setTextSize(18);
-                final KProgressHUD  restHUD= KProgressHUD.create(getActivity())
-                        .setCustomView(tv_Reset);
-
-                HttpHelper.httpPost(HttpHelper.getPauseTreat(), map, new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        tv_Reset.setText("请检查网络！");
-                        restHUD.show();
-                        Common.scheduleDismiss(restHUD);
-                    }
-                    @Override
-                    public void onResponse(String response, int id) {
-                        JSONObject dataObj=null;
-                        try {
-                            dataObj=new JSONObject(response);
-                            isTreatmenting=false;
-                            mflag = false;
-                            cb_CTFStart.setBackgroundResource(R.drawable.ctf_btn_start);
-                            cb_CTFStart.setChecked(false);
-
-                            mCount=0;
-                            myCountDownThread = new Thread(CourseOfTreatmentFragment.this);
-                            tv_Reset.setText("已结束本疗程！");
-                            cpb_CTFProgress.setProgress(100);
-                            tv_CTFTimer.setText("00:00");
-                            restHUD.show();
-                            Common.scheduleDismiss(restHUD);
-                        } catch (JSONException e) {
-
-                            tv_Reset.setText("结束失败！");
-                            restHUD.show();
-                            Common.scheduleDismiss(restHUD);
-                        }
-
-
-                    }
-                });
-
+                completeTreatment();
             }
         });
     }
 
-//    public void replaFragment(Fragment fragment) {
-//
-//        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//        transaction.setCustomAnimations(
-//                R.anim.fragment_slide_right_in, R.anim.fragment_slide_left_out,
-//                R.anim.fragment_slide_left_in, R.anim.fragment_slide_right_out);
-//        transaction.replace(R.id.fl_HPFLayout, fragment);
-//        transaction.addToBackStack(null);
-//        transaction.commit();
-//    }
+    /**
+     * 强制完成治疗，人为退出治疗或者治疗线被拔出等
+     */
+    private void completeTreatment()
+    {
+
+        Map<String,String> map= new HashMap();
+        map.put("object_id", treatmentModel.getTreatmentId());
+        map.put("state",String.valueOf(3));
+        map.put("finish_time",String.valueOf(Calendar.getInstance().getTimeInMillis()));
+
+        final TextView tv_Reset = new TextView(getActivity());
+        tv_Reset.setTextColor(Color.WHITE);
+        tv_Reset.setTextSize(18);
+        final KProgressHUD  restHUD= KProgressHUD.create(getActivity())
+                .setCustomView(tv_Reset);
+
+        HttpHelper.httpPost(HttpHelper.getCompeleteTreat(), map, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                tv_Reset.setText("请检查网络！");
+                restHUD.show();
+                Common.scheduleDismiss(restHUD);
+            }
+            @Override
+            public void onResponse(String response, int id) {
+                JSONObject dataObj=null;
+                try {
+                    dataObj=new JSONObject(response);
+                    isFinish=true;
+                    isTreatmenting=false;
+                    mflag = false;
+                    cb_CTFStart.setBackgroundResource(R.drawable.ctf_btn_start);
+                    cb_CTFStart.setChecked(false);
+
+                    mCount=0;
+                    myCountDownThread = new Thread(CourseOfTreatmentFragment.this);
+                    tv_Reset.setText("已结束本疗程！");
+                    cpb_CTFProgress.setProgress(100);
+                    tv_CTFTimer.setText("00:00");
+                    restHUD.show();
+                    Common.scheduleDismiss(restHUD);
+                } catch (JSONException e) {
+
+                    tv_Reset.setText("结束失败！");
+                    restHUD.show();
+                    Common.scheduleDismiss(restHUD);
+                }
+
+
+            }
+        });
+    }
 
     @Override
     public void onPause() {
@@ -426,10 +488,51 @@ public class CourseOfTreatmentFragment extends BaseFragment implements View.OnCl
         mflag = false;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+    /**
+     * 加载数据
+     */
+    private void loadData()
+    {
+        userModel = ((HealingProcessActivity)getActivity()).userModel;
+        Map<String,String> map=new HashMap<>();
+        map.put("user_id",userModel.getId());
+        HttpHelper.httpPost(HttpHelper.getUserInfo(), map, new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                Toast.makeText(getActivity(),"请检查网络",Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onResponse(String response, int id) {
+                //Json的解析类对象
+                JSONObject jsonData =null;
+                JSONObject treatmentNum = null;
+                try
+                {
+                    jsonData=new JSONObject(response);
+                    treatmentNum = (JSONObject)jsonData.get("treatment");
+                    userModel.setTreatmentTimes(treatmentNum.getString("number"));
+                    ((HealingProcessActivity)getActivity()).userModel.setTreatmentTimes(userModel.getTreatmentTimes());
+                } catch (JSONException e) {
+                    Toast.makeText(getActivity(),"Error", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
+    /**
+     *  返回按键检测
+     * @param keyCode
+     * @param event
+     * @return
+     */
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == event.KEYCODE_BACK) {
+            if (isTreatmenting)isTreatment();
+            else getActivity().finish();
+        }
+        return true;
+    }
 
 }
