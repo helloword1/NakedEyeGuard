@@ -4,7 +4,7 @@
     android:id="@+id/activity_tips"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.goockr.nakedeyeguard.TipsPage.TipsActivity">
+    tools:context="com.goockr.nakedeyeguard.view.TipsPage.TipsActivity">
     <include android:id="@+id/rl_TispStateBar" android:visibility="gone" layout="@layout/base_toobar"></include>
     <FrameLayout
         android:id="@+id/fl_TipsLayout"

@@ -2,22 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include android:id="@+id/rl_AddNewWifiStateBar" layout="@layout/base_fragment_toobar"/>
 
     <RelativeLayout
         android:id="@+id/rl_AddNewLayout1"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/rl_AddNewWifiStateBar"
+        android:layout_marginLeft="40px"
+        android:layout_marginRight="40px"
+        android:layout_marginTop="60px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
             android:id="@+id/et_NewWifiNameInput"
+            android:textSize="24sp"
             android:hint="  输入WiFI名称"
             android:background="@color/colorCusTrans"
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="100px" />
         <ImageButton
             android:id="@+id/ib_AddWifiNameDel"
             android:visibility="gone"
@@ -34,18 +33,20 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginTop="20px"
+        android:layout_marginLeft="40px"
+        android:layout_marginRight="40px"
+        android:id="@+id/rl_AddNewPWD"
         android:layout_below="@+id/rl_AddNewLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
+            android:textSize="24sp"
             android:id="@+id/et_NewWifiPWDInput"
             android:hint="  输入密码"
             android:background="@color/colorCusTrans"
             android:layout_width="match_parent"
-            android:layout_height="50dp" />
+            android:layout_height="100px" />
         <ImageButton
 
 
@@ -57,31 +58,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <View
-
             android:background="@color/colorCusNum"
             android:layout_below="@+id/et_NewWifiPWDInput"
             android:layout_width="match_parent"
-            android:layout_height="2dp" />
+            android:layout_height="4px" />
     </RelativeLayout>
 
 
     <LinearLayout
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="300dp"
+        android:layout_marginLeft="40px"
+        android:layout_marginRight="40px"
+        android:layout_below="@+id/rl_AddNewPWD"
+        android:layout_marginTop="120px"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="100px">
         <Button
             android:id="@+id/bt_AddWifiSure"
             android:enabled="false"
             android:text="连接"
-            android:textSize="16sp"
+            android:textSize="24sp"
             android:textColor="@drawable/text_save_btn"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="100px"
             android:background="@drawable/btn_1_disable"
            />
     </LinearLayout>

@@ -3,37 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="300dp">
+    android:layout_height="500px">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/tv_DialogVoiceText"
             android:text="声音"
-            android:textSize="16sp"
-            android:layout_marginTop="10dp"
+            android:textSize="24sp"
+            android:layout_marginTop="20px"
             android:layout_centerHorizontal="true"
             android:textColor="@color/colorBlack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <View
             android:layout_below="@+id/tv_DialogVoiceText"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="30px"
             android:layout_width="match_parent"
-            android:layout_height="0.8dp"
+            android:layout_height="1.6px"
             android:background="@color/colorBlack"/>
     </RelativeLayout>
     <LinearLayout
         android:orientation="horizontal"
-        android:paddingTop="60dp"
-        android:paddingBottom="60dp"
+        android:paddingTop="120px"
+        android:paddingBottom="120px"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
-        <ImageView
+        android:layout_weight="0.8">
+        <ImageButton
             android:background="@drawable/icom_volume_min"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:id="@+id/volume_min_im"
+            android:layout_width="50px"
+            android:layout_height="50px" />
         <com.xw.repo.BubbleSeekBar
             android:id="@+id/bsb_SetVoice"
             android:layout_width="0dp"
@@ -43,34 +44,36 @@
             app:bsb_min="0"
             app:bsb_second_track_color="@color/colorCusNum"
             app:bsb_track_color="@color/colorCusGray"
-            app:bsb_track_size="4dp"/>
-        <ImageView
+            app:bsb_track_size="8px"/>
+        <ImageButton
             android:background="@drawable/icon_volume_max"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:id="@+id/volume_add_im"
+            android:layout_width="50px"
+            android:layout_height="50px" />
     </LinearLayout>
     <LinearLayout
+        android:layout_marginBottom="10px"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="90px">
         <Button
             android:id="@+id/bt_SetVoiceCancle"
             android:text="取消"
-            android:textSize="16sp"
+            android:textSize="24sp"
             android:textColor="@drawable/text_cancle_btn"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="90px"
             android:background="@drawable/btn_cancle"/>
         <Button
             android:id="@+id/bt_SetVoiceSave"
             android:text="保存"
-            android:textSize="16sp"
+            android:textSize="24sp"
             android:textColor="@drawable/text_save_btn"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="40px"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="90px"
             android:background="@drawable/btn_save"/>
     </LinearLayout>
 </LinearLayout>

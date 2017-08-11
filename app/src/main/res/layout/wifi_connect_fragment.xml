@@ -3,7 +3,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include android:id="@+id/rl_WifiStateBar" layout="@layout/base_fragment_toobar"/>
     <ListView
         android:layout_above="@+id/bt_WifiScan"
         android:id="@+id/lv_SetWifiList"
@@ -16,11 +15,14 @@
     <Button
         android:id="@+id/bt_WifiScan"
         android:layout_margin="10dp"
+        android:layout_marginBottom="20dp"
         android:text="扫描"
-        android:textSize="18sp"
+        android:textSize="24sp"
+        android:layout_centerHorizontal="true"
         android:textColor="@drawable/text_color"
         android:background="@drawable/heading_process_fragment_sure"
         android:layout_alignParentBottom="true"
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_width="680px"
+        android:layout_height="100px" />
+
 </RelativeLayout>

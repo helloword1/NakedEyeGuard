@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_titleone"
+        android:layout_marginTop="160px"
+        android:layout_width="match_parent"
+        android:layout_height="60px"
+        android:gravity="center"
+        android:text="扫码关注官方微信公众号"
+        android:textSize="23sp"
+        />
+
+    <ImageView
+        android:id="@+id/iv_one"
+        android:layout_below="@+id/tv_titleone"
+        android:layout_marginTop="60px"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+
+        android:layout_width="440px"
+        android:layout_height="440px"
+        android:background="@drawable/qrcode_for_gh_ec69af081cb1_430"/>
+
+    <Button
+        android:layout_margin="40px"
+        android:id="@+id/bt_one"
+        android:text="关注注册完成"
+        android:textSize="24sp"
+        android:textColor="@drawable/text_color"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/heading_process_fragment_sure"
+        android:layout_width="match_parent"
+        android:layout_height="100px" />
+</RelativeLayout>

@@ -24,14 +24,14 @@
         app:ci_drawable_unselected="@drawable/black_radius" />
     <Button
         android:id="@+id/bt_GuideNext"
-        android:text="开始理疗"
         android:visibility="gone"
+        android:text="开始理疗"
+        android:textSize="24sp"
         android:textColor="@drawable/text_color"
         android:background="@drawable/btn_save"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
-        android:layout_width="120dp"
-        android:layout_height="40dp" />
-    <include android:id="@+id/rl_GuideBar" layout="@layout/base_fragment_toobar"/>
+        android:layout_marginBottom="100px"
+        android:layout_width="300px"
+        android:layout_height="90px" />
 </RelativeLayout>

@@ -86,4 +86,8 @@
     <string name="东加塔布">Pacific/Tongatapu</string>
 
 
+    <string name="poweroff">您是否需要关机！</string>
+    <string name="power_off_isrun">理疗中关机时,会扣除当前理疗次数！</string>
+    <string name="Factory_Reset">设备已恢复出厂设置！</string>
+
 </resources>

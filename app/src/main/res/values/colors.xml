@@ -9,6 +9,7 @@
     <color name="colorCusTrans">#00000000</color>
     <color name="colorCusGray2">#888888</color>
     <color name="colorCusGray">#d6d2d2</color>
+    <color name="colorCusGrayC">#d6d2d2</color>
     <color name="colorCusMidGray">#e7e7e7</color>
     <color name="colorCusLightGray">#f7f7f7</color>
     <color name="colorCusLightDemo">#B8ddc2</color>

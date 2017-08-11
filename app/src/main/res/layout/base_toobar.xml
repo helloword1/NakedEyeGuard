@@ -1,63 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="38dp">
+    android:layout_height="80px"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:background="@drawable/title_bg"
-        >
+        android:layout_height="wrap_content"
+        android:background="@drawable/title_bg">
+
         <ImageButton
             android:id="@+id/bt_BaseBack"
-            android:src="@drawable/btn_back"
+            android:layout_width="120px"
+            android:layout_height="match_parent"
             android:background="@color/colorCusTrans"
-            android:layout_width="60dp"
-            android:layout_height="match_parent" />
+            android:src="@drawable/btn_back" />
+
         <TextClock
             android:id="@+id/tc_BaseClock"
-            android:format24Hour="H:mm"
-            android:format12Hour="h:mm"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5px"
+            android:layout_toLeftOf="@+id/rl_MainBatteryLayout"
+            android:format24Hour="hh:mm"
             android:gravity="center_vertical"
             android:textColor="@color/colorWhite"
-            android:layout_toLeftOf="@+id/rl_MainBatteryLayout"
-            android:layout_marginRight="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:textSize="24sp" />
 
+        <ProgressBar
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:visibility="gone"
+            android:id="@+id/pbView"
+            android:scrollbarStyle="insideOverlay"
+            android:layout_centerVertical="true"
+            android:paddingRight="5dp"
+            android:layout_toLeftOf="@id/tc_BaseClock" />
 
         <RelativeLayout
             android:id="@+id/rl_MainBatteryLayout"
+            android:layout_width="50px"
+            android:layout_height="28px"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10px"
+            android:layout_toLeftOf="@+id/tv_powerpercen"
+            android:background="@drawable/icon_prower"
+            android:paddingBottom="4.4px"
+            android:paddingLeft="2px"
+            android:paddingRight="6.4px"
+            android:paddingTop="4.4px">
+
+            <com.goockr.nakedeyeguard.widget.BatteryView.MyBatteryView
+                android:id="@+id/view_MainBattery"
+                android:layout_width="44px"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="1dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_powerpercen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/iv_MainBatteryChangring"
-            android:layout_marginRight="2dp"
-            android:layout_width="25dp"
-            android:layout_height="14dp"
-            android:paddingBottom="2.2dp"
-            android:paddingTop="2.2dp"
-            android:paddingLeft="1dp"
-            android:paddingRight="3.2dp"
-            android:background="@drawable/icon_prower">
-            <com.goockr.nakedeyeguard.BatteryView.MyBatteryView
-                android:id="@+id/view_MainBattery"
-                android:layout_centerVertical="true"
-                android:layout_width="22dp"
-                android:layout_height="match_parent" />
-        </RelativeLayout>
-        <ImageView
-            android:id="@+id/iv_MainBatteryChangring"
-            android:layout_toLeftOf="@+id/iv_BaseWifi"
-            android:src="@drawable/icon_prower_ing"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:text="50%"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp" />
+
 
         <ImageView
-            android:layout_marginLeft="5dp"
-            android:id="@+id/iv_BaseWifi"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/icon_wifi_10"
+            android:id="@+id/iv_MainBatteryChangring"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@+id/iv_BaseWifi"
+            android:src="@drawable/icon_prower_ing"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_BaseWifi"
+            android:layout_width="40px"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10px"
+            android:layout_marginRight="30px"
+            android:src="@drawable/icon_wifi_10" />
     </RelativeLayout>
 </RelativeLayout>

@@ -2,11 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="120px"
     >
     <ImageView
-
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="40px"
         android:id="@+id/iv_WifiConnectStateIcon"
         android:background="@drawable/selected"
         android:layout_centerVertical="true"
@@ -15,9 +14,9 @@
     <TextView
         android:id="@+id/tv_WifiName"
         android:text="GK24"
-        android:textSize="18sp"
+        android:textSize="24sp"
         android:textColor="@color/colorBlack"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="40px"
         android:layout_toRightOf="@+id/iv_WifiConnectStateIcon"
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
@@ -25,23 +24,23 @@
     <ImageView
         android:id="@+id/iv_WifiIsLock"
         android:background="@drawable/icon_lock"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="20px"
         android:layout_toLeftOf="@+id/iv_WifiConnectIcon"
         android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="40px"
+        android:layout_height="40px" />
     <ImageView
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="40px"
         android:id="@+id/iv_WifiConnectIcon"
         android:background="@drawable/icon_wifi"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="40px"
+        android:layout_height="40px" />
     <View
 
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="0.8dp"
+        android:layout_height="1.6px"
         android:background="@color/colorCusGray"/>
 </RelativeLayout>

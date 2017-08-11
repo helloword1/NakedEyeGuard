@@ -1,136 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:circleprogress="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
-    <include android:id="@+id/rl_CTFStateBar" layout="@layout/base_fragment_toobar"/>
     <RelativeLayout
-        android:id="@+id/rl_C"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/progress_time_bg"
-        android:layout_width="316dp"
-        android:layout_height="316dp"
-        android:layout_below="@+id/rl_CTFStateBar"
-        android:layout_centerHorizontal="true">
-
-        <com.mikhaellopez.circularprogressbar.CircularProgressBar
-            android:id="@+id/cpb_CTFProgress"
-            android:layout_centerInParent="true"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            app:background_progressbar_color="@color/colorCusGray"
-            app:background_progressbar_width="15dp"
-            app:progressbar_color="@color/colorCusBar"
-            app:progressbar_width="15dp"
-            />
-
-        <CheckBox
-            android:id="@+id/cb_CTFStart"
-            android:layout_centerInParent="true"
-            android:background="@drawable/ctf_btn_start"
-            android:button="@null"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tv_CTFTimer"
-            android:layout_below="@+id/cb_CTFStart"
-            android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/colorBlack"
-            android:text="00:00"
-            android:textSize="20sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <ImageButton
-            android:visibility="gone"
-            android:id="@+id/ib_CTFTip"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/ctf_btn_deteils"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp" />
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/rl_C"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <RelativeLayout
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-             <RelativeLayout
-                 android:layout_marginTop="10dp"
+            android:id="@+id/rl_C"
+            android:layout_marginTop="60px"
+            android:background="@drawable/progress_time_bg"
+            android:layout_width="680px"
+            android:layout_height="680px"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:id="@+id/course_treatment_debug_tv"
                 android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               >
-            <ImageButton
-                android:id="@+id/ib_CTFReduce"
-                android:background="@drawable/btn_reduce_disable"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <ProgressBar
-                android:id="@+id/pb_CTFStrength"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="24sp"
+                android:gravity="center"
+                />
+            <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                android:id="@+id/cpb_CTFProgress"
                 android:layout_centerInParent="true"
-                android:layout_toRightOf="@+id/ib_CTFReduce"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_toLeftOf="@+id/ib_CTFAdd"
-                android:background="@drawable/progress_2_bg"
-                android:progress="0"
-                android:max="100"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:progressDrawable="@drawable/progressbar_color"
-                android:layout_width="match_parent"
-                android:layout_height="8dp" />
-            <ImageButton
-                android:id="@+id/ib_CTFAdd"
-                android:layout_alignParentRight="true"
-                android:background="@drawable/btn_add_disable"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
-             <TextView
-                 android:id="@+id/tv_CTFStrength"
-                android:text="强度:0%"
+                android:layout_width="490px"
+                android:layout_height="490px"
+                app:background_progressbar_color="@color/colorCusGrayC"
+                app:background_progressbar_width="40px"
+                app:progressbar_color="@color/colorCusBar"
+                app:progressbar_width="40px"
+                />
+
+
+            <CheckBox
+                android:id="@+id/cb_CTFStart"
+                android:layout_centerInParent="true"
+                android:background="@drawable/ctf_btn_start"
+                android:button="@null"
+                android:layout_width="140px"
+                android:layout_height="140px" />
+
+
+            <TextView
+                android:id="@+id/tv_CTFTimer"
+                android:layout_below="@+id/cb_CTFStart"
+                android:layout_marginTop="10px"
+                android:layout_centerHorizontal="true"
                 android:textColor="@color/colorBlack"
-                android:textSize="18sp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+                android:text="00:00"
+                android:textSize="40sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
             <ImageButton
-                android:id="@+id/bt_CTFBack"
+                android:visibility="gone"
+                android:id="@+id/ib_CTFTip"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="20dp"
-                android:background="@drawable/ctf_btn_guit"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/ctf_btn_deteils"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="60px" />
         </RelativeLayout>
-    </LinearLayout>
 
-    <Button
-        android:id="@+id/bt_PullOutHeadphones"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/rl_CTFStateBar"
-        android:layout_marginTop="16dp"
-        android:text="拔出耳机" />
-</RelativeLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/rl_C"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_marginTop="20px"
+                android:layout_marginRight="40px"
+                android:layout_marginLeft="40px"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <RelativeLayout
+                    android:layout_marginTop="20px"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+                    <ImageButton
+                        android:id="@+id/ib_CTFReduce"
+                        android:background="@drawable/btn_reduce_disable"
+                        android:layout_width="90px"
+                        android:layout_height="90px" />
+                    <ProgressBar
+                        android:id="@+id/pb_CTFStrength"
+                        android:layout_centerInParent="true"
+                        android:layout_toRightOf="@+id/ib_CTFReduce"
+                        android:layout_marginLeft="20px"
+                        android:layout_marginRight="20px"
+                        android:layout_toLeftOf="@+id/ib_CTFAdd"
+                        android:background="@drawable/progress_2_bg"
+                        android:progress="0"
+                        android:max="1000"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:progressDrawable="@drawable/progressbar_color"
+                        android:layout_width="match_parent"
+                        android:layout_height="24px" />
+                    <ImageButton
+                        android:id="@+id/ib_CTFAdd"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/btn_add_disable"
+                        android:layout_width="90px"
+                        android:layout_height="90px" />
+                </RelativeLayout>
+                <TextView
+                    android:id="@+id/tv_CTFStrength"
+                    android:text="强度:0%"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="24sp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <ImageButton
+                    android:id="@+id/bt_CTFBack"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="40px"
+                    android:background="@drawable/ctf_btn_guit"
+                    android:layout_width="120px"
+                    android:layout_height="120px" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/bt_PullOutHeadphones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="16dp"
+            android:text="拔出耳机" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/screensaver"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:background="@color/colorBlack"
+        android:layout_height="match_parent">
+
+        <com.goockr.nakedeyeguard.widget.Screensaver.CircleProgress
+            android:id="@+id/cp_ScrenSaver"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            circleprogress:color1="@android:color/holo_red_light"
+            circleprogress:color2="@android:color/holo_green_light"
+            circleprogress:color3="@android:color/holo_blue_light" />
+
+        <View
+            android:id="@+id/view_ScreenSaver"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+</FrameLayout>

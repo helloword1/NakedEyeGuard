@@ -6,14 +6,21 @@
     <!-- 允许设置时区 -->
 
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.SET_TIME_ZONE" />
     <uses-permission android:name="android.permission.SET_TIME" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 文件存储与读取 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <!-- 屏保 -->
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
@@ -22,39 +29,44 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <!-- 时区 -->
+    <uses-permission android:name="android.permission.SET_TIME_ZONE" />
+
     <application
-        android:name=".App"
+        android:name=".Tools.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon">
         <activity
-            android:name=".MainPage.MainActivity"
+            android:name=".view.MainPage.MainActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".HealingProcessPage.HealingProcessActivity"
+            android:name=".view.HealingProcessPage.HealingProcessActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".TipsPage.TipsActivity"
+            android:name=".view.TipsPage.TipsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SettingPage.SettingActivity"
+            android:name=".view.SettingPage.SettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SettingPage.AboutActivity"
+            android:name=".view.SettingPage.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SettingPage.WifiPage.WifiActivity"
+            android:name=".view.SettingPage.WifiPage.WifiActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".SettingPage.SetTimeActivity"
+            android:name=".view.SettingPage.SetTimeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".FirstUsePage.FirstActivty"
+            android:name=".view.FirstUsePage.FirstActivty"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".StartActivity"
             android:screenOrientation="portrait"
@@ -63,13 +75,51 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".Screensaver.ScreensaverActivity"
+            android:name=".widget.Screensaver.ScreensaverActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".widget.LockScreen.LockScreen$Controller"
+            android:theme="@android:style/Theme.Translucent" />
 
+        <receiver
+            android:name=".widget.LockScreen.LockScreen"
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin_sample" />
+
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".widget.LockScreen.ScreenTouchReceiver">
+            <intent-filter>
+                <action android:name="com.goockr.nakeeyeguard.screentouch" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.goockr.nakeeyeguard.screentouchcancle" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SCREEN_ON" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.goockr.nakeeyeguard.screenon" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".view.Music.MusicService" />
+        <service android:name=".service.DownloadApkService" />
+
+        <receiver
+            android:name=".reciver.NetBroadCastReciver"
+            android:enabled="true"
+            android:exported="false"></receiver>
     </application>
 
 </manifest>

@@ -4,14 +4,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include android:id="@+id/rl_HPFStateBar" layout="@layout/base_fragment_toobar"/>
 
     <LinearLayout
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginRight="40px"
+        android:layout_marginLeft="40px"
+        android:layout_marginBottom="40px"
         android:orientation="vertical"
-        android:layout_below="@+id/rl_HPFStateBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <RelativeLayout
@@ -21,26 +19,28 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_centerVertical="true"
                 android:id="@+id/iv_HPFUserIcon"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="180px"
+                android:layout_height="180px"
                 android:src="@drawable/user_icon"
-                app:civ_border_width="0.2dp"
+                android:visibility="visible"
+                app:civ_border_width="0.4px"
                 app:civ_border_color="@color/colorCusNum"
                 />
             <TextView
                 android:id="@+id/tv_HPFUserName"
                 android:layout_toRightOf="@+id/iv_HPFUserIcon"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="40px"
                 android:text="张大大"
-                android:textSize="24sp"
+                android:textSize="32sp"
                 android:textColor="@color/colorBlack"
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
         </RelativeLayout>
         <LinearLayout
             android:orientation="vertical"
-            android:padding="20dp"
+            android:padding="40px"
             android:layout_width="match_parent"
             android:background="@drawable/hpfbg"
             android:layout_height="0dp"
@@ -52,12 +52,14 @@
                 >
                 <TextView
                     android:text="左"
+                    android:textSize="24sp"
                     android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:text="右"
-                    android:layout_marginRight="80dp"
+                    android:textSize="24sp"
+                    android:layout_marginRight="160px"
                     android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -69,15 +71,16 @@
                 >
                 <TextView
                     android:text="原裸眼视力"
+                    android:textSize="24sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
                     android:id="@+id/tv_BeforeRight"
                     android:text="--"
+                    android:textSize="24sp"
                     android:textColor="@color/colorBlack"
-                    android:textSize="18sp"
-                    android:layout_marginRight="80dp"
+                    android:layout_marginRight="160px"
                     android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -86,7 +89,7 @@
                     android:id="@+id/tv_BeforeLeft"
                     android:text="--"
                     android:textColor="@color/colorBlack"
-                    android:textSize="18sp"
+                    android:textSize="24sp"
                     android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -95,9 +98,10 @@
                     android:background="@color/colorCusGray"
                     android:layout_centerInParent="true"
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"/>
+                    android:layout_height="1px"/>
                 <TextView
                     android:text="原戴镜视力"
+                    android:textSize="24sp"
                     android:layout_alignParentBottom="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -105,10 +109,10 @@
                 <TextView
                     android:id="@+id/tv_BeforeGlsRight"
                     android:text="--"
+                    android:textSize="24sp"
                     android:layout_alignParentBottom="true"
                     android:textColor="@color/colorBlack"
-                    android:textSize="18sp"
-                    android:layout_marginRight="80dp"
+                    android:layout_marginRight="160px"
                     android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -118,7 +122,7 @@
                     android:layout_alignParentBottom="true"
                     android:text="--"
                     android:textColor="@color/colorBlack"
-                    android:textSize="18sp"
+                    android:textSize="24sp"
                     android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -137,14 +141,15 @@
                 >
                 <TextView
                     android:text="现裸眼视力"
+                    android:textSize="24sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/tv_NowNakedRight"
                     android:text="--"
                     android:textColor="@color/colorBlack"
-                    android:textSize="18sp"
-                    android:layout_marginRight="80dp"
+                    android:textSize="24sp"
+                    android:layout_marginRight="160px"
                     android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -152,7 +157,7 @@
                     android:id="@+id/tv_NowNakedLeft"
                     android:text="--"
                     android:textColor="@color/colorBlack"
-                    android:textSize="18sp"
+                    android:textSize="24sp"
                     android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -161,9 +166,10 @@
                     android:background="@color/colorCusGray"
                     android:layout_centerInParent="true"
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"/>
+                    android:layout_height="1px"/>
                 <TextView
                     android:text="现戴镜视力"
+                    android:textSize="24sp"
                     android:layout_alignParentBottom="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -172,8 +178,8 @@
                     android:text="--"
                     android:layout_alignParentBottom="true"
                     android:textColor="@color/colorBlack"
-                    android:textSize="18sp"
-                    android:layout_marginRight="80dp"
+                    android:textSize="24sp"
+                    android:layout_marginRight="160px"
                     android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -183,7 +189,7 @@
                     android:layout_alignParentBottom="true"
                     android:text="--"
                     android:textColor="@color/colorBlack"
-                    android:textSize="18sp"
+                    android:textSize="24sp"
                     android:layout_alignParentRight="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -197,12 +203,12 @@
             <Button
                 android:id="@+id/bt_HPFSure"
                 android:text="确定"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textColor="@drawable/text_color"
                 android:layout_alignParentBottom="true"
                 android:background="@drawable/heading_process_fragment_sure"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="100px" />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

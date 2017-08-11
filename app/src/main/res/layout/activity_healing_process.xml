@@ -1,16 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:circleprogress="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_healing_process"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.goockr.nakedeyeguard.HealingProcessPage.HealingProcessActivity">
-    <include android:id="@+id/rl_HeadingStateBar" android:visibility="gone"  layout="@layout/base_toobar"></include>
+    tools:context="com.goockr.nakedeyeguard.view.HealingProcessPage.HealingProcessActivity">
+    <include
+        android:id="@+id/rl_HeadingStateBar"
+        layout="@layout/base_toobar"></include>
     <FrameLayout
-        android:id="@+id/fl_HPFLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_HeadingStateBar">
 
+        <FrameLayout
+            android:id="@+id/fl_HPFLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </FrameLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/screensaver"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:background="@color/colorBlack"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/cp_ScrenSaver"
+                android:src="@drawable/logo02"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_centerInParent="true" />
+
+            <View
+                android:id="@+id/view_ScreenSaver"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
     </FrameLayout>
 
 </RelativeLayout>

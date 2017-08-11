@@ -3,7 +3,6 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include android:id="@+id/rl_ClauseStateBar" layout="@layout/base_fragment_toobar"/>
     <TextView
         android:text="条款"
         android:textSize="24sp"
@@ -11,13 +10,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <Button
-        android:layout_margin="20dp"
+        android:layout_margin="40px"
         android:id="@+id/bt_AgreeClause"
         android:text="同意"
-        android:textSize="18sp"
+        android:textSize="24sp"
         android:textColor="@drawable/text_color"
         android:layout_alignParentBottom="true"
         android:background="@drawable/heading_process_fragment_sure"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="100px" />
 </RelativeLayout>

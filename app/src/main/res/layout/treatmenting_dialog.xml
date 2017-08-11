@@ -2,42 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="220dp">
+    android:layout_height="440px">
     <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="300px">
        <TextView
            android:layout_centerInParent="true"
            android:textColor="@color/colorBlack"
-           android:textSize="18sp"
-           android:text="正在电疗中，是否结束当前疗程？"
+           android:textSize="24sp"
+           android:text="正在理疗中，是否结束当前疗程？"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content" />
     </RelativeLayout>
     <LinearLayout
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="40px"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="90px">
         <Button
             android:id="@+id/bt_TreatmentCancle"
             android:text="取消"
-            android:textSize="16sp"
+            android:textSize="24sp"
             android:textColor="@drawable/text_cancle_btn"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="90px"
             android:background="@drawable/btn_cancle"/>
         <Button
             android:id="@+id/bt_TreatmentSure"
             android:text="确定"
-            android:textSize="16sp"
+            android:textSize="24sp"
             android:textColor="@drawable/text_save_btn"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="60px"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
+            android:layout_height="90px"
             android:background="@drawable/btn_save"/>
     </LinearLayout>
 </LinearLayout>

@@ -1,290 +1,350 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_setting"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.goockr.nakedeyeguard.SettingPage.SettingActivity">
-    <include android:id="@+id/rl_SettingStateBar" layout="@layout/base_toobar"/>
+    tools:context="com.goockr.nakedeyeguard.view.SettingPage.SettingActivity">
+
+    <include
+        android:id="@+id/rl_SettingStateBar"
+        layout="@layout/base_toobar" />
+
     <RelativeLayout
         android:id="@+id/rl_SetGroup1"
-        android:background="#f4f4f4"
-        android:layout_below="@+id/rl_SettingStateBar"
         android:layout_width="match_parent"
-        android:layout_height="35dp">
-       <View
-           android:layout_alignParentBottom="true"
-           android:layout_width="match_parent"
-           android:layout_height="0.8dp"
-           android:background="@color/colorCusGray"/>
+        android:layout_height="70px"
+        android:layout_below="@+id/rl_SettingStateBar"
+        android:background="#f4f4f4">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.8px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorCusGray" />
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rl_SetWlan"
-        android:clickable="true"
-        android:background="@drawable/setting_relativelayout_bg"
+        android:layout_width="match_parent"
+        android:layout_height="120px"
         android:layout_below="@+id/rl_SetGroup1"
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:background="@drawable/setting_relativelayout_bg"
+        android:clickable="true">
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40px"
             android:text="WLAN"
-            android:textSize="18sp"
-            android:layout_marginLeft="20dp"
             android:textColor="@color/colorBlack"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="24sp" />
+
         <ImageView
-            android:background="@drawable/list_go"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
+            android:layout_width="40px"
+            android:layout_height="40px"
             android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40px"
+            android:background="@drawable/list_go" />
+
         <View
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-            android:background="@color/colorCusGray"/>
+            android:layout_height="1.6px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorCusGray" />
     </RelativeLayout>
+
     <RelativeLayout
-        android:clickable="true"
-        android:background="@drawable/setting_relativelayout_bg"
         android:id="@+id/rl_SetVoice"
+        android:layout_width="match_parent"
+        android:layout_height="120px"
         android:layout_below="@+id/rl_SetWlan"
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:background="@drawable/setting_relativelayout_bg"
+        android:clickable="true">
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40px"
             android:text="声音"
-            android:textSize="18sp"
-            android:layout_marginLeft="20dp"
             android:textColor="@color/colorBlack"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="24sp" />
+
         <ImageView
-            android:background="@drawable/list_go"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
+            android:layout_width="40px"
+            android:layout_height="40px"
             android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40px"
+            android:background="@drawable/list_go" />
+
         <View
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-            android:background="@color/colorCusGray"/>
+            android:layout_height="1.6px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorCusGray" />
     </RelativeLayout>
+
     <RelativeLayout
-        android:clickable="true"
-        android:background="@drawable/setting_relativelayout_bg"
         android:id="@+id/rl_SetBrightness"
+        android:layout_width="match_parent"
+        android:layout_height="120px"
         android:layout_below="@+id/rl_SetVoice"
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:background="@drawable/setting_relativelayout_bg"
+        android:clickable="true">
+
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40px"
             android:text="亮度"
-            android:textSize="18sp"
-            android:layout_marginLeft="20dp"
             android:textColor="@color/colorBlack"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="24sp" />
+
         <ImageView
-            android:background="@drawable/list_go"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
+            android:layout_width="40px"
+            android:layout_height="40px"
             android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40px"
+            android:background="@drawable/list_go" />
+
         <View
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-            android:background="@color/colorCusGray"/>
+            android:layout_height="1.6px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorCusGray" />
     </RelativeLayout>
+
     <RelativeLayout
-        android:clickable="true"
-        android:background="@drawable/setting_relativelayout_bg"
         android:id="@+id/rl_SetTime"
+        android:layout_width="match_parent"
+        android:layout_height="112px"
         android:layout_below="@+id/rl_SetBrightness"
-        android:layout_width="match_parent"
-        android:layout_height="56dp">
-        <TextView
-            android:text="日期与时间"
-            android:textSize="18sp"
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/colorBlack"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:background="@drawable/list_go"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <View
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-            android:background="@color/colorCusGray"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:visibility="gone"
-        android:clickable="true"
         android:background="@drawable/setting_relativelayout_bg"
-        android:id="@+id/rl_SetScreensaver"
-        android:layout_below="@+id/rl_SetTime"
-        android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:clickable="true">
+
         <TextView
-            android:text="屏幕休息与时间选择"
-            android:textSize="18sp"
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/colorBlack"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40px"
+            android:text="日期与时间"
+            android:textColor="@color/colorBlack"
+            android:textSize="24sp" />
+
+
+        <ImageView
+            android:id="@+id/activity_set_dateandtime_iv"
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40px"
+            android:background="@drawable/list_go"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/activity_set_dateandtime_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40px"
+            android:text=""
+            android:textColor="@color/colorCusGray2"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.6px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorCusGray" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_SetScreensaver"
+        android:layout_width="match_parent"
+        android:layout_height="120px"
+        android:layout_below="@+id/rl_SetTime"
+        android:background="@drawable/setting_relativelayout_bg"
+        android:clickable="true"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40px"
+            android:text="屏幕休息与时间选择"
+            android:textColor="@color/colorBlack"
+            android:textSize="24sp" />
+
         <TextView
             android:id="@+id/tv_RestTime"
-            android:text="1分钟"
-            android:textSize="16sp"
-            android:layout_toLeftOf="@+id/iv_SetArrow1"
-            android:textColor="@color/colorCusGray"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20px"
+            android:layout_toLeftOf="@+id/iv_SetArrow1"
+            android:text="1分钟"
+            android:textColor="@color/colorCusGray2"
+            android:textSize="20sp" />
+
         <ImageView
             android:id="@+id/iv_SetArrow1"
-            android:background="@drawable/list_go"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
+            android:layout_width="40px"
+            android:layout_height="40px"
             android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40px"
+            android:background="@drawable/list_go" />
+
         <View
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-            android:background="@color/colorCusGray"/>
+            android:layout_height="1.6px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorCusGray" />
     </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/rl_SetGroup2"
-        android:background="#f4f4f4"
+        android:layout_width="match_parent"
+        android:layout_height="70px"
         android:layout_below="@+id/rl_SetScreensaver"
-        android:layout_width="match_parent"
-        android:layout_height="35dp">
+        android:background="#f4f4f4">
+
         <View
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-            android:background="@color/colorCusGray"/>
+            android:layout_height="1.6px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorCusGray" />
     </RelativeLayout>
+
     <RelativeLayout
-        android:clickable="true"
-        android:background="@drawable/setting_relativelayout_bg"
         android:id="@+id/rl_SetSystemUpgrade"
-        android:layout_below="@+id/rl_SetGroup2"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="120px"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/rl_SetGroup2"
+        android:background="@drawable/setting_relativelayout_bg"
+        android:clickable="true">
+
         <TextView
             android:id="@+id/tv_SetUpgradeText"
-            android:text="系统升级"
-            android:textSize="18sp"
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/colorBlack"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40px"
+            android:text="系统升级"
+            android:textColor="@color/colorBlack"
+            android:textSize="24sp" />
+
         <ImageView
             android:id="@+id/iv_SetUpgradeIcon"
-            android:visibility="gone"
-            android:background="@drawable/btn_setting_news"
-            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10px"
             android:layout_toRightOf="@+id/tv_SetUpgradeText"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:background="@drawable/btn_setting_news"
+            android:visibility="gone" />
+
         <TextView
-            android:text="V1.0"
-            android:textSize="16sp"
-            android:layout_toLeftOf="@+id/iv_SetArrow2"
-            android:textColor="@color/colorCusGray"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20px"
+            android:layout_toLeftOf="@+id/iv_SetArrow2"
+            android:text="V1.0"
+            android:id="@+id/tvVersionName"
+            android:textColor="@color/colorCusGray2"
+            android:textSize="20sp" />
+
         <ImageView
             android:id="@+id/iv_SetArrow2"
-            android:background="@drawable/list_go"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
+            android:layout_width="40px"
+            android:layout_height="40px"
             android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40px"
+            android:background="@drawable/list_go" />
+
         <View
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-            android:background="@color/colorCusGray"/>
+            android:layout_height="1.6px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorCusGray" />
     </RelativeLayout>
+
     <RelativeLayout
-        android:clickable="true"
-        android:background="@drawable/setting_relativelayout_bg"
         android:id="@+id/rl_SetReset"
+        android:layout_width="match_parent"
+        android:layout_height="112px"
         android:layout_below="@+id/rl_SetSystemUpgrade"
-        android:layout_width="match_parent"
-        android:layout_height="56dp">
-        <TextView
-            android:text="恢复出厂设置"
-            android:textSize="18sp"
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/colorBlack"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:background="@drawable/list_go"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <View
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-            android:background="@color/colorCusGray"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:clickable="true"
         android:background="@drawable/setting_relativelayout_bg"
-        android:id="@+id/rl_SetAbout"
-        android:layout_below="@+id/rl_SetReset"
-        android:layout_width="match_parent"
-        android:layout_height="56dp">
+        android:clickable="true"
+        android:visibility="visible">
+
         <TextView
-            android:text="关于"
-            android:textSize="18sp"
-            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40px"
+            android:text="恢复出厂设置"
             android:textColor="@color/colorBlack"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="24sp" />
+
         <ImageView
-            android:background="@drawable/list_go"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="20dp"
+            android:layout_width="40px"
+            android:layout_height="40px"
             android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40px"
+            android:background="@drawable/list_go" />
+
         <View
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
-            android:layout_height="0.8dp"
-            android:background="@color/colorCusGray"/>
+            android:layout_height="1.6px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorCusGray" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_SetAbout"
+        android:layout_width="match_parent"
+        android:layout_height="112px"
+        android:layout_below="@+id/rl_SetReset"
+        android:background="@drawable/setting_relativelayout_bg"
+        android:clickable="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40px"
+            android:text="关于"
+            android:textColor="@color/colorBlack"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:layout_width="40px"
+            android:layout_height="40px"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40px"
+            android:background="@drawable/list_go" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.6px"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorCusGray" />
     </RelativeLayout>
 </RelativeLayout>

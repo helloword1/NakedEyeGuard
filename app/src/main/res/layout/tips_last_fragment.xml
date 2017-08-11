@@ -6,10 +6,9 @@
     android:layout_height="match_parent"
     android:background="@drawable/guide_three">
 
-    <include android:id="@+id/rl_TLFStateBar" layout="@layout/base_fragment_toobar"/>
     <LinearLayout
         android:orientation="vertical"
-        android:layout_margin="20dp"
+        android:layout_margin="40px"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <RelativeLayout
@@ -27,12 +26,12 @@
         <Button
             android:id="@+id/bt_TLFNext"
             android:text="下一步"
-            android:textSize="18sp"
+            android:textSize="24sp"
             android:textColor="@drawable/text_color"
             android:layout_alignParentBottom="true"
             android:background="@drawable/heading_process_fragment_sure"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="100px" />
 
     </LinearLayout>
 </LinearLayout>

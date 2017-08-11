@@ -2,18 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="#f4f4f4"
     android:layout_width="match_parent"
-    android:layout_height="45dp">
+    android:layout_height="90px">
 
     <TextView
         android:text="选取无线局域网络"
-        android:textSize="16sp"
+        android:textSize="20sp"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="40px"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <View
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="0.8dp"
+        android:layout_height="1.6px"
         android:background="@color/colorCusGray"/>
 </RelativeLayout>

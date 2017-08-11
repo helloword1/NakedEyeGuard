@@ -1,53 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.goockr.nakedeyeguard.MainPage.MainActivity"
-    android:background="@drawable/homepage_bg">
+    android:background="@drawable/homepage_bg"
+    tools:context="com.goockr.nakedeyeguard.view.MainPage.MainActivity">
 
-    <include android:id="@+id/rl_MailStateBar" layout="@layout/base_toobar"></include>
-    <com.shizhefei.view.coolrefreshview.CoolRefreshView
-        android:layout_below="@+id/rl_MailStateBar"
-        android:id="@+id/coolRefreshView"
+    <include
+        android:id="@+id/rl_MailStateBar"
+        layout="@layout/base_toobar" />
+
+    <!--<com.shizhefei.view.coolrefreshview.CoolRefreshView-->
+    <!--android:id="@+id/coolRefreshView"-->
+    <!--android:layout_marginTop="80px"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+    <GridView
+        android:id="@+id/gv_MainUser"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <GridView
-            android:listSelector="@android:color/transparent"
-            android:columnWidth="80dp"
-            android:id="@+id/gv_MainUser"
-            android:layout_below="@+id/rl_SceneBar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:numColumns="3"
-            android:verticalSpacing="20dp"
-            android:gravity="center"
-            android:scrollbars="none"
-            android:stretchMode="columnWidth"
-            />
-    </com.shizhefei.view.coolrefreshview.CoolRefreshView>
-    <RelativeLayout
-        android:layout_alignParentRight="true"
+        android:layout_height="match_parent"
+        android:layout_marginTop="80px"
+        android:columnWidth="160px"
+        android:gravity="center"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="3"
+        android:scrollbars="none"
+        android:stretchMode="columnWidth" />
+    <!--android:verticalSpacing="20px"-->
+    <!--</com.shizhefei.view.coolrefreshview.CoolRefreshView>-->
+
+    <ImageButton
+        android:id="@+id/ib_MainRefresh"
+        android:layout_width="120px"
+        android:layout_height="120px"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_width="60dp"
-        android:layout_height="60dp">
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="200px"
+        android:layout_marginRight="40px"
+        android:background="@drawable/btn_loading" />
+
+    <RelativeLayout
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="40px"
+        android:layout_marginRight="40px">
+
         <ImageButton
             android:id="@+id/ib_MainSetting"
-            android:background="@drawable/main_setting_btn"
-            android:layout_width="60dp"
-            android:layout_height="60dp" />
+            android:layout_width="140px"
+            android:layout_height="140px"
+            android:background="@drawable/main_setting_btn" />
+
         <ImageView
             android:id="@+id/btn_MainSettingNews"
-            android:visibility="gone"
+            android:layout_width="40px"
+            android:layout_height="40px"
             android:layout_alignParentRight="true"
             android:src="@drawable/btn_setting_news"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
-
+            android:visibility="gone" />
     </RelativeLayout>
 </RelativeLayout>

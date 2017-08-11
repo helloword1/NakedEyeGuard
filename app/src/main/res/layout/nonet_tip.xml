@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tv_nonet"
+        android:text="当前网络不可用，请检查您的网络！"
+        android:textSize="24sp"
+        android:textColor="@color/colorBlack"
+        android:lines="2"
+        android:gravity="center"
+        android:layout_below="@+id/iv_NoMoney"
+        android:layout_centerHorizontal="true"
+        android:layout_width="500px"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/bt_nonet"
+        android:layout_marginBottom="20px"
+        android:text="确定"
+        android:textSize="24sp"
+        android:background="@drawable/heading_process_fragment_sure"
+        android:textColor="@drawable/text_save_btn"
+        android:layout_marginTop="60px"
+        android:layout_below="@+id/tv_nonet"
+        android:layout_width="500px"
+        android:layout_centerHorizontal="true"
+        android:layout_height="90px" />
+</RelativeLayout>

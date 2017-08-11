@@ -3,83 +3,110 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <include android:id="@+id/rl_FirstStateBar" layout="@layout/base_fragment_toobar"/>
     <ImageView
         android:id="@+id/iv_BingdingInfo"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="200px"
         android:layout_centerHorizontal="true"
         android:src="@drawable/demo"
-        android:layout_width="220dp"
-        android:layout_height="220dp"
+        android:layout_width="440px"
+        android:layout_height="440px"
         android:background="@drawable/signin_bg"/>
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="80px"
+        android:layout_marginBottom="20px"
         android:layout_below="@+id/iv_BingdingInfo"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="400px"
         android:layout_above="@+id/bt_CompleteBinding">
+        <!--<LinearLayout-->
+            <!--android:gravity="center_horizontal"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_height="match_parent">-->
+            <!--<de.hdodenhof.circleimageview.CircleImageView-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_width="200px"-->
+                <!--android:layout_height="200px"-->
+                <!--android:src="@drawable/tep1"-->
+                <!--/>-->
+            <!--&lt;!&ndash;app:civ_border_width="1dp"&ndash;&gt;-->
+            <!--&lt;!&ndash;app:civ_border_color="#FF000000"&ndash;&gt;-->
+            <!--<TextView-->
+                <!--android:gravity="center_horizontal"-->
+                <!--android:layout_marginLeft="40px"-->
+                <!--android:layout_marginRight="40px"-->
+                <!--android:text="1>微信扫一扫，关注‘裸眼卫士’服务号"-->
+                <!--android:textColor="@color/colorBlack"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_below="@+id/iv_SceneIcon"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textSize="24sp" />-->
+        <!--</LinearLayout>-->
         <LinearLayout
             android:gravity="center_horizontal"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_centerHorizontal="true"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/tep1"
-                />
-            <!--app:civ_border_width="1dp"-->
-            <!--app:civ_border_color="#FF000000"-->
-            <TextView
-                android:gravity="center_horizontal"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:text="1>微信扫一扫，关注‘裸眼卫士’服务号"
-                android:textColor="@color/colorBlack"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/iv_SceneIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp" />
-        </LinearLayout>
-        <LinearLayout
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent">
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_centerHorizontal="true"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/tep2_37"
 
-                />
-            <TextView
-                android:gravity="center_horizontal"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:text="1>微信扫一扫，关注‘裸眼卫士’服务号"
-                android:textColor="@color/colorBlack"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/iv_SceneIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="15sp" />
+            <LinearLayout
+                android:paddingRight="20px"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="right">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="300px"
+                    android:layout_height="300px"
+                    android:src="@drawable/binding"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:gravity="left"
+                    android:layout_marginTop="75px"
+                    android:layout_marginRight="40px"
+                    android:text="点击“绑定设备”"
+                    android:textColor="@color/colorBlack"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/iv_SceneIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp" />
+                <TextView
+                    android:gravity="left"
+
+                    android:layout_marginRight="40px"
+                    android:text="扫码激活仪器"
+                    android:textColor="@color/colorBlack"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/iv_SceneIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+
         </LinearLayout>
     </LinearLayout>
     <Button
-        android:layout_margin="20dp"
+        android:layout_margin="40px"
         android:id="@+id/bt_CompleteBinding"
-        android:text="注册完成"
-        android:textSize="18sp"
+        android:text="绑定激活完成"
+        android:textSize="24sp"
         android:textColor="@drawable/text_color"
         android:layout_alignParentBottom="true"
         android:background="@drawable/heading_process_fragment_sure"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="100px" />
 </RelativeLayout>

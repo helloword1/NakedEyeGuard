@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBlack"
-    tools:context="com.goockr.nakedeyeguard.Screensaver.ScreensaverActivity">
-    <com.goockr.nakedeyeguard.Screensaver.CircleProgress
+    tools:context="com.goockr.nakedeyeguard.widget.Screensaver.ScreensaverActivity">
+    <com.goockr.nakedeyeguard.widget.Screensaver.CircleProgress
         android:layout_centerInParent="true"
         android:id="@+id/cp_ScrenSaver"
         android:layout_width="match_parent"

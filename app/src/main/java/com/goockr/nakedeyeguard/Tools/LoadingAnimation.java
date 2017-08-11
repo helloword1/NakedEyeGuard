@@ -30,6 +30,14 @@ public class LoadingAnimation {
         rotateAnimation.setFillAfter(false);//动画结束后停留在当前位置
         view.startAnimation(rotateAnimation);
     }
+    public static void rotateDictAnimation(View view,int currentDistance,int timems)
+    {
+        RotateAnimation rotateAnimation=new RotateAnimation(0,currentDistance, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+        rotateAnimation.setDuration(timems);//动画时间
+        rotateAnimation.setInterpolator(new LinearInterpolator());//不停顿
+        rotateAnimation.setFillAfter(false);//动画结束后停留在当前位置
+        view.startAnimation(rotateAnimation);
+    }
     public static void rotateAnimation(View view)
     {
         RotateAnimation rotateAnimation=new RotateAnimation(0,360, Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
